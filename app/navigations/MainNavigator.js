@@ -10,6 +10,7 @@ import StartGameScreen from '../screens/StartGameScreen';
 import TruthOrDareScreen from '../screens/TruthOrDareScreen';
 import HomeScreen from '../screens/HomeScreen';
 import { LogBox } from 'react-native';
+import { color } from 'react-native-reanimated';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -25,6 +26,16 @@ const defaultNavOptions = {
 	},
 	headerBackTitle: null,
 	headerTintColor: 'white'
+};
+
+const defaultDrawOptions = {
+	contentOptions: {
+		activeTintColor: 'white',
+		inactiveTintColor: colors.grayPrimary,
+		activeBackgroundColor: colors.defaultBackground
+	},
+	drawerBackgroundColor: colors.redPrimary,
+	drawerWidth: 235
 };
 
 const UserNavigator = createStackNavigator({
@@ -52,16 +63,16 @@ const MainNavigator = createDrawerNavigator({
 		screen: UserNavigator,
 		navigationOptions: {
 			title: 'User',
-			drawerIcon: <FontAwesome name="user-circle" size={24} color={colors.darkPrimary} />
+			drawerIcon: <FontAwesome name="user-circle" size={24} color='white' />
 		}
 	},
 	Game: {
 		screen: GameNavigator,
 		navigationOptions: {
 			title: 'Game',
-			drawerIcon: <FontAwesome name="gamepad" size={24} color={colors.darkPrimary} />
+			drawerIcon: <FontAwesome name="gamepad" size={24} color='white' />
 		}
 	}
-});
+}, defaultDrawOptions);
 
 export default createAppContainer(MainNavigator);

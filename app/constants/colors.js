@@ -1,7 +1,9 @@
 export default {
 	primary: '#77DAED',
 	lightPrimary: '#D4F8FF',
-	darkPrimary: '#0A6090',
+	darkPrimary: '#e55039',
 	defaultDark: '#212125',
-	defaultBackground: '#009999'
+	redPrimary: '#eb2f06',
+	grayPrimary: '#dddddd',
+	defaultBackground: '#e55039'
 };

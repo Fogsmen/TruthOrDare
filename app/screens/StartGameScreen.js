@@ -97,7 +97,6 @@ StartGameScreen.navigationOptions = navData => {
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
 		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
-		headerRight: null
 	};
 };
 

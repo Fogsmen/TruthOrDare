@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ImageBackground, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import colors from '../constants/colors';
@@ -24,23 +24,26 @@ const HomeScreen = props => {
 	};
 
 	return (
-		<KeyboardAvoidingView style={styles.screen}>
-			<View style={styles.input}>
-				<View style={styles.formIcon}>
-					<FontAwesome name="user" size={24} color="white" />
+		<ImageBackground source={require('../images/home-background.png')} style={styles.image}>
+			<KeyboardAvoidingView style={styles.screen}>
+				<View style={styles.input}>
+					<View style={styles.formIcon}>
+						<FontAwesome name="user" size={24} color="white" />
+					</View>
+					<View style={styles.formInput}>
+						<TextInput placeholder="Your name"
+							value={myName}
+							onChangeText={inputChangeHandle}
+							autoFocus={true}
+							style={styles.inputText}
+						/>
+					</View>
 				</View>
-				<View style={styles.formInput}>
-					<TextInput placeholder="Your name"
-						value={myName}
-						onChangeText={inputChangeHandle}
-						autoFocus={true}
-					/>
-				</View>
-			</View>
-			<TouchableOpacity style={styles.button} onPress={startGame}>
-				<Text style={styles.buttonTxt}>Start The Game</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<TouchableOpacity style={styles.button} onPress={startGame}>
+					<Text style={styles.buttonTxt}>Start The Game</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 };
 
@@ -52,17 +55,22 @@ HomeScreen.navigationOptions = navData => {
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
 		headerTitle: () => <HeaderLabel label="Your Name" />,
-		headerRight: null
 	};
 };
 
 const styles = StyleSheet.create({
 	screen: {
 		padding: 5,
-		backgroundColor: colors.defaultBackground,
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: '100%'
+	},
+	image: {
+		height: '100%',
+		width: '100%',
+		resizeMode: "cover",
+		justifyContent: "center",
+		alignSelf: 'center'
 	},
 	input: {
 		flexDirection: 'row',
@@ -71,12 +79,15 @@ const styles = StyleSheet.create({
 		height: 50,
 		marginVertical: 5,
 		borderRadius: 10,
-		borderColor: colors.darkPrimary,
+		borderColor: colors.redPrimary,
 		borderWidth: 1,
 		width: 250
 	},
+	inputText: {
+		color: 'white'
+	},
 	formIcon: {
-		backgroundColor: colors.darkPrimary,
+		backgroundColor: colors.redPrimary,
 		width: 50,
 		height: 50,
 		padding: 5,
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
 		marginVertical: 15,
 		paddingVertical: 10,
 		width: 200,
-		backgroundColor: colors.defaultDark,
+		backgroundColor: colors.redPrimary,
 		borderRadius: 10
 	},
 	buttonTxt: {

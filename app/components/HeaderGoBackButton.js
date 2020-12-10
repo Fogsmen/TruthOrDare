@@ -2,11 +2,10 @@ import React from 'react';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Ionicons } from '@expo/vector-icons'; 
 import { StyleSheet } from 'react-native';
-import colors from '../constants/colors';
 
 const CustomHeaderButton = props => {
 	return <HeaderButton {...props}
-		color={colors.darkPrimary}
+		color="white"
 		IconComponent={Ionicons}
 		iconSize={37}
 		style={styles.button}
