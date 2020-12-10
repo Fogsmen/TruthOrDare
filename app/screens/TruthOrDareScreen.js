@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 
 import colors from '../constants/colors';
+import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
+import HeaderLabel from '../components/HeaderLabel';
+import { useSelector } from 'react-redux';
+import HeaderGoBackButton from '../components/HeaderGoBackButton';
 
 const ShotModal = props => {
 	const closeModal = () => {
@@ -26,13 +30,14 @@ const TruthOrDareScreen = props => {
 	const type = props.navigation.getParam('type');
 	const question = props.navigation.getParam('question');
 	const [visibleModal, setVisibleModal] = useState(false);
+	const myName = useSelector(state => state.auth.userName);
+	useEffect(() => {
+		props.navigation.setParams({myName: myName});
+	}, [myName]);
 
-	const goToHome = () => {
-		props.navigation.popToTop();
-	};
 	const nextRound = () => {
 		props.navigation.popToTop();
-		props.navigation.navigate('Game');
+		props.navigation.navigate('InGame');
 	};
 	const alertShot = () => {
 		setVisibleModal(true);
@@ -43,11 +48,6 @@ const TruthOrDareScreen = props => {
 
 	return (
 		<View style={styles.screen}>
-			<View style={styles.header}>
-				<TouchableOpacity style={{padding: 20}} onPress={goToHome}>
-					<FontAwesome5 name="home" size={24} color="white" />
-				</TouchableOpacity>
-			</View>
 			<View style={styles.title}>
 				<Text style={styles.titleText}>{type=='truth' ? 'TRUTH' : 'DARE'}</Text>
 			</View>
@@ -63,6 +63,21 @@ const TruthOrDareScreen = props => {
 			<ShotModal visible={visibleModal} closeModal={closeModal} shot={question.shot} />
 		</View>
 	);
+};
+
+TruthOrDareScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+	const goToHome = () => {
+		navData.navigation.popToTop();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
+		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
+	};
 };
 
 const styles = StyleSheet.create({
@@ -93,7 +108,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		paddingVertical: 15,
-		backgroundColor: '#212125',
+		backgroundColor: colors.defaultDark,
 		borderRadius: 10,
 		width: 200,
 		alignSelf: 'center',

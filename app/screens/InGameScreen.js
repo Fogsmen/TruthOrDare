@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import { FontAwesome5 } from '@expo/vector-icons'; 
 
 import colors from '../constants/colors';
 import questions from '../dumy-data/questions.json';
 import dares from '../dumy-data/dares.json';
+import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
+import HeaderLabel from '../components/HeaderLabel';
+import HeaderGoBackButton from '../components/HeaderGoBackButton';
 
-const GameScreen = props => {
+const InGameScreen = props => {
 	const players = useSelector(state => state.game.players);
 	const currentPlayer = players[Math.floor(Math.random() * players.length)];
+	const myName = useSelector(state => state.auth.userName);
+	useEffect(() => {
+		props.navigation.setParams({myName: myName});
+	}, [myName]);
 
-	const goToHome = () => {
-		props.navigation.goBack();
-	};
 	const goToTruth = () => {
 		const question = questions[Math.floor(Math.random() * questions.length)];
 		props.navigation.navigate('TruthOrDare', {type: 'truth', question: question});
@@ -25,11 +28,6 @@ const GameScreen = props => {
 
 	return (
 		<View style={styles.screen}>
-			<View style={styles.header}>
-				<TouchableOpacity style={{padding: 20}} onPress={goToHome}>
-					<FontAwesome5 name="home" size={24} color="white" />
-				</TouchableOpacity>
-			</View>
 			<View style={styles.title}>
 				<Text style={styles.titleText}>Whoopsie!</Text>
 			</View>
@@ -46,6 +44,21 @@ const GameScreen = props => {
 			</View>
 		</View>
 	);
+};
+
+InGameScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+	const goToHome = () => {
+		navData.navigation.goBack();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
+		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
+	};
 };
 
 const styles = StyleSheet.create({
@@ -86,14 +99,14 @@ const styles = StyleSheet.create({
 		marginVertical: 10
 	},
 	truthText: {
-		color: '#212125',
+		color: colors.defaultDark,
 		textAlign: 'center',
 		fontSize: 20,
 		fontWeight: '600'
 	},
 	dare: {
 		paddingVertical: 15,
-		backgroundColor: '#212125',
+		backgroundColor: colors.defaultDark,
 		borderRadius: 10,
 		width: 200,
 		alignSelf: 'center',
@@ -107,4 +120,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default GameScreen;
+export default InGameScreen;

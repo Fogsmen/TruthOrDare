@@ -1,146 +1,103 @@
 import React, { useState } from 'react';
-import { Alert, FlatList, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
-import { useDispatch, useSelector } from 'react-redux';
-import * as GameAction from '../redux/actions/game';
+import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
 import colors from '../constants/colors';
-
-const PlayerRow = props => {
-	const deleteRow = () => {
-		props.onClick(props.id);
-	};
-
-	return (
-		<View style={styles.playerRow}>
-			<Text style={styles.playerRowText}>{props.name}</Text>
-			<TouchableOpacity onPress={deleteRow} style={{padding: 5}}>
-				<MaterialIcons name="close" size={24} color="white" />
-			</TouchableOpacity>
-		</View>
-	);
-};
+import * as authAction from '../redux/actions/auth';
+import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
+import HeaderLabel from '../components/HeaderLabel';
 
 const HomeScreen = props => {
-	const players = useSelector(state => state.game.players);
+	const [myName, setMyName] = useState('');
 	const dispatch = useDispatch();
 
-	const [playerName, setPlayerName] = useState('');
-	const playerInputHandle = txt => {
-		setPlayerName(txt);
+	const inputChangeHandle = txt => {
+		setMyName(txt);
 	};
-
-	const deletePlayer = id => {
-		dispatch(GameAction.deletePlayer(id));
-	};
-	const addPlayer = () => {
-		if(playerName.trim().length === 0) {
-			Alert.alert('Error!', 'No empty name is allowed.', [{text: 'OK'}]);
+	const startGame = () => {
+		if(myName.trim().length === 0) {
+			Alert.alert('Error', 'No empty name is allowed!', [{text: 'OK'}]);
 			return;
 		}
-		dispatch(GameAction.addPlayer(playerName));
-		setPlayerName('');
-	};
-	const goToGame = () => {
-		if(players.length === 0) {
-			Alert.alert('Error!', 'You shoud add at least 1 player', [{text: 'OK'}]);
-			return;
-		}
+		dispatch(authAction.setUserName(myName));
 		props.navigation.navigate('Game');
 	};
 
 	return (
 		<KeyboardAvoidingView style={styles.screen}>
-			{(players.length===0 ?
-				<View style={{justifyContent: 'center', alignItems: 'center', marginVertical: 50}}>
-					<Text style={{textAlign: 'center', fontSize: 20, color: 'white'}}>Please add players</Text>
+			<View style={styles.input}>
+				<View style={styles.formIcon}>
+					<FontAwesome name="user" size={24} color="white" />
 				</View>
-				: <FlatList
-					style={styles.playersContainer}
-					data={players}
-					keyExtractor={p => p.id.toString()}
-					renderItem={x => <PlayerRow id={x.item.id} name={x.item.name} onClick={deletePlayer} />}
-				/>
-			)}
-			<View style={styles.footer}>
-				<View style={styles.addPlayer}>
-					<TextInput placeholder="Add player"
-						placeholderTextColor='#cccccc'
-						value={playerName}
-						onChangeText={playerInputHandle}
-						style={styles.palyerName}
+				<View style={styles.formInput}>
+					<TextInput placeholder="Your name"
+						value={myName}
+						onChangeText={inputChangeHandle}
 						autoFocus={true}
 					/>
-					<TouchableOpacity onPress={addPlayer} style={{padding: 5}}>
-						<MaterialIcons name="add" size={24} color="white" />
-					</TouchableOpacity>
 				</View>
-				<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
-					<FontAwesome5 name="play" size={24} color="white" />
-					<Text style={styles.playText}>Let's Play</Text>
-				</TouchableOpacity>
 			</View>
+			<TouchableOpacity style={styles.button} onPress={startGame}>
+				<Text style={styles.buttonTxt}>Start The Game</Text>
+			</TouchableOpacity>
 		</KeyboardAvoidingView>
 	);
 };
 
+HomeScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label="Your Name" />,
+		headerRight: null
+	};
+};
+
 const styles = StyleSheet.create({
 	screen: {
-		padding: 20,
-		justifyContent: 'center',
+		padding: 5,
 		backgroundColor: colors.defaultBackground,
+		justifyContent: 'center',
+		alignItems: 'center',
 		height: '100%'
 	},
-	playerRow: {
+	input: {
 		flexDirection: 'row',
-		borderBottomColor: 'white',
-		borderBottomWidth: 2,
-		paddingTop: 20,
-		paddingHorizontal: 5,
-		paddingBottom: 8,
-		justifyContent: 'space-between',
-		alignItems: 'center'
-	},
-	playerRowText: {
-		fontSize: 20,
-		fontWeight: '600',
-		color: 'white'
-	},
-	playersContainer: {
-		padding: 5,
-		marginVertical: 10
-	},
-	footer: {
-		marginTop: 10,
-		marginBottom: 10,
-	},
-	addPlayer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
-		borderBottomWidth: 2,
-		borderColor: 'white',
+		height: 50,
+		marginVertical: 5,
+		borderRadius: 10,
+		borderColor: colors.darkPrimary,
+		borderWidth: 1,
+		width: 250
 	},
-	palyerName: {
-		color: 'white',
-		fontSize: 20,
-		paddingVertical: 5,
-		paddingHorizontal: 10,
-	},
-	playerButton: {
-		marginVertical: 20,
-		flexDirection: 'row',
+	formIcon: {
+		backgroundColor: colors.darkPrimary,
+		width: 50,
+		height: 50,
+		padding: 5,
+		marginRight: 5,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#212125',
-		width: 250,
-		alignSelf: 'center',
-		paddingVertical: 12,
+		borderTopStartRadius: 10,
+		borderBottomStartRadius: 10
+	},
+	button: {
+		marginVertical: 15,
+		paddingVertical: 10,
+		width: 200,
+		backgroundColor: colors.defaultDark,
 		borderRadius: 10
 	},
-	playText: {
+	buttonTxt: {
+		fontWeight: 'bold',
+		fontSize: 20,
 		color: 'white',
-		fontSize: 19,
-		marginHorizontal: 10
+		textAlign: 'center'
 	}
 });
 
