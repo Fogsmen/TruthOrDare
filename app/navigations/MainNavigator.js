@@ -8,9 +8,7 @@ import colors from '../constants/colors';
 import InGameScreen from '../screens/InGameScreen';
 import StartGameScreen from '../screens/StartGameScreen';
 import TruthOrDareScreen from '../screens/TruthOrDareScreen';
-import HomeScreen from '../screens/HomeScreen';
 import { LogBox } from 'react-native';
-import { color } from 'react-native-reanimated';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -38,12 +36,6 @@ const defaultDrawOptions = {
 	drawerWidth: 235
 };
 
-const UserNavigator = createStackNavigator({
-	Home: HomeScreen
-}, {
-	defaultNavigationOptions: defaultNavOptions
-});
-
 const GameNavigator = createStackNavigator({
 	StartGame: {
 		screen: StartGameScreen,
@@ -59,18 +51,11 @@ const GameNavigator = createStackNavigator({
 });
 
 const MainNavigator = createDrawerNavigator({
-	User: {
-		screen: UserNavigator,
-		navigationOptions: {
-			title: 'User',
-			drawerIcon: <FontAwesome name="user-circle" size={24} color='white' />
-		}
-	},
 	Game: {
 		screen: GameNavigator,
 		navigationOptions: {
-			title: 'Game',
-			drawerIcon: <FontAwesome name="gamepad" size={24} color='white' />
+			title: 'Your Names',
+			drawerIcon: <FontAwesome name="users" size={24} color='white' />
 		}
 	}
 }, defaultDrawOptions);

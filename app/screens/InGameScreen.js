@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import * as GameService from '../services/GameService';
 import colors from '../constants/colors';
-import questions from '../dumy-data/questions.json';
-import dares from '../dumy-data/dares.json';
 import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
 import HeaderLabel from '../components/HeaderLabel';
 import HeaderGoBackButton from '../components/HeaderGoBackButton';
@@ -12,10 +11,8 @@ import HeaderGoBackButton from '../components/HeaderGoBackButton';
 const InGameScreen = props => {
 	const players = useSelector(state => state.game.players);
 	const currentPlayer = players[Math.floor(Math.random() * players.length)];
-	const myName = useSelector(state => state.auth.userName);
-	useEffect(() => {
-		props.navigation.setParams({myName: myName});
-	}, [myName]);
+	const selectedGameType = useSelector(state => state.game.selectedGameType);
+	const { questions, dares } = GameService.QuestionDares(selectedGameType);
 
 	const goToTruth = () => {
 		const question = questions[Math.floor(Math.random() * questions.length)];
@@ -56,7 +53,7 @@ InGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
+		headerTitle: () => <HeaderLabel label="Game" />,
 		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
 	};
 };

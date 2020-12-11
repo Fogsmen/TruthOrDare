@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { Alert, FlatList, ImageBackground, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import * as GameAction from '../redux/actions/game';
 import colors from '../constants/colors';
@@ -22,18 +22,10 @@ const PlayerRow = props => {
 	);
 };
 
-const StartGameScreen = props => {
+const MultiPlayer = props => {
 	const players = useSelector(state => state.game.players);
 	const dispatch = useDispatch();
-	const myName = useSelector(state => state.auth.userName);
-	useEffect(() => {
-		props.navigation.setParams({myName: myName});
-	}, [myName]);
-
 	const [playerName, setPlayerName] = useState('');
-	const playerInputHandle = txt => {
-		setPlayerName(txt);
-	};
 
 	const deletePlayer = id => {
 		dispatch(GameAction.deletePlayer(id));
@@ -46,46 +38,133 @@ const StartGameScreen = props => {
 		dispatch(GameAction.addPlayer(playerName));
 		setPlayerName('');
 	};
-	const goToGame = () => {
-		if(players.length === 0) {
-			Alert.alert('Error!', 'You shoud add at least 1 player', [{text: 'OK'}]);
-			return;
-		}
-		props.navigation.navigate('InGame');
+	const playerInputHandle = txt => {
+		setPlayerName(txt);
 	};
 
 	return (
-		<KeyboardAvoidingView style={styles.screen}>
-			{(players.length===0 ?
-				<View style={{justifyContent: 'center', alignItems: 'center', marginVertical: 50}}>
-					<Text style={{textAlign: 'center', fontSize: 20, color: 'white'}}>Please add players</Text>
-				</View>
-				: <FlatList
-					style={styles.playersContainer}
-					data={players}
-					keyExtractor={p => p.id.toString()}
-					renderItem={x => <PlayerRow id={x.item.id} name={x.item.name} onClick={deletePlayer} />}
+		<View style={styles.multiplayer}>
+			<FlatList
+				style={styles.playersContainer}
+				data={players}
+				keyExtractor={p => p.id.toString()}
+				renderItem={x => <PlayerRow id={x.item.id} name={x.item.name} onClick={deletePlayer} />}
+			/>
+			<View style={styles.addPlayer}>
+				<TextInput placeholder="Add player"
+					placeholderTextColor='#cccccc'
+					value={playerName}
+					onChangeText={playerInputHandle}
+					style={styles.palyerName}
+					autoFocus={true}
 				/>
-			)}
-			<View style={styles.footer}>
-				<View style={styles.addPlayer}>
-					<TextInput placeholder="Add player"
-						placeholderTextColor='#cccccc'
-						value={playerName}
-						onChangeText={playerInputHandle}
-						style={styles.palyerName}
-						autoFocus={true}
-					/>
-					<TouchableOpacity onPress={addPlayer} style={{padding: 5}}>
-						<MaterialIcons name="add" size={24} color="white" />
-					</TouchableOpacity>
-				</View>
-				<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
-					<FontAwesome5 name="play" size={24} color="white" />
-					<Text style={styles.playText}>Let's Play</Text>
+				<TouchableOpacity onPress={addPlayer} style={{padding: 5}}>
+					<MaterialIcons name="add" size={24} color="white" />
 				</TouchableOpacity>
 			</View>
-		</KeyboardAvoidingView>
+		</View>
+	);
+};
+
+const NameBoxRow = props => {
+	const gender = props.gender;
+	return (
+		<View style={styles.nameBox}>
+			<Text style={{color: 'white'}}>{gender==='male' ? 'Man' : 'Woman'}'s Name</Text>
+			<View style={styles.nameBoxInputRow}>
+				<View style={styles.nameBoxformIcon}>
+					<MaterialCommunityIcons name={`gender-${gender}`} size={24} color="white" />
+				</View>
+				<TextInput placeholder={`${gender==='male' ? 'Man' : 'Woman'}'s Name`}
+					style={{color: 'white'}}
+					value={props.value}
+					onChangeText={props.onChange}
+				/>
+			</View>
+		</View>
+	);
+};
+
+const NameBox = props => {
+	const selectedGameType = useSelector(state => state.game.selectedGameType);
+	const { firstPlayer, secondPlayer, firstChange, secondChange } = props;
+	return (
+		<View style={{padding: 1}}>
+			{(selectedGameType==='mf' || selectedGameType==='ff') ?
+				<NameBoxRow gender="female" value={firstPlayer} onChange={firstChange} /> :
+				<NameBoxRow gender="male" value={firstPlayer} onChange={firstChange} />
+			}
+			{(selectedGameType==='mm' || selectedGameType==='mf') ?
+				<NameBoxRow gender="male" value={secondPlayer} onChange={secondChange} /> :
+				<NameBoxRow gender="female" value={secondPlayer} onChange={secondChange} />
+			}
+		</View>
+	);
+};
+
+const StartGameScreen = props => {
+	const players = useSelector(state => state.game.players);
+	const selectedGameType = useSelector(state => state.game.selectedGameType);
+	const dispatch = useDispatch();
+
+	const goToGame = () => {
+		if(selectedGameType==='multi' && players.length === 0) {
+			Alert.alert('Error!', 'You shoud add at least 1 player', [{text: 'OK'}]);
+			return;
+		}
+		if(selectedGameType !== 'multi' && (firstPlayer.trim().length===0 || secondPlayer.trim().length===0)) {
+			Alert.alert('Error!', 'No empty name is allowed!', [{text: 'Ok'}]);
+			return;
+		}
+		if(selectedGameType !== 'multi') {
+			dispatch(GameAction.setPlayers([firstPlayer, secondPlayer]));
+		}
+		props.navigation.navigate('InGame');
+	};
+	const selectGame = type => {
+		dispatch(GameAction.selectGameType(type));
+	};
+	const [firstPlayer, setFirstPlayer] = useState('');
+	const [secondPlayer, setSecondPlayer] = useState('');
+	const firstPlayerInputHandle = txt => {
+		setFirstPlayer(txt);
+	};
+	const secondPlayerInputHandle = txt => {
+		setSecondPlayer(txt);
+	};
+
+	return (
+		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
+			<KeyboardAvoidingView style={styles.screen}>
+				<View style={styles.typeTab}>
+					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
+						<FontAwesome5 name="transgender" size={30} color="white" />
+						<Text style={styles.typeItemText}>Straight</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mm')}>
+						<MaterialCommunityIcons name="gender-male" size={30} color="white" />
+						<Text style={styles.typeItemText}>Gray</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('ff')}>
+						<MaterialCommunityIcons name="gender-female" size={30} color="white" />
+						<Text style={styles.typeItemText}>Gray</Text>
+					</TouchableOpacity>
+				</View>
+				{selectedGameType==='multi' ? 
+					<MultiPlayer /> :
+					<NameBox firstPlayer={firstPlayer} firstChange={firstPlayerInputHandle}
+						secondPlayer={secondPlayer} secondChange={secondPlayerInputHandle}
+					/>
+				}
+				<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
+					<FontAwesome5 name="play" size={24} color="white" />
+					<Text style={styles.playText}>Start Game</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.multiButton} onPress={() => selectGame('multi')}>
+					<Text style={{color: 'white', textDecorationLine: 'underline'}}>Multi players?</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 };
 
@@ -96,15 +175,19 @@ StartGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
+		headerTitle: () => <HeaderLabel label="Your Names" />,
 	};
 };
 
 const styles = StyleSheet.create({
+	image: {
+		width: '100%',
+		resizeMode: "cover",
+		justifyContent: 'center'
+	},
 	screen: {
 		padding: 20,
 		justifyContent: 'center',
-		backgroundColor: colors.defaultBackground,
 		height: '100%'
 	},
 	playerRow: {
@@ -126,10 +209,6 @@ const styles = StyleSheet.create({
 		padding: 5,
 		marginVertical: 10
 	},
-	footer: {
-		marginTop: 10,
-		marginBottom: 10,
-	},
 	addPlayer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -148,7 +227,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: colors.defaultDark,
+		backgroundColor: colors.redPrimary,
 		width: 250,
 		alignSelf: 'center',
 		paddingVertical: 12,
@@ -158,7 +237,52 @@ const styles = StyleSheet.create({
 		color: 'white',
 		fontSize: 19,
 		marginHorizontal: 10
-	}
+	},
+	multiplayer: {
+		padding: 5
+	},
+	typeTab: {
+		padding: 10,
+		flexDirection: 'row',
+		justifyContent: 'space-around'
+	},
+	typeItem: {
+		padding: 5,
+		alignItems: 'center',
+		backgroundColor: colors.redPrimary,
+		width: 65,
+		borderRadius: 10,
+	},
+	typeItemText: {
+		fontSize: 12,
+		color: 'white'
+	},
+	multiButton: {
+		marginBottom: 10,
+		alignSelf: 'center'
+	},
+	nameBox: {
+		padding: 5,
+		margin: 5,
+		alignItems: 'center',
+	},
+	nameBoxInputRow: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		backgroundColor: colors.redPrimary,
+		borderRadius: 10,
+		width: '90%'
+	},
+	nameBoxformIcon: {
+		backgroundColor: colors.redPrimary,
+		width: 50,
+		height: 50,
+		padding: 5,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderTopStartRadius: 10,
+		borderBottomStartRadius: 10
+	},
 });
 
 export default StartGameScreen;
