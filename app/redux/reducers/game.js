@@ -2,7 +2,7 @@ import { ADD_PLAYER, SET_PLAYERS, DELETE_PLAYER, SELECT_GAME_TYPE } from "../act
 
 const initialState = {
 	players: [],
-	selectedGameType: ''
+	selectedGameType: 'mf'
 };
 
 export default gameReducer = (state = initialState, action) => {

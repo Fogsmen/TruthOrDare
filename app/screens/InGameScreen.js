@@ -12,7 +12,8 @@ const InGameScreen = props => {
 	const players = useSelector(state => state.game.players);
 	const currentPlayer = players[Math.floor(Math.random() * players.length)];
 	const selectedGameType = useSelector(state => state.game.selectedGameType);
-	const { questions, dares } = GameService.QuestionDares(selectedGameType);
+	const lang = useSelector(state => state.settings.lang);
+	const { questions, dares } = GameService.QuestionDares(selectedGameType, lang);
 
 	const goToTruth = () => {
 		const question = questions[Math.floor(Math.random() * questions.length)];

@@ -4,25 +4,25 @@ export const SET_LANG = 'SET_LANG';
 
 export const setLanguage = lang => {
 	switch (lang) {
-		case 'sp':
+		case 'spa':
 			return {
 				type: SET_LANG,
-				lang: 'sp',
-				getLang: LanguageHelper.sp
+				lang: 'spa',
+				getLang: LanguageHelper.spa
 			};
 
-		case 'ru':
+		case 'rus':
 			return {
 				type: SET_LANG,
-				lang: 'ru',
-				getLang: LanguageHelper.ru
+				lang: 'rus',
+				getLang: LanguageHelper.rus
 			};
 
 		default:
 			return {
 				type: SET_LANG,
-				lang: 'en',
-				getLang: LanguageHelper.en
+				lang: 'eng',
+				getLang: LanguageHelper.eng
 			};
 	}
 };

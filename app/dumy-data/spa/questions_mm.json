@@ -1,0 +1,583 @@
+[
+  {
+    "value": "Have you ever experimented with the same sex as yours just for fun?",
+    "shot": 1,
+    "id": 0
+  },
+  { "value": "Have you ever cheated on your partner?", "shot": 2, "id": 1 },
+  {
+    "value": "Have you ever paid somebody compliments just to get laid?",
+    "shot": 1,
+    "id": 2
+  },
+  {
+    "value": "Have you ever stalked your ex boyfriend/girlfriend or ex friend on social media?",
+    "shot": 0,
+    "id": 3
+  },
+  {
+    "value": "Have you ever regretted breaking up with someone?",
+    "shot": 1,
+    "id": 4
+  },
+  {
+    "value": "Have you ever thought about cheating on your bf/gf but never actually done it?",
+    "shot": 2,
+    "id": 5
+  },
+  {
+    "value": "Have you ever had a crush on someone (not your partner ofc) while in relationship?",
+    "shot": 1,
+    "id": 6
+  },
+  {
+    "value": "Have you ever been in an open relationship?",
+    "shot": 1,
+    "id": 7
+  },
+  {
+    "value": "Have you ever said „I love you” without feeling it?",
+    "shot": 1,
+    "id": 8
+  },
+  { "value": "Have you ever lied in this game?", "shot": 1, "id": 9 },
+  {
+    "value": "What is the largest age gap you’ve had between you and someone you’ve had sex with?",
+    "shot": 1,
+    "id": 10
+  },
+  {
+    "value": "What is the largest age gap you’ve had between you and someone you’ve kissed?",
+    "shot": 1,
+    "id": 11
+  },
+  { "value": "What was your worst sex experience?", "shot": 2, "id": 12 },
+  {
+    "value": "What’s the least amount of time you’ve known someone before you’ve had sex with them?",
+    "shot": 2,
+    "id": 13
+  },
+  {
+    "value": "What’s the least amount of time you’ve known someone before you’ve made out with them?",
+    "shot": 2,
+    "id": 14
+  },
+  {
+    "value": "Who is the most inappropriate person you’ve had a sexual fantasy about?",
+    "shot": 3,
+    "id": 15
+  },
+  {
+    "value": "Is sex better when you’re in love, or do you prefer one night stands/fwb?",
+    "shot": 2,
+    "id": 16
+  },
+  {
+    "value": "How many sex partners do you believe is “too many”?",
+    "shot": 1,
+    "id": 17
+  },
+  {
+    "value": "What’s #1 on your sexual bucket list right now?",
+    "shot": 2,
+    "id": 18
+  },
+  {
+    "value": "If you had to choose between only oral sex or only penetrative sex for the rest of your life, which one would you pick?",
+    "shot": 1,
+    "id": 19
+  },
+  {
+    "value": "Which triangle would you prefer - two men and one woman or two women and one man?",
+    "shot": 2,
+    "id": 20
+  },
+  { "value": "Have you ever had a triangle?", "shot": 2, "id": 21 },
+  {
+    "value": "Have you ever taken someone’s virginity?",
+    "shot": 1,
+    "id": 22
+  },
+  {
+    "value": "What was your craziest sexual experience?",
+    "shot": 2,
+    "id": 23
+  },
+  {
+    "value": "Would you rather dominate someone or be dominated?",
+    "shot": 2,
+    "id": 24
+  },
+  {
+    "value": "What toys have you already used in your bed and which ones would you like to try out in the future?",
+    "shot": 2,
+    "id": 25
+  },
+  { "value": "Do you like to be spit on during sex?", "shot": 2, "id": 26 },
+  {
+    "value": "Would you like to take part in a role play?",
+    "shot": 1,
+    "id": 27
+  },
+  {
+    "value": "What’s something most people don’t like in bed, but you can’t get enough of?",
+    "shot": 2,
+    "id": 28
+  },
+  {
+    "value": "Would you go to bed with someone you just met?",
+    "shot": 2,
+    "id": 29
+  },
+  {
+    "value": "Of all the people here - which one would you like to fuck, which one would you like to marry and which one would you like to kill?",
+    "shot": 2,
+    "id": 30
+  },
+  {
+    "value": "Of all the people here - who’s the hottest?",
+    "shot": 2,
+    "id": 31
+  },
+  {
+    "value": "If you had to have sex with one person in this room - who would it be?",
+    "shot": 2,
+    "id": 32
+  },
+  {
+    "value": "Of all the people here - who do you think gives the best blowjobs?",
+    "shot": 2,
+    "id": 33
+  },
+  {
+    "value": "What’s the sexiest thing anyone’s ever said to you?",
+    "shot": 2,
+    "id": 34
+  },
+  {
+    "value": "What’s the least sexy thing anyone’s ever said to you (while trying to be sexy)?",
+    "shot": 2,
+    "id": 35
+  },
+  {
+    "value": "If you had the power to give or receive unlimited orgasms, what would you pick?",
+    "shot": 2,
+    "id": 36
+  },
+  { "value": "What kind of porn did you last watch?", "shot": 1, "id": 37 },
+  {
+    "value": "What is the weirdest place you’ve had sex in?",
+    "shot": 1,
+    "id": 38
+  },
+  {
+    "value": "How old do you think is “too old” for someone to still be a virgin?",
+    "shot": 1,
+    "id": 39
+  },
+  {
+    "value": "If you could have one sexual superpower, what would it be?",
+    "shot": 2,
+    "id": 40
+  },
+  {
+    "value": "What is the weirdest fetish you tried out?",
+    "shot": 2,
+    "id": 41
+  },
+  { "value": "Have you ever tried anal sex?", "shot": 2, "id": 42 },
+  {
+    "value": "If you had to choose between having sex with one person for the rest of your life or never being able to have sex with the same person more than once, what would you pick?",
+    "shot": 2,
+    "id": 43
+  },
+  {
+    "value": "Have you ever been proposed a one night stand and refused?",
+    "shot": 1,
+    "id": 44
+  },
+  {
+    "value": "What’s a common fetish that you would never try in real life?",
+    "shot": 2,
+    "id": 45
+  },
+  { "value": "Has anyone ever caught you having sex?", "shot": 1, "id": 46 },
+  {
+    "value": "What’s the biggest lie you’ve told in order to get someone into bed?",
+    "shot": 1,
+    "id": 47
+  },
+  {
+    "value": "Have you ever had sex with more than one person at a time?",
+    "shot": 2,
+    "id": 48
+  },
+  {
+    "value": "What one sexual experience would you want to erase from your memory?",
+    "shot": 2,
+    "id": 49
+  },
+  {
+    "value": "What one sexual experience do you think about most often?",
+    "shot": 2,
+    "id": 50
+  },
+  {
+    "value": "Have you ever called someone (or been called) \"Daddy\"?",
+    "shot": 1,
+    "id": 51
+  },
+  {
+    "value": "What’s the least amount of time that’s passed between you having sex with two different people?",
+    "shot": 1,
+    "id": 52
+  },
+  {
+    "value": "What is your favorite part of foreplay?",
+    "shot": 2,
+    "id": 53
+  },
+  {
+    "value": "If you could double the amount in your bank account or double the amount of inches you have down there (for men)/double your breast size (for women), which one would you pick?",
+    "shot": 1,
+    "id": 54
+  },
+  {
+    "value": "Would you rather sleep with only insanely hot people or sleep with only people who think you’re insanely hot?",
+    "shot": 1,
+    "id": 55
+  },
+  {
+    "value": "What’s the most public place you’d fuck someone?",
+    "shot": 2,
+    "id": 56
+  },
+  { "value": "Do you have any sex tapes?", "shot": 1, "id": 57 },
+  {
+    "value": "If you got to have a threesome with people in this room, who would you do it with and why?",
+    "shot": 3,
+    "id": 58
+  },
+  { "value": "Have you ever sexted anyone?", "shot": 1, "id": 59 },
+  {
+    "value": "It’s totally not legal to do this but if it were . . . . [fill in the blank].",
+    "shot": 1,
+    "id": 60
+  },
+  {
+    "value": "Where are you on the straight / queer spectrum?",
+    "shot": 1,
+    "id": 61
+  },
+  {
+    "value": "Have you ever thought about someone else while having sex with your partner?",
+    "shot": 2,
+    "id": 62
+  },
+  { "value": "When was your first kiss?", "shot": 1, "id": 63 },
+  {
+    "value": "How old were you when you lost your virginity?",
+    "shot": 1,
+    "id": 64
+  },
+  {
+    "value": "What’s your favorite body part on yourself?",
+    "shot": 1,
+    "id": 65
+  },
+  { "value": "How many people have you slept with?", "shot": 2, "id": 66 },
+  {
+    "value": "What would be more thrilling: angry sex or make-up sex?",
+    "shot": 1,
+    "id": 67
+  },
+  {
+    "value": "Have you ever been attracted to the same sex?",
+    "shot": 1,
+    "id": 68
+  },
+  {
+    "value": "Do you have any spicy pictures or videos saved on your phone?",
+    "shot": 1,
+    "id": 69
+  },
+  { "value": "Do you want to try anal sex?", "shot": 2, "id": 70 },
+  {
+    "value": "Do you like to be treated like a slut in bed?",
+    "shot": 2,
+    "id": 71
+  },
+  {
+    "value": "Does sex with 2 people of other gender turn you on?",
+    "shot": 2,
+    "id": 72
+  },
+  {
+    "value": "Who fucks the best from people in here in your opinion?",
+    "shot": 2,
+    "id": 73
+  },
+  { "value": "Who’s the most attractive here?", "shot": 2, "id": 74 },
+  {
+    "value": "Who would turn you on from people here?",
+    "shot": 2,
+    "id": 75
+  },
+  {
+    "value": "Did you want to just fuck someone besides your partner, when you were in a relationship?",
+    "shot": 2,
+    "id": 76
+  },
+  { "value": "Would you do it for money?", "shot": 1, "id": 77 },
+  {
+    "value": "Would you suck off the last guy that was before you in the queue?",
+    "shot": 2,
+    "id": 78
+  },
+  {
+    "value": "Who would you fuck with from people here, if no one would found out about it?",
+    "shot": 2,
+    "id": 79
+  },
+  {
+    "value": "Would you rather fuck someone 20 years older or 20 years younger?",
+    "shot": 2,
+    "id": 80
+  },
+  { "value": "Who’s the hottest person here?", "shot": 2, "id": 81 },
+  { "value": "Who here are you most jealous of?", "shot": 2, "id": 82 },
+  { "value": "How many people have you kissed?", "shot": 2, "id": 83 },
+  {
+    "value": "Do you like telling what to do in bed, or do you prefer to be told what to do?",
+    "shot": 2,
+    "id": 84
+  },
+  {
+    "value": "What’s the most number of times you’ve done it in one day?",
+    "shot": 2,
+    "id": 85
+  },
+  {
+    "value": "Would you take a shower/bath with person in front of you?",
+    "shot": 2,
+    "id": 86
+  },
+  {
+    "value": "What’s the worst kiss you’ve ever been given?",
+    "shot": 1,
+    "id": 87
+  },
+  {
+    "value": "What’s your favorite body part on a guy?",
+    "shot": 1,
+    "id": 88
+  },
+  {
+    "value": "How do you like the taste when you go down on someone?",
+    "shot": 1,
+    "id": 89
+  },
+  { "value": "How often do you trim down there?", "shot": 1, "id": 90 },
+  { "value": "Have you ever considered a threesome?", "shot": 2, "id": 91 },
+  { "value": "Have you ever had a one night stand?", "shot": 2, "id": 92 },
+  {
+    "value": "What was the most powerful sexual experience you’ve ever had?",
+    "shot": 2,
+    "id": 93
+  },
+  { "value": "What sex act would you never do again?", "shot": 2, "id": 94 },
+  {
+    "value": "What’s a sex act most people like that you think is overrated?",
+    "shot": 2,
+    "id": 95
+  },
+  {
+    "value": "Have you ever kicked someone out of your bed immediately after having sex?",
+    "shot": 1,
+    "id": 96
+  },
+  {
+    "value": "What’s one thing guaranteed to turn you on?",
+    "shot": 2,
+    "id": 97
+  },
+  {
+    "value": "What do you find the sexiest about person on your left?",
+    "shot": 2,
+    "id": 98
+  },
+  {
+    "value": "If you could pick one person to join you and your partner for a threesome, who would it be? (If you are single pick two people)",
+    "shot": 2,
+    "id": 99
+  },
+  { "value": "What’s your dirtiest sex fantasy?", "shot": 2, "id": 100 },
+  {
+    "value": "What’s the kinkiest thing you’ve ever done?",
+    "shot": 2,
+    "id": 101
+  },
+  {
+    "value": "Suppose person in front of you is yours for 20 minutes, what is the first thing you want to do with him/her?",
+    "shot": 2,
+    "id": 102
+  },
+  {
+    "value": "Which one do you prefer the most – rough or smooth?",
+    "shot": 2,
+    "id": 103
+  },
+  {
+    "value": "Do you like being drunk when having sex?",
+    "shot": 2,
+    "id": 104
+  },
+  { "value": "Favorite position?", "shot": 2, "id": 105 },
+  { "value": "How many times can you do in a day?", "shot": 2, "id": 106 },
+  {
+    "value": "Have you made with someone of the same gender?",
+    "shot": 2,
+    "id": 107
+  },
+  {
+    "value": "What do you prefer lights on or lights off?",
+    "shot": 2,
+    "id": 108
+  },
+  {
+    "value": "How many people saw you without anything?",
+    "shot": 2,
+    "id": 109
+  },
+  { "value": "Describe your partner.", "shot": 2, "id": 110 },
+  { "value": "Have you ever used a toy?", "shot": 2, "id": 111 },
+  {
+    "value": "What do you like the most about your partner?",
+    "shot": 2,
+    "id": 112
+  },
+  {
+    "value": "Do you like to have tattoos on your hand?",
+    "shot": 2,
+    "id": 113
+  },
+  { "value": "When was the last time you trimmed?", "shot": 2, "id": 114 },
+  { "value": "What was your best sexual experience?", "shot": 2, "id": 115 },
+  {
+    "value": "What is the longest you’ve ever given head?",
+    "shot": 2,
+    "id": 116
+  },
+  { "value": "How do you feel about sex in groups?", "shot": 2, "id": 117 },
+  {
+    "value": "Would you like to take part in an orgy?,.",
+    "shot": 2,
+    "id": 118
+  },
+  {
+    "value": "Would you ever watch your partner have sex with someone else?",
+    "shot": 2,
+    "id": 119
+  },
+  {
+    "value": "Where is your favourite place to be kissed?",
+    "shot": 2,
+    "id": 120
+  },
+  {
+    "value": "Have you ever taken it in the butt or would you?",
+    "shot": 2,
+    "id": 121
+  },
+  { "value": "Do you enjoy rough or slow sex?", "shot": 2, "id": 122 },
+  { "value": "Do you prefer to be on top or bottom?", "shot": 2, "id": 123 },
+  {
+    "value": "What is your least favourite position?",
+    "shot": 2,
+    "id": 124
+  },
+  { "value": "Have you ever had sex outside?", "shot": 2, "id": 125 },
+  {
+    "value": "Where is the strangest place you’ve ever had sex?",
+    "shot": 2,
+    "id": 126
+  },
+  { "value": "Who is your favourite porn star?", "shot": 2, "id": 127 },
+  { "value": "What is your favourite type of porn?", "shot": 2, "id": 128 },
+  {
+    "value": "Does size matter? And what's the perfect dick size?",
+    "shot": 2,
+    "id": 129
+  },
+  {
+    "value": "Do you prefer to have music in the background, or for it to be be quiet?,.,.",
+    "shot": 2,
+    "id": 130
+  },
+  {
+    "value": "Do you prefer for your partner to be silent, or do you like moans?",
+    "shot": 2,
+    "id": 131
+  },
+  { "value": "Do you like a lot of foreplay?", "shot": 2, "id": 132 },
+  {
+    "value": "What is your favourite type of foreplay?",
+    "shot": 2,
+    "id": 133
+  },
+  { "value": "Have you done role-playing?", "shot": 2, "id": 134 },
+  { "value": "What is your role-playing fantasy?", "shot": 2, "id": 135 },
+  { "value": "Would you ever have sex for money?", "shot": 2, "id": 136 },
+  {
+    "value": "How many orgasms have you had in one sexual encounter?",
+    "shot": 2,
+    "id": 137
+  },
+  {
+    "value": "Would you ever eat the booty of person that's sitting in front of you?",
+    "shot": 2,
+    "id": 138
+  },
+  { "value": "Do you like giving head?", "shot": 2, "id": 139 },
+  {
+    "value": "If you could invite any of your friends into the bedroom, who would it be?",
+    "shot": 2,
+    "id": 140
+  },
+  {
+    "value": "Would you ever want to go to a swingers party?",
+    "shot": 2,
+    "id": 141
+  },
+  {
+    "value": "Do you ever dreamed about the sex you had with someone?",
+    "shot": 2,
+    "id": 142
+  },
+  {
+    "value": "Would you ever want to have sex with one of my friends? If so, who?",
+    "shot": 2,
+    "id": 143
+  },
+  {
+    "value": "What is the thing that I do that makes you cum every time?",
+    "shot": 2,
+    "id": 144
+  },
+  {
+    "value": "Which part of the body of the person sitting in front of you would like to massage?",
+    "shot": 2,
+    "id": 145
+  },
+  { "value": "Do you like drunk sex?", "shot": 2, "id": 146 },
+  {
+    "value": "Do you like “doggy-style” or “missionary” better?",
+    "shot": 2,
+    "id": 147
+  },
+  {
+    "value": "Would you ever want to make a video with me?",
+    "shot": 2,
+    "id": 148
+  }
+]

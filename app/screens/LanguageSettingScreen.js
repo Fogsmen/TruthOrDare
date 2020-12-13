@@ -15,23 +15,24 @@ const LanguageSettingScreen = props => {
 		dispatch(SettingsAction.setLanguage(lang));
 	};
 	useEffect(() => {
+		console.log('lang', lang);
 		props.navigation.setParams({title: getLang('language')});
 	}, [lang]);
 
 	return (
 		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
 			<View style={styles.screen}>
-				<TouchableOpacity style={styles.item} onPress={() => setLang('en')}>
+				<TouchableOpacity style={styles.item} onPress={() => setLang('eng')}>
 					<Text style={styles.itemText}>English</Text>
-					{lang==='en' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
+					{lang==='eng' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.item} onPress={() => setLang('ru')}>
+				<TouchableOpacity style={styles.item} onPress={() => setLang('rus')}>
 					<Text style={styles.itemText}>русский</Text>
-					{lang==='ru' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
+					{lang==='rus' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.item} onPress={() => setLang('sp')}>
+				<TouchableOpacity style={styles.item} onPress={() => setLang('spa')}>
 					<Text style={styles.itemText}>Española</Text>
-					{lang==='sp' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
+					{lang==='spa' && <AntDesign name="checkcircle" size={26} color="white" style={{marginLeft: 10}} />}
 				</TouchableOpacity>
 			</View>
 		</ImageBackground>

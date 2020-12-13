@@ -12,14 +12,15 @@ const ShotModal = props => {
 	const closeModal = () => {
 		props.closeModal();
 	};
+	const getLang = useSelector(state => state.settings.getLang);
 
 	return (
 		<Modal animationType="slide" transparent={true} visible={props.visible}>
 			<TouchableOpacity style={styles.centeredView} activeOpacity={1} onPressOut={closeModal}>
 				<View style={styles.modalView}>
-					<Text style={styles.modalText}>You have to drink</Text>
+					<Text style={styles.modalText}>{getLang('you_have_to_drink')}</Text>
 					<Text style={{fontWeight: 'bold', fontSize: 30}}>{props.shot}</Text>
-					<Text style={{fontSize: 15, marginVertical: 20}}>shots</Text>
+					<Text style={{fontSize: 15, marginVertical: 20}}>{getLang('shots')}</Text>
 				</View>
 			</TouchableOpacity>
 		</Modal>
@@ -45,11 +46,12 @@ const TruthOrDareScreen = props => {
 	const closeModal = () => {
 		setVisibleModal(false);
 	};
+	const getLang = useSelector(state => state.settings.getLang);
 
 	return (
 		<View style={styles.screen}>
 			<View style={styles.title}>
-				<Text style={styles.titleText}>{type=='truth' ? 'TRUTH' : 'DARE'}</Text>
+				<Text style={styles.titleText}>{type=='truth' ? getLang('truth') : getLang('dare')}</Text>
 			</View>
 			<View style={styles.body}>
 				<Text style={styles.bodyText}>{question.value}</Text>
@@ -58,7 +60,7 @@ const TruthOrDareScreen = props => {
 				</TouchableOpacity>
 			</View>
 			<TouchableOpacity style={styles.button} onPress={nextRound}>
-				<Text style={styles.buttonText}>Next Round</Text>
+				<Text style={styles.buttonText}>{getLang('next_round')}</Text>
 			</TouchableOpacity>
 			<ShotModal visible={visibleModal} closeModal={closeModal} shot={question.shot} />
 		</View>

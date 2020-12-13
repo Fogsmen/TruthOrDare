@@ -1,5 +1,5 @@
 {
-    "language": "язык",
+	"language": "язык",
 	"english": "английский",
 	"spanish": "испанский",
 	"russian": "русский",
@@ -12,11 +12,16 @@
 	"my_dares": "Мои вызовы",
 	"contact_us": "Свяжитесь с нами",
 	"straight": "Прямо",
-    "gray": "Серый",
-    "lesbian": "лесбиянка",
+	"gray": "Серый",
+	"lesbian": "лесбиянка",
 	"mans_name": "Имя человека",
 	"womans_name": "Женское имя",
 	"start_game": "Начать игру",
 	"multi_players": "Несколько игроков",
-	"add_player": "Добавить игрока"
+	"add_player": "Добавить игрока",
+	"you_have_to_drink": "Ты должен пить",
+	"shots": "выстрелы",
+	"truth": "ПРАВДА",
+	"dare": "СМЕЙ",
+	"next_round": "Следующий раунд"
 }

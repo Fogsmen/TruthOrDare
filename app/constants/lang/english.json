@@ -18,5 +18,10 @@
 	"womans_name": "Woman's Name",
 	"start_game": "Start Game",
 	"multi_players": "Multi Players",
-	"add_player": "Add player"
+	"add_player": "Add player",
+	"you_have_to_drink": "You have to drink",
+	"shots": "shots",
+	"truth": "TRUTH",
+	"dare": "DARE",
+	"next_round": "Next Round"
 }

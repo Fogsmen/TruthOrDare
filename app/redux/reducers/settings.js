@@ -1,9 +1,9 @@
-import { en } from '../../helpers/LanguageHelper';
+import { eng } from '../../helpers/LanguageHelper';
 import { SET_LANG } from "../actions/settings";
 
 const initialState = {
-	lang: 'en',
-	getLang: en
+	lang: 'eng',
+	getLang: eng
 };
 
 export default settingsReducer = (state = initialState, action) => {

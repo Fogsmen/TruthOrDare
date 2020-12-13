@@ -1,5 +1,5 @@
 {
-    "language": "Idioma",
+	"language": "Idioma",
 	"english": "Inglés",
 	"spanish": "Española",
 	"russian": "Rusa",
@@ -12,11 +12,16 @@
 	"my_dares": "Mis retos",
 	"contact_us": "Contacta con nosotras",
 	"straight": "Derecha",
-    "gray": "Gris",
-    "lesbian": "Lesbianas",
+	"gray": "Gris",
+	"lesbian": "Lesbianas",
 	"mans_name": "Nombre del hombre",
 	"womans_name": "Nombre de la mujer",
 	"start_game": "Empezar juego",
 	"multi_players": "Jugadores múltiples",
-	"add_player": "Agregar jugadora"
+	"add_player": "Agregar jugadora",
+	"you_have_to_drink": "Tienes que beber",
+	"shots": "disparos",
+	"truth": "VERDAD",
+	"dare": "ATREVIMIENTO",
+	"next_round": "Proxima Ronda"
 }
