@@ -24,6 +24,7 @@ const PlayerRow = props => {
 
 const MultiPlayer = props => {
 	const players = useSelector(state => state.game.players);
+	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
 	const [playerName, setPlayerName] = useState('');
 
@@ -51,7 +52,7 @@ const MultiPlayer = props => {
 				renderItem={x => <PlayerRow id={x.item.id} name={x.item.name} onClick={deletePlayer} />}
 			/>
 			<View style={styles.addPlayer}>
-				<TextInput placeholder="Add player"
+				<TextInput placeholder={lang('add_player')}
 					placeholderTextColor='#cccccc'
 					value={playerName}
 					onChangeText={playerInputHandle}
@@ -68,14 +69,15 @@ const MultiPlayer = props => {
 
 const NameBoxRow = props => {
 	const gender = props.gender;
+	const lang = useSelector(state => state.settings.getLang);
 	return (
 		<View style={styles.nameBox}>
-			<Text style={{color: 'white'}}>{gender==='male' ? 'Man' : 'Woman'}'s Name</Text>
+			<Text style={{color: 'white'}}>{gender==='male' ? lang('mans_name') : lang('womans_name')}</Text>
 			<View style={styles.nameBoxInputRow}>
 				<View style={styles.nameBoxformIcon}>
 					<MaterialCommunityIcons name={`gender-${gender}`} size={24} color="white" />
 				</View>
-				<TextInput placeholder={`${gender==='male' ? 'Man' : 'Woman'}'s Name`}
+				<TextInput placeholder={gender==='male' ? lang('mans_name') : lang('womans_name')}
 					style={{color: 'white'}}
 					value={props.value}
 					onChangeText={props.onChange}
@@ -105,7 +107,11 @@ const NameBox = props => {
 const StartGameScreen = props => {
 	const players = useSelector(state => state.game.players);
 	const selectedGameType = useSelector(state => state.game.selectedGameType);
+	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
+	useEffect(() => {
+		props.navigation.setParams({title: lang('your_name')});
+	}, [lang]);
 
 	const goToGame = () => {
 		if(selectedGameType==='multi' && players.length === 0) {
@@ -139,15 +145,15 @@ const StartGameScreen = props => {
 				<View style={styles.typeTab}>
 					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
 						<FontAwesome5 name="transgender" size={30} color="white" />
-						<Text style={styles.typeItemText}>Straight</Text>
+						<Text style={styles.typeItemText}>{lang('straight')}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mm')}>
 						<MaterialCommunityIcons name="gender-male" size={30} color="white" />
-						<Text style={styles.typeItemText}>Gray</Text>
+						<Text style={styles.typeItemText}>{lang('gray')}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('ff')}>
 						<MaterialCommunityIcons name="gender-female" size={30} color="white" />
-						<Text style={styles.typeItemText}>Gray</Text>
+						<Text style={styles.typeItemText}>{lang('lesbian')}</Text>
 					</TouchableOpacity>
 				</View>
 				{selectedGameType==='multi' ? 
@@ -158,10 +164,10 @@ const StartGameScreen = props => {
 				}
 				<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
 					<FontAwesome5 name="play" size={24} color="white" />
-					<Text style={styles.playText}>Start Game</Text>
+					<Text style={styles.playText}>{lang('start_game')}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.multiButton} onPress={() => selectGame('multi')}>
-					<Text style={{color: 'white', textDecorationLine: 'underline'}}>Multi players?</Text>
+					<Text style={{color: 'white', textDecorationLine: 'underline'}}>{lang('multi_players')}?</Text>
 				</TouchableOpacity>
 			</KeyboardAvoidingView>
 		</ImageBackground>
@@ -175,7 +181,7 @@ StartGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label="Your Names" />,
+		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
 	};
 };
 
