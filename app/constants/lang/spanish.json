@@ -23,5 +23,7 @@
 	"shots": "disparos",
 	"truth": "VERDAD",
 	"dare": "ATREVIMIENTO",
-	"next_round": "Proxima Ronda"
+	"next_round": "Proxima Ronda",
+	"dice": "Dado",
+	"go": "Vamos"
 }

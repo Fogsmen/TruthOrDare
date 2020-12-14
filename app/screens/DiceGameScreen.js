@@ -1,0 +1,130 @@
+import React from 'react';
+import { useEffect, forwardRef, useRef } from 'react';
+import { useImperativeHandle } from 'react';
+import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import HeaderLabel from '../components/HeaderLabel';
+import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
+import colors from '../constants/colors';
+
+import * as GameService from '../services/GameService';
+
+const DiceComp = forwardRef((props, ref) => {
+	const dice = useRef();
+	const width = props.width ?? 125;
+	const height = props.height ?? 125;
+	const { loopCount, speed, words } = props;
+	const timeInterval = (speed==='fast') ? 250 : 290;
+	const rotate = (position = 0) => {
+		dice.current.scrollTo({x: width * (position % words.length), animated: true});
+	};
+	const rotateByCount = current => {
+		if(current > loopCount) return;
+		rotate(current);
+		setTimeout(() => {
+			rotateByCount(current + 1);
+		}, timeInterval);
+	};
+	useImperativeHandle(ref, () => ({
+		loop() {
+			rotateByCount(0);
+		}
+	}));
+
+	return (
+		<View style={{height: height}}>
+			<ScrollView ref={dice}
+				horizontal={true} decelerationRate={speed==='fast' ? 'fast' : 'normal'}
+				centerContent={true} pagingEnabled={true} scrollEnabled={true}
+				showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}
+				style={{width: width, backgroundColor: colors.defaultBackground}} scrollEnabled={false}
+			>{
+				words.map(word =>
+					<View
+						style={{height: height, width: width, ...styles.diceSquare}}
+					><Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>{word}</Text>
+				</View>)
+			}
+			</ScrollView>
+		</View>
+	);
+});
+
+const DiceGameScreen = props => {
+	const { lang, getLang } = useSelector(state => state.settings);
+	useEffect(() => {
+		props.navigation.setParams({title: getLang('dice')});
+	}, [lang]);
+
+	const { place, action } = GameService.getDiceWords(0, lang);
+	console.log('place', place, action);
+	const firstDice = useRef();
+	const secondDice = useRef();
+
+	const runDice = () => {
+		firstDice.current.loop();
+		secondDice.current.loop();
+	};
+
+	return (
+		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
+			<View style={styles.screen}>
+				<View style={{margin: 20}}>
+					<DiceComp words={place} speed="fast" loopCount={10} ref={firstDice} />
+				</View>
+				<View style={{margin: 20}}>
+					<DiceComp words={action} speed="normal" loopCount={9} ref={secondDice} />
+				</View>
+				<TouchableOpacity style={styles.gobutton}
+					onPress={runDice}>
+					<Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>{getLang('go')}</Text>
+				</TouchableOpacity>
+			</View>
+		</ImageBackground>
+	)
+};
+
+DiceGameScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+	};
+};
+
+const styles = StyleSheet.create({
+	image: {
+		width: '100%',
+		resizeMode: "cover",
+		justifyContent: 'center'
+	},
+	screen: {
+		padding: 5,
+		justifyContent: 'center',
+		height: '100%',
+		alignItems: 'center'
+	},
+	diceSquare: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: colors.redPrimary,
+		borderColor: colors.defaultBackground,
+		borderRadius: 10,
+		borderWidth: 5
+	},
+	gobutton: {
+		backgroundColor: '#5e0acd',
+		borderRadius: 40,
+		width: 80,
+		height: 80,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderColor: 'white',
+		borderWidth: 1
+	}
+});
+
+export default DiceGameScreen;

@@ -23,5 +23,7 @@
 	"shots": "shots",
 	"truth": "TRUTH",
 	"dare": "DARE",
-	"next_round": "Next Round"
+	"next_round": "Next Round",
+	"dice": "Dice",
+	"go": "GO"
 }

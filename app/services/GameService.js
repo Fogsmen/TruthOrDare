@@ -108,3 +108,18 @@ export const QuestionDares = (gameType, lang = 'eng') => {
 			return null;
 	}
 };
+
+import dice_eng from '../dumy-data/eng/dice.json';
+import dice_rus from '../dumy-data/rus/dice.json';
+import dice_spa from '../dumy-data/spa/dice.json';
+
+const dices = {
+	eng: dice_eng,
+	rus: dice_rus,
+	spa: dice_spa
+};
+
+export const getDiceWords = (level, lang = 'eng') => {
+	const result = dices[lang].filter(x => x.level === level);
+	return result.length > 0 ? result[0] : [];
+};

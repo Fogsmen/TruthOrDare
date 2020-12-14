@@ -11,6 +11,7 @@ import StartGameScreen from '../screens/StartGameScreen';
 import TruthOrDareScreen from '../screens/TruthOrDareScreen';
 import LanguageSettingScreen from '../screens/LanguageSettingScreen';
 import { useSelector } from 'react-redux';
+import DiceGameScreen from '../screens/DiceGameScreen';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -58,9 +59,16 @@ const SettingsNavigator = createStackNavigator({
 	defaultNavigationOptions: defaultNavOptions
 });
 
+const DiceGameNavigator = createStackNavigator({
+	Dice: DiceGameScreen
+}, {
+	defaultNavigationOptions: defaultNavOptions
+});
+
 const MainNavigator = createDrawerNavigator({
 	Game: GameNavigator,
-	Settings: SettingsNavigator
+	Settings: SettingsNavigator,
+	DiceGame: DiceGameNavigator
 }, {
 	...defaultDrawOptions,
 	contentComponent: props => {
@@ -78,11 +86,14 @@ const MainNavigator = createDrawerNavigator({
 		const goToGame = () => {
 			props.navigation.navigate('Game');
 		};
+		const goToDiceGame = () => {
+			props.navigation.navigate('DiceGame');
+		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
-			<View style={{ flex: 1, paddingTop: 20 }}>
+			<View style={{ flex: 1, paddingTop: 15 }}>
 				<SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-					<View style={{marginVertical: 30, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
+					<View style={{marginVertical: 15, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
 						<Text style={{color: '#3b3a39', marginHorizontal: 10, fontSize: 15}}>{getLang('game')}</Text>
 						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
 							onPress={goToGame}>
@@ -90,7 +101,7 @@ const MainNavigator = createDrawerNavigator({
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('your_name')}</Text>
 						</TouchableOpacity>
 					</View>
-					<View style={{marginBottom: 20, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
+					<View style={{marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
 						<Text style={{color: '#3b3a39', marginHorizontal: 10, fontSize: 15}}>{getLang('erotic_dares')}</Text>
 						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}>
 							<FontAwesome name="heart-o" size={26} color="white" />
@@ -104,8 +115,13 @@ const MainNavigator = createDrawerNavigator({
 							<FontAwesome5 name="hand-holding-heart" size={26} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('my_dares')}</Text>
 						</TouchableOpacity>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={goToDiceGame}>
+							<FontAwesome5 name="dice-five" size={26} color="white" />
+							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('dice')}</Text>
+						</TouchableOpacity>
 					</View>
-					<View style={{marginBottom: 20, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
+					<View style={{marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
 						<Text style={{color: '#3b3a39', marginHorizontal: 10, fontSize: 15}}>{getLang('settings')}</Text>
 						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
 							onPress={goToLanguageSettingsScreen}>
@@ -113,7 +129,7 @@ const MainNavigator = createDrawerNavigator({
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('language')}</Text>
 						</TouchableOpacity>
 					</View>
-					<View style={{marginTop: 30}}>
+					<View style={{marginTop: 15}}>
 						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
 							onPress={openContactUs}>
 							<AntDesign name="contacts" size={24} color="white" />

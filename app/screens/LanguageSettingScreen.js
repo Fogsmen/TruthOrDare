@@ -15,7 +15,6 @@ const LanguageSettingScreen = props => {
 		dispatch(SettingsAction.setLanguage(lang));
 	};
 	useEffect(() => {
-		console.log('lang', lang);
 		props.navigation.setParams({title: getLang('language')});
 	}, [lang]);
 
