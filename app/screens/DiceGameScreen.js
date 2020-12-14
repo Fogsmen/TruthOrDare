@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect, forwardRef, useRef } from 'react';
 import { useImperativeHandle } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -39,8 +40,8 @@ const DiceComp = forwardRef((props, ref) => {
 				showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}
 				style={{width: width, backgroundColor: colors.defaultBackground}} scrollEnabled={false}
 			>{
-				words.map(word =>
-					<View
+				words.map((word, index) =>
+					<View key={index}
 						style={{height: height, width: width, ...styles.diceSquare}}
 					><Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>{word}</Text>
 				</View>)
@@ -50,6 +51,10 @@ const DiceComp = forwardRef((props, ref) => {
 	);
 });
 
+const generateRandomInteger = (min, max) => {
+	return Math.floor(Math.random() * (max - min)) + min;
+};
+
 const DiceGameScreen = props => {
 	const { lang, getLang } = useSelector(state => state.settings);
 	useEffect(() => {
@@ -57,23 +62,26 @@ const DiceGameScreen = props => {
 	}, [lang]);
 
 	const { place, action } = GameService.getDiceWords(0, lang);
-	console.log('place', place, action);
+	const [firstLoop, setFirstloop] = useState(generateRandomInteger(10, 30));
+	const [secondLoop, setSecondLoop] = useState(generateRandomInteger(10, 30));
 	const firstDice = useRef();
 	const secondDice = useRef();
 
 	const runDice = () => {
 		firstDice.current.loop();
 		secondDice.current.loop();
+		setFirstloop(generateRandomInteger(10, 30));
+		setSecondLoop(generateRandomInteger(10, 30));
 	};
 
 	return (
 		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
 			<View style={styles.screen}>
 				<View style={{margin: 20}}>
-					<DiceComp words={place} speed="fast" loopCount={10} ref={firstDice} />
+					<DiceComp words={place} speed="fast" loopCount={firstLoop} ref={firstDice} />
 				</View>
 				<View style={{margin: 20}}>
-					<DiceComp words={action} speed="normal" loopCount={9} ref={secondDice} />
+					<DiceComp words={action} speed="normal" loopCount={secondLoop} ref={secondDice} />
 				</View>
 				<TouchableOpacity style={styles.gobutton}
 					onPress={runDice}>
