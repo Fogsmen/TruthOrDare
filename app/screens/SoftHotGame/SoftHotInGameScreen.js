@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
 import Swiper from 'react-native-deck-swiper';
 
@@ -7,7 +7,7 @@ import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 
-const cardColors = ['#EC2379', '#F5C518', '#F7B402', '#9001F0', '#FAA699', '#0070FF'];
+const cardColors = ['#EC2379', '#9001F0' ,'#F5C518', '#F7B402', '#FAA699', '#0070FF'];
 const localColors = {
 	background: '#fcf',
 	truth: '#AB01FA',
@@ -40,7 +40,7 @@ const SoftHotInGameScreen = props => {
 	const goToDare = () => {
 		props.navigation.navigate('SoftHotDare', {type: type, gender: (rotateCount%2)})
 	};
-	const timeout = 400;
+	const timeout = 250;
 	const rotateByCount = current => {
 		if(current >= rotateCount) {
 			setTimeout(() => {
@@ -63,7 +63,7 @@ const SoftHotInGameScreen = props => {
 				ref={swiperRef} cards={players}
 				keyExtractor={card => card.id}
 				renderCard={(player, i) => <PlayerCard card={player} cardIndex={i} />}
-				infinite
+				infinite={true} swipeAnimationDuration={timeout-30}
 				backgroundColor={'transparent'}
 				cardVerticalMargin={50}
 				stackSize={2}

@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
 	},
 	gobutton: {
 		backgroundColor: '#5e0acd',
-		borderRadius: 40,
-		width: 80,
-		height: 80,
+		borderRadius: 60,
+		width: 120,
+		height: 120,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderColor: 'white',
