@@ -1,17 +1,20 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { MaterialIcons, FontAwesome, MaterialCommunityIcons, FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { Alert, Linking, LogBox, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import colors from '../constants/colors';
-import InGameScreen from '../screens/InGameScreen';
-import StartGameScreen from '../screens/StartGameScreen';
-import TruthOrDareScreen from '../screens/TruthOrDareScreen';
-import LanguageSettingScreen from '../screens/LanguageSettingScreen';
+import InGameScreen from '../screens/NormalGame/InGameScreen';
+import StartGameScreen from '../screens/NormalGame/StartGameScreen';
+import TruthOrDareScreen from '../screens/NormalGame/TruthOrDareScreen';
+import LanguageSettingScreen from '../screens/Settings/LanguageSettingScreen';
 import { useSelector } from 'react-redux';
 import DiceGameScreen from '../screens/DiceGameScreen';
+import SoftHotStartScreen from '../screens/SoftHotGame/SoftHotStartScreen';
+import SoftHotInGameScreen from '../screens/SoftHotGame/SoftHotInGameScreen';
+import SoftHotDareScreen from '../screens/SoftHotGame/SoftHotDareScreen';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -53,6 +56,20 @@ const GameNavigator = createStackNavigator({
 	defaultNavigationOptions: defaultNavOptions
 });
 
+const SoftHotGameNavigator = createStackNavigator({
+	SoftHotStart: {
+		screen: SoftHotStartScreen
+	},
+	SoftHotInGame: {
+		screen: SoftHotInGameScreen
+	},
+	SoftHotDare: {
+		screen: SoftHotDareScreen
+	}
+}, {
+	defaultNavigationOptions: defaultNavOptions
+});
+
 const SettingsNavigator = createStackNavigator({
 	Language: LanguageSettingScreen
 }, {
@@ -68,7 +85,9 @@ const DiceGameNavigator = createStackNavigator({
 const MainNavigator = createDrawerNavigator({
 	Game: GameNavigator,
 	Settings: SettingsNavigator,
-	DiceGame: DiceGameNavigator
+	DiceGame: DiceGameNavigator,
+	SoftCouple: SoftHotGameNavigator,
+	HotCouple: SoftHotGameNavigator
 }, {
 	...defaultDrawOptions,
 	contentComponent: props => {
@@ -89,6 +108,20 @@ const MainNavigator = createDrawerNavigator({
 		const goToDiceGame = () => {
 			props.navigation.navigate('DiceGame');
 		};
+		const goToSoftCouple = () => {
+			props.navigation.navigate('SoftCouple', {}, {
+				type: 'Navigation/NAVIGATE',
+				routeName: 'SoftHotStart',
+				params: {type: 'soft'},
+			});
+		};
+		const goToHotCouple = () => {
+			props.navigation.navigate('HotCouple', {}, {
+				type: 'Navigation/NAVIGATE',
+				routeName: 'SoftHotStart',
+				params: {type: 'hot'},
+			});
+		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
 			<View style={{ flex: 1, paddingTop: 15 }}>
@@ -103,11 +136,13 @@ const MainNavigator = createDrawerNavigator({
 					</View>
 					<View style={{marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
 						<Text style={{color: '#3b3a39', marginHorizontal: 10, fontSize: 15}}>{getLang('erotic_dares')}</Text>
-						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={goToSoftCouple}>
 							<FontAwesome name="heart-o" size={26} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('right_hand_tantra')} ({getLang('soft')})</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={goToHotCouple}>
 							<MaterialCommunityIcons name="heart-flash" size={26} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('left_hand_tantra')} ({getLang('hot')})</Text>
 						</TouchableOpacity>

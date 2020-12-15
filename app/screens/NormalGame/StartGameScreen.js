@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, ImageBackground, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
-import * as GameAction from '../redux/actions/game';
-import colors from '../constants/colors';
-import HeaderLabel from '../components/HeaderLabel';
-import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
+import * as GameAction from '../../redux/actions/game';
+import colors from '../../constants/colors';
+import HeaderLabel from '../../components/HeaderLabel';
+import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 
 const PlayerRow = props => {
 	const deleteRow = () => {
@@ -140,7 +140,7 @@ const StartGameScreen = props => {
 	};
 
 	return (
-		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
+		<ImageBackground style={styles.image} source={require('../../images/home-background.png')}>
 			<KeyboardAvoidingView style={styles.screen}>
 				<View style={styles.typeTab}>
 					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>

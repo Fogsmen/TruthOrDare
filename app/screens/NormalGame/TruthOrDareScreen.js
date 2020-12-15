@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons'; 
-
-import colors from '../constants/colors';
-import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
-import HeaderLabel from '../components/HeaderLabel';
 import { useSelector } from 'react-redux';
-import HeaderGoBackButton from '../components/HeaderGoBackButton';
+
+import colors from '../../constants/colors';
+import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
+import HeaderLabel from '../../components/HeaderLabel';
+import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 
 const ShotModal = props => {
 	const closeModal = () => {

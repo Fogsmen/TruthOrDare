@@ -123,3 +123,38 @@ export const getDiceWords = (level, lang = 'eng') => {
 	const result = dices[lang].filter(x => x.level === level);
 	return result.length > 0 ? result[0] : [];
 };
+
+import eng_couple_hot_m from '../dumy-data/eng/dares_hot_m.json';
+import eng_couple_hot_f from '../dumy-data/eng/dares_hot_f.json';
+import eng_couple_soft_m from '../dumy-data/eng/dares_soft_m.json';
+import eng_couple_soft_f from '../dumy-data/eng/dares_soft_f.json';
+
+import rus_couple_hot_m from '../dumy-data/rus/dares_hot_m.json';
+import rus_couple_hot_f from '../dumy-data/rus/dares_hot_f.json';
+import rus_couple_soft_m from '../dumy-data/rus/dares_soft_m.json';
+import rus_couple_soft_f from '../dumy-data/rus/dares_soft_f.json';
+
+import spa_couple_hot_m from '../dumy-data/spa/dares_hot_m.json';
+import spa_couple_hot_f from '../dumy-data/spa/dares_hot_f.json';
+import spa_couple_soft_m from '../dumy-data/spa/dares_soft_m.json';
+import spa_couple_soft_f from '../dumy-data/spa/dares_soft_f.json';
+
+const couples = {
+	eng: {
+		soft: [eng_couple_soft_f, eng_couple_soft_m],
+		hot: [eng_couple_hot_f, eng_couple_hot_m]
+	},
+	rus: {
+		soft: [rus_couple_soft_f, rus_couple_soft_m],
+		hot: [rus_couple_hot_f, rus_couple_hot_m]
+	},
+	spa: {
+		soft: [spa_couple_soft_f, spa_couple_soft_m],
+		hot: [spa_couple_hot_f, spa_couple_hot_m]
+	},
+};
+
+export const getCoupleSentence = (lang, type, gender) => {
+	const actions = couples[lang][type][gender];
+	return actions[Math.floor(Math.random() * actions.length)];
+};

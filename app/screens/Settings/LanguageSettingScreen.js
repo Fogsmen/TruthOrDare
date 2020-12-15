@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
-import HeaderLabel from '../components/HeaderLabel';
-import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
-import colors from '../constants/colors';
-import * as SettingsAction from '../redux/actions/settings';
-import { useEffect } from 'react/cjs/react.development';
+import HeaderLabel from '../../components/HeaderLabel';
+import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
+import colors from '../../constants/colors';
+import * as SettingsAction from '../../redux/actions/settings';
 
 const LanguageSettingScreen = props => {
 	const { lang, getLang } = useSelector(state => state.settings);
@@ -19,7 +18,7 @@ const LanguageSettingScreen = props => {
 	}, [lang]);
 
 	return (
-		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
+		<ImageBackground style={styles.image} source={require('../../images/home-background.png')}>
 			<View style={styles.screen}>
 				<TouchableOpacity style={styles.item} onPress={() => setLang('eng')}>
 					<Text style={styles.itemText}>English</Text>

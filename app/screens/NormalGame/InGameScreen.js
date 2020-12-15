@@ -4,11 +4,11 @@ import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Animated } from
 import { useSelector } from 'react-redux';
 import Swiper from 'react-native-deck-swiper';
 
-import * as GameService from '../services/GameService';
-import colors from '../constants/colors';
-import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
-import HeaderLabel from '../components/HeaderLabel';
-import HeaderGoBackButton from '../components/HeaderGoBackButton';
+import * as GameService from '../../services/GameService';
+import colors from '../../constants/colors';
+import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
+import HeaderLabel from '../../components/HeaderLabel';
+import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 
 const cardColors = ['#EC2379', '#F5C518', '#F7B402', '#9001F0', '#FAA699', '#0070FF'];
 const localColors = {

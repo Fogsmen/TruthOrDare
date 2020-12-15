@@ -1,8 +1,9 @@
-import { ADD_PLAYER, SET_PLAYERS, DELETE_PLAYER, SELECT_GAME_TYPE } from "../actions/game";
+import { ADD_PLAYER, SET_PLAYERS, DELETE_PLAYER, SELECT_GAME_TYPE, SET_COUPLE_NAMES } from "../actions/game";
 
 const initialState = {
 	players: [],
-	selectedGameType: 'mf'
+	selectedGameType: 'mf',
+	couple: []
 };
 
 export default gameReducer = (state = initialState, action) => {
@@ -29,6 +30,12 @@ export default gameReducer = (state = initialState, action) => {
 			return {
 				...state,
 				selectedGameType: action.gameType
+			};
+
+		case SET_COUPLE_NAMES:
+			return {
+				...state,
+				couple: action.couple
 			};
 
 		default:

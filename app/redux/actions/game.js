@@ -4,6 +4,7 @@ export const ADD_PLAYER = 'ADD_PLAYER';
 export const SET_PLAYERS = 'SET_PLAYERS';
 export const DELETE_PLAYER = 'DELETE_PLAYER';
 export const SELECT_GAME_TYPE = 'SELECT_GAME_TYPE';
+export const SET_COUPLE_NAMES = 'SET_COUPLE_NAMES';
 
 export const addPlayer = playerName => {
 	const newPlayer = new Player(Date.now(), playerName);
@@ -34,4 +35,11 @@ export const selectGameType = gameType => {
 		type: SELECT_GAME_TYPE,
 		gameType: gameType
 	}
+};
+
+export const setCoupleNames = (male, female) => {
+	return {
+		type: SET_COUPLE_NAMES,
+		couple: [female, male]
+	};
 };
