@@ -2,6 +2,7 @@
   "expo": {
     "name": "TruthOrDare",
     "slug": "TruthOrDare",
+    "description": "Intimacies® The Tantra game for couples",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,14 +18,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.SammaKaruna.intimidades",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.mesut.apk"
+      "package": "com.SammaKaruna.intimidades",
+			"versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

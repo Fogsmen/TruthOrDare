@@ -1,10 +1,10 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { createAppContainer, NavigationActions, StackActions } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { MaterialIcons, FontAwesome, MaterialCommunityIcons, FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { Alert, Linking, LogBox, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Linking, LogBox, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import colors from '../constants/colors';
 import InGameScreen from '../screens/NormalGame/InGameScreen';
 import StartGameScreen from '../screens/NormalGame/StartGameScreen';
@@ -99,6 +99,14 @@ const MainNavigator = createDrawerNavigator({
 				Alert.alert('Error!', err.message, [{text: 'OK'}]);
 			}
 		};
+		const openLearnMore = () => {
+			const url = "https://www.sammakaruna.org/teacher-training/tantra-teacher-training-greece/";
+			try {
+				Linking.openURL(url);
+			} catch(err) {
+				Alert.alert('Error!', err.message, [{text: 'OK'}]);
+			}
+		};
 		const goToLanguageSettingsScreen = () => {
 			props.navigation.navigate('Settings');
 		};
@@ -124,7 +132,7 @@ const MainNavigator = createDrawerNavigator({
 		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
-			<View style={{ flex: 1, paddingTop: 15 }}>
+			<ScrollView style={{ paddingTop: 15 }}>
 				<SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
 					<View style={{marginVertical: 15, borderBottomWidth: 1.5, borderBottomColor: '#525150'}}>
 						<Text style={{color: '#3b3a39', marginHorizontal: 10, fontSize: 15}}>{getLang('game')}</Text>
@@ -164,7 +172,12 @@ const MainNavigator = createDrawerNavigator({
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('language')}</Text>
 						</TouchableOpacity>
 					</View>
-					<View style={{marginTop: 15}}>
+					<View style={{marginTop: 15, marginBottom: 25}}>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={openLearnMore}>
+							<AntDesign name="contacts" size={24} color="white" />
+							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold', fontSize: 12}}>{getLang('learn_more')}</Text>
+						</TouchableOpacity>
 						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
 							onPress={openContactUs}>
 							<AntDesign name="contacts" size={24} color="white" />
@@ -172,7 +185,7 @@ const MainNavigator = createDrawerNavigator({
 						</TouchableOpacity>
 					</View>
 				</SafeAreaView>
-			</View>
+			</ScrollView>
 		);
 	}
 });
