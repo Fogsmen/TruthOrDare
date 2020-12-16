@@ -39,7 +39,7 @@ const defaultDrawOptions = {
 		activeBackgroundColor: colors.defaultBackground
 	},
 	drawerBackgroundColor: colors.redPrimary,
-	drawerWidth: 235
+	drawerWidth: 255
 };
 
 const GameNavigator = createStackNavigator({

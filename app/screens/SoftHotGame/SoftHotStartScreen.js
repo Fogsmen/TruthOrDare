@@ -18,7 +18,7 @@ const NameBoxRow = props => {
 					<MaterialCommunityIcons name={`gender-${gender}`} size={24} color="white" />
 				</View>
 				<TextInput placeholder={gender==='male' ? lang('mans_name') : lang('womans_name')}
-					style={{color: 'white'}}
+					style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 					value={props.value}
 					onChangeText={props.onChange}
 				/>
