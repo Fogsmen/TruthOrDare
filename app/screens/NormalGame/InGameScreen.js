@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import Swiper from 'react-native-deck-swiper';
 
 import * as GameService from '../../services/GameService';
+import * as GameHelper from '../../helpers/GameHelper';
+
 import colors from '../../constants/colors';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
@@ -36,11 +38,11 @@ const InGameScreen = props => {
 	const { questions, dares } = GameService.QuestionDares(selectedGameType, lang);
 
 	const goToTruth = () => {
-		const question = questions[Math.floor(Math.random() * questions.length)];
+		const question = questions[GameHelper.GenerateRandomInteger(0, questions.length)];
 		props.navigation.navigate('TruthOrDare', {type: 'truth', question: question});
 	};
 	const goToDare = () => {
-		const dare = dares[Math.floor(Math.random() * dares.length)];
+		const dare = dares[GameHelper.GenerateRandomInteger(0, dares.length)];
 		props.navigation.navigate('TruthOrDare', {type: 'dare', question: dare});
 	};
 	const goOpacity = useRef(new Animated.Value(1)).current;
@@ -63,7 +65,7 @@ const InGameScreen = props => {
 	const cardMove = () => {
 		swiperRef.current.swipeRight();
 	};
-	const rotateCount = Math.floor(Math.random() * 20) + 2;
+	const rotateCount =  GameHelper.GenerateRandomInteger(2, 20);
 	const timeout = 250;
 	const rotateByCount = current => {
 		if(current > rotateCount) {

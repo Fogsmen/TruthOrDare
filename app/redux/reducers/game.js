@@ -1,9 +1,11 @@
-import { ADD_PLAYER, SET_PLAYERS, DELETE_PLAYER, SELECT_GAME_TYPE, SET_COUPLE_NAMES } from "../actions/game";
+import { ADD_PLAYER, SET_PLAYERS, DELETE_PLAYER, SELECT_GAME_TYPE, SET_COUPLE_NAMES, SET_COUPLE_DARES, SET_COUPLE_QUESTIONS } from "../actions/game";
 
 const initialState = {
 	players: [],
 	selectedGameType: 'mf',
-	couple: []
+	couple: [],
+	coupleDares: [[], []],
+	coupleQuestions: [[], []]
 };
 
 export default gameReducer = (state = initialState, action) => {

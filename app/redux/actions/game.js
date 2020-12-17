@@ -5,6 +5,8 @@ export const SET_PLAYERS = 'SET_PLAYERS';
 export const DELETE_PLAYER = 'DELETE_PLAYER';
 export const SELECT_GAME_TYPE = 'SELECT_GAME_TYPE';
 export const SET_COUPLE_NAMES = 'SET_COUPLE_NAMES';
+export const SET_COUPLE_DARES = 'SET_COUPLE_DARES';
+export const SET_COUPLE_QUESTIONS = 'SET_COUPLE_QUESTIONS';
 
 export const addPlayer = playerName => {
 	const newPlayer = new Player(Date.now(), playerName);

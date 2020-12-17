@@ -1,11 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Swiper from 'react-native-deck-swiper';
 
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderGoBackButton from '../../components/HeaderGoBackButton';
+
+import * as GameHelper from '../../helpers/GameHelper';
+import * as GameService from '../../services/GameService';
+import * as GameAction from '../../redux/actions/game';
 
 const cardColors = ['#EC2379', '#9001F0' ,'#F5C518', '#F7B402', '#FAA699', '#0070FF'];
 const localColors = {
@@ -27,18 +32,55 @@ const PlayerCard = props => {
 };
 
 const SoftHotInGameScreen = props => {
-	const couple = useSelector(state => state.game.couple);
+	const coupleNames = useSelector(state => state.game.couple);
 	const type = props.navigation.getParam('type');
-	const players = [{id: '1', name: couple[0]}, {id: '2', name: couple[1]}]
 	const { lang, getLang } = useSelector(state => state.settings);
+	const players = [{id: '1', name: getLang('truth')}, {id: '2', name: getLang('dare')}];
+
+	const [curCard, setCurCard] = useState(0);
+	const [currentPlayer, setCurrentPlayer] = useState(0);
+	const dares = [GameService.getCoupleDares(lang, type, 0), GameService.getCoupleDares(lang, type, 1)];
+	const questions = [GameService.getCoupleQuestions(lang, type, 0), GameService.getCoupleQuestions(lang, type, 0)];
+
+	const [daresIds, setDaresIds] = useState([[], []]);
+	const [questionsIds, setQuestionsIds] = useState([[], []]);
+
+	useEffect(() => {
+		setDaresIds([dares[0].map(x => x.id), dares[1].map(x => x.id)]);
+		setQuestionsIds([questions[0].map(x => x.id), questions[1].map(x => x.id)]);
+	}, [setDaresIds, setQuestionsIds]);
 
 	const swiperRef = useRef();
 	const cardMove = () => {
 		swiperRef.current.swipeRight();
 	};
-	const rotateCount = Math.floor(Math.random() * 10) + 2;
+	const rotateCount = GameHelper.GenerateRandomInteger(3, 10);
+
+	const makeAction = () => {
+		let sentence = '';
+
+		if((rotateCount + curCard) % 2 === 0) {
+			const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
+			let newIds = questionsIds;
+			newIds[currentPlayer] = questionsIds[currentPlayer].filter(x => x !== i);
+			setQuestionsIds(newIds, rotateCount);
+			sentence = questions[currentPlayer].filter(x => x.id === i)[0].value.replace(/userName/g, coupleNames[currentPlayer]);
+		} else {
+			const i = daresIds[currentPlayer][GameHelper.GenerateRandomInteger(0, daresIds[currentPlayer].length)];
+			let newIds = daresIds;
+			newIds[currentPlayer] = daresIds[currentPlayer].filter(x => x !== i);
+			setDaresIds(newIds);
+			sentence = dares[currentPlayer].filter(x => x.id === i)[0].value.replace(/userName/g, coupleNames[currentPlayer]);
+		}
+		setCurrentPlayer(1 - currentPlayer);
+		setCurCard((rotateCount + curCard) % 2);
+
+		return sentence;
+	};
+
 	const goToDare = () => {
-		props.navigation.navigate('SoftHotDare', {type: type, gender: (rotateCount%2)})
+		const action = makeAction();
+		props.navigation.navigate('SoftHotDare', {type: type, action: action});
 	};
 	const timeout = 250;
 	const rotateByCount = current => {
@@ -61,7 +103,7 @@ const SoftHotInGameScreen = props => {
 		<SafeAreaView style={styles.screen}>
 			<Swiper
 				ref={swiperRef} cards={players}
-				keyExtractor={card => card.id}
+				keyExtractor={card => card.id} cardIndex={0}
 				renderCard={(player, i) => <PlayerCard card={player} cardIndex={i} />}
 				infinite={true} swipeAnimationDuration={timeout-30}
 				backgroundColor={'transparent'}

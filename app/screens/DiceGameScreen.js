@@ -9,6 +9,7 @@ import HeaderToggleMenuButton from '../components/HeaderToggleMenuButton';
 import colors from '../constants/colors';
 
 import * as GameService from '../services/GameService';
+import * as GameHelper from '../helpers/GameHelper';
 
 const DiceComp = forwardRef((props, ref) => {
 	const dice = useRef();
@@ -51,10 +52,6 @@ const DiceComp = forwardRef((props, ref) => {
 	);
 });
 
-const generateRandomInteger = (min, max) => {
-	return Math.floor(Math.random() * (max - min)) + min;
-};
-
 const DiceGameScreen = props => {
 	const { lang, getLang } = useSelector(state => state.settings);
 	useEffect(() => {
@@ -62,16 +59,16 @@ const DiceGameScreen = props => {
 	}, [lang]);
 
 	const { place, action } = GameService.getDiceWords(0, lang);
-	const [firstLoop, setFirstloop] = useState(generateRandomInteger(10, 30));
-	const [secondLoop, setSecondLoop] = useState(generateRandomInteger(10, 30));
+	const [firstLoop, setFirstloop] = useState(GameHelper.GenerateRandomInteger(10, 30));
+	const [secondLoop, setSecondLoop] = useState(GameHelper.GenerateRandomInteger(10, 30));
 	const firstDice = useRef();
 	const secondDice = useRef();
 
 	const runDice = () => {
 		firstDice.current.loop();
 		secondDice.current.loop();
-		setFirstloop(generateRandomInteger(10, 30));
-		setSecondLoop(generateRandomInteger(10, 30));
+		setFirstloop(GameHelper.GenerateRandomInteger(10, 30));
+		setSecondLoop(GameHelper.GenerateRandomInteger(10, 30));
 	};
 
 	return (

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -7,29 +8,61 @@ import colors from '../../constants/colors';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderGoBackButton from '../../components/HeaderGoBackButton';
-import * as GameService from '../../services/GameService';
+import * as GameHelper from '../../helpers/GameHelper';
+import { useRef } from 'react';
 
 const SoftHotDareScreen = props => {
 	const type = props.navigation.getParam('type');
+	const action = props.navigation.getParam('action');
 	const { lang, getLang } = useSelector(state => state.settings);
-	const gender = props.navigation.getParam('gender');
-	const name = useSelector(state => state.game.couple)[gender];
-	const action = GameService.getCoupleSentence(lang, type, gender).value.replace('userName', name);
 
 	useEffect(() => {
 		props.navigation.setParams({title: getLang(type)});
 	}, [lang, getLang, type]);
 
 	const goToNextDare = () => {
-		props.navigation.popToTop();
-		props.navigation.navigate('SoftHotInGame', {type: type})
+		props.navigation.goBack();
+	};
+
+	const initialSec = 60;
+	const [second, setSecond] = useState(initialSec);
+	const [isPlay, setIsPlay] = useState(false);
+	const currentPlay = useRef(false);
+
+	const countdownSec = useCallback((current) => {
+		if(!currentPlay.current) return;
+		if(current <= 0) {
+			setSecond(initialSec);
+			currentPlay.current = false;
+			setIsPlay(false);
+			return;
+		}
+		setSecond(current);
+		setTimeout(() => {
+			countdownSec(current - 1);
+		}, 1000);
+	}, [isPlay, second]);
+	const startCountdown = () => {
+		if(currentPlay.current) {
+			currentPlay.current = false;
+			setIsPlay(false);
+		} else {
+			currentPlay.current = true;
+			setIsPlay(true);
+			countdownSec(second);
+		}
 	};
 
 	return (
 		<View style={styles.screen}>
 			<View style={{...styles.section, flexDirection: 'row'}}>
-				<MaterialCommunityIcons name="play-circle-outline" size={30} color="white" />
-				<Text style={styles.timerText}>00:15</Text>
+				<TouchableOpacity onPress={startCountdown}>
+				{ isPlay ?
+					<MaterialCommunityIcons name="stop-circle-outline" size={30} color="white" /> :
+					<MaterialCommunityIcons name="play-circle-outline" size={30} color="white" />
+				}
+				</TouchableOpacity>
+				<Text style={styles.timerText}>{GameHelper.SecToMinFormat(second)}</Text>
 			</View>
 			<View style={{...styles.section, paddingHorizontal: 20}}>
 				<Text style={styles.bodyText}>{action}</Text>

@@ -31,8 +31,8 @@ const NameBox = props => {
 	const { male, maleChange, female, femaleChange } = props;
 	return (
 		<View style={{padding: 1}}>
-			<NameBoxRow gender="female" value={male} onChange={maleChange} />
-			<NameBoxRow gender="male" value={female} onChange={femaleChange} />
+			<NameBoxRow gender="female" value={female} onChange={femaleChange} />
+			<NameBoxRow gender="male" value={male} onChange={maleChange} />
 		</View>
 	);
 };

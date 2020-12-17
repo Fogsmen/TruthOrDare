@@ -124,37 +124,70 @@ export const getDiceWords = (level, lang = 'eng') => {
 	return result.length > 0 ? result[0] : [];
 };
 
-import eng_couple_hot_m from '../dumy-data/eng/dares_hot_m.json';
-import eng_couple_hot_f from '../dumy-data/eng/dares_hot_f.json';
-import eng_couple_soft_m from '../dumy-data/eng/dares_soft_m.json';
-import eng_couple_soft_f from '../dumy-data/eng/dares_soft_f.json';
+import eng_dares_hot_m from '../dumy-data/eng/dares_hot_m.json';
+import eng_dares_hot_f from '../dumy-data/eng/dares_hot_f.json';
+import eng_dares_soft_m from '../dumy-data/eng/dares_soft_m.json';
+import eng_dares_soft_f from '../dumy-data/eng/dares_soft_f.json';
 
-import rus_couple_hot_m from '../dumy-data/rus/dares_hot_m.json';
-import rus_couple_hot_f from '../dumy-data/rus/dares_hot_f.json';
-import rus_couple_soft_m from '../dumy-data/rus/dares_soft_m.json';
-import rus_couple_soft_f from '../dumy-data/rus/dares_soft_f.json';
+import rus_dares_hot_m from '../dumy-data/rus/dares_hot_m.json';
+import rus_dares_hot_f from '../dumy-data/rus/dares_hot_f.json';
+import rus_dares_soft_m from '../dumy-data/rus/dares_soft_m.json';
+import rus_dares_soft_f from '../dumy-data/rus/dares_soft_f.json';
 
-import spa_couple_hot_m from '../dumy-data/spa/dares_hot_m.json';
-import spa_couple_hot_f from '../dumy-data/spa/dares_hot_f.json';
-import spa_couple_soft_m from '../dumy-data/spa/dares_soft_m.json';
-import spa_couple_soft_f from '../dumy-data/spa/dares_soft_f.json';
+import spa_dares_hot_m from '../dumy-data/spa/dares_hot_m.json';
+import spa_dares_hot_f from '../dumy-data/spa/dares_hot_f.json';
+import spa_dares_soft_m from '../dumy-data/spa/dares_soft_m.json';
+import spa_dares_soft_f from '../dumy-data/spa/dares_soft_f.json';
 
-const couples = {
+const couple_dares = {
 	eng: {
-		soft: [eng_couple_soft_f, eng_couple_soft_m],
-		hot: [eng_couple_hot_f, eng_couple_hot_m]
+		soft: [eng_dares_soft_f, eng_dares_soft_m],
+		hot: [eng_dares_hot_f, eng_dares_hot_m]
 	},
 	rus: {
-		soft: [rus_couple_soft_f, rus_couple_soft_m],
-		hot: [rus_couple_hot_f, rus_couple_hot_m]
+		soft: [rus_dares_soft_f, rus_dares_soft_m],
+		hot: [rus_dares_hot_f, rus_dares_hot_m]
 	},
 	spa: {
-		soft: [spa_couple_soft_f, spa_couple_soft_m],
-		hot: [spa_couple_hot_f, spa_couple_hot_m]
+		soft: [spa_dares_soft_f, spa_dares_soft_m],
+		hot: [spa_dares_hot_f, spa_dares_hot_m]
 	},
 };
 
-export const getCoupleSentence = (lang, type, gender) => {
-	const actions = couples[lang][type][gender];
-	return actions[Math.floor(Math.random() * actions.length)];
+export const getCoupleDares = (lang, type, gender) => {
+	return couple_dares[lang][type][gender];
+};
+
+import eng_questions_hot_m from '../dumy-data/eng/questions_hot_m.json';
+import eng_questions_hot_f from '../dumy-data/eng/questions_hot_f.json';
+import eng_questions_soft_m from '../dumy-data/eng/questions_soft_m.json';
+import eng_questions_soft_f from '../dumy-data/eng/questions_soft_f.json';
+
+import rus_questions_hot_m from '../dumy-data/rus/questions_hot_m.json';
+import rus_questions_hot_f from '../dumy-data/rus/questions_hot_f.json';
+import rus_questions_soft_m from '../dumy-data/rus/questions_soft_m.json';
+import rus_questions_soft_f from '../dumy-data/rus/questions_soft_f.json';
+
+import spa_questions_hot_m from '../dumy-data/spa/questions_hot_m.json';
+import spa_questions_hot_f from '../dumy-data/spa/questions_hot_f.json';
+import spa_questions_soft_m from '../dumy-data/spa/questions_soft_m.json';
+import spa_questions_soft_f from '../dumy-data/spa/questions_soft_f.json';
+
+const couple_questions = {
+	eng: {
+		soft: [eng_questions_soft_f, eng_questions_soft_m],
+		hot: [eng_questions_hot_f, eng_questions_hot_m]
+	},
+	rus: {
+		soft: [rus_questions_soft_f, rus_questions_soft_m],
+		hot: [rus_questions_hot_f, rus_questions_hot_m]
+	},
+	spa: {
+		soft: [spa_questions_soft_f, spa_questions_soft_m],
+		hot: [spa_questions_hot_f, spa_questions_hot_m]
+	},
+};
+
+export const getCoupleQuestions = (lang, type, gender) => {
+	return couple_questions[lang][type][gender];
 };
