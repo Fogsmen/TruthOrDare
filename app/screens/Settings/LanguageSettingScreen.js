@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderLabel from '../../components/HeaderLabel';
@@ -18,7 +18,7 @@ const LanguageSettingScreen = props => {
 	}, [lang]);
 
 	return (
-		<ImageBackground style={styles.image} source={require('../../images/home-background.png')}>
+		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
 			<View style={styles.screen}>
 				<TouchableOpacity style={styles.item} onPress={() => setLang('eng')}>
 					<Text style={styles.itemText}>English</Text>
@@ -44,7 +44,7 @@ LanguageSettingScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 	};
 };
 
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
 	image: {
 		width: '100%',
 		height: '100%',
-		resizeMode: "cover",
-		justifyContent: 'center'
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	item: {
 		margin: 20,

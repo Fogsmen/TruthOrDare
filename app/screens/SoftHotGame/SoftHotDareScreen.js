@@ -12,13 +12,8 @@ import * as GameHelper from '../../helpers/GameHelper';
 import { useRef } from 'react';
 
 const SoftHotDareScreen = props => {
-	const type = props.navigation.getParam('type');
 	const action = props.navigation.getParam('action');
 	const { lang, getLang } = useSelector(state => state.settings);
-
-	useEffect(() => {
-		props.navigation.setParams({title: getLang(type)});
-	}, [lang, getLang, type]);
 
 	const goToNextDare = () => {
 		props.navigation.goBack();
@@ -86,7 +81,7 @@ SoftHotDareScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
 	};
 };

@@ -133,7 +133,7 @@ SoftHotInGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label="Game" />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
 	};
 };

@@ -19,8 +19,9 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: 'white',
-		fontSize: 18,
-		fontFamily: (Platform.OS==='android' ? 'Roboto' : null)
+		fontSize: 13.2,
+		fontFamily: (Platform.OS==='android' ? 'Roboto' : null),
+		fontWeight: 'bold'
 	}
 });
 

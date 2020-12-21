@@ -77,7 +77,7 @@ TruthOrDareScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('myName')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 		headerRight: () => <HeaderGoBackButton onClick={goToHome} />
 	};
 };

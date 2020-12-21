@@ -54,9 +54,6 @@ const DiceComp = forwardRef((props, ref) => {
 
 const DiceGameScreen = props => {
 	const { lang, getLang } = useSelector(state => state.settings);
-	useEffect(() => {
-		props.navigation.setParams({title: getLang('dice')});
-	}, [lang]);
 
 	const { place, action } = GameService.getDiceWords(0, lang);
 	const [firstLoop, setFirstloop] = useState(GameHelper.GenerateRandomInteger(10, 30));
@@ -72,7 +69,7 @@ const DiceGameScreen = props => {
 	};
 
 	return (
-		<ImageBackground style={styles.image} source={require('../images/home-background.png')}>
+		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../images/home-background.png')}>
 			<View style={styles.screen}>
 				<View style={{margin: 20}}>
 					<DiceComp words={place} speed="fast" loopCount={firstLoop} ref={firstDice} />
@@ -96,7 +93,7 @@ DiceGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 	};
 };
 

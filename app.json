@@ -8,7 +8,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.SammaKaruna.intimidades",
+      "bundleIdentifier": "com.intimidades.intimidades",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.SammaKaruna.intimidades",
+      "package": "com.intimidades.intimidades",
 			"versionCode": 1
     },
     "web": {

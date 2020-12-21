@@ -42,9 +42,6 @@ const SoftHotStartScreen = props => {
 	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
 	const type = props.navigation.getParam('type');
-	useEffect(() => {
-		props.navigation.setParams({title: lang(type)});
-	}, [lang]);
 
 	const goToGame = () => {
 		if(maleName.trim().length===0 || femaleName.trim().length===0) {
@@ -73,7 +70,7 @@ const SoftHotStartScreen = props => {
 	}
 
 	return (
-		<ImageBackground style={styles.image} source={require('../../images/home-background.png')}>
+		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
 			<KeyboardAvoidingView style={styles.screen}>
 				<NameBox male={maleName} maleChange={maleNameInputHandle}
 					female={femaleName} femaleChange={femaleNameInputHandle}
@@ -94,7 +91,7 @@ SoftHotStartScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 	};
 };
 

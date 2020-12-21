@@ -109,9 +109,6 @@ const StartGameScreen = props => {
 	const selectedGameType = useSelector(state => state.game.selectedGameType);
 	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
-	useEffect(() => {
-		props.navigation.setParams({title: lang('your_name')});
-	}, [lang]);
 
 	const goToGame = () => {
 		if(selectedGameType==='multi' && players.length === 0) {
@@ -140,7 +137,7 @@ const StartGameScreen = props => {
 	};
 
 	return (
-		<ImageBackground style={styles.image} source={require('../../images/home-background.png')}>
+		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
 			<KeyboardAvoidingView style={styles.screen}>
 				<View style={styles.typeTab}>
 					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
@@ -181,14 +178,13 @@ StartGameScreen.navigationOptions = navData => {
 
 	return {
 		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label={navData.navigation.getParam('title')} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
 	};
 };
 
 const styles = StyleSheet.create({
 	image: {
 		width: '100%',
-		resizeMode: "cover",
 		justifyContent: 'center'
 	},
 	screen: {
