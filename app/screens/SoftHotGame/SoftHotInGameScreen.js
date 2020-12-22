@@ -59,7 +59,7 @@ const SoftHotInGameScreen = props => {
 	const makeAction = () => {
 		let sentence = '';
 
-		if((rotateCount + curCard) % 2 === 0) {
+		if((rotateCount + curCard) % 3 === 0) {
 			const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
 			let newIds = questionsIds;
 			newIds[currentPlayer] = questionsIds[currentPlayer].filter(x => x !== i);
@@ -73,7 +73,7 @@ const SoftHotInGameScreen = props => {
 			sentence = dares[currentPlayer].filter(x => x.id === i)[0].value.replace(/userName/g, coupleNames[currentPlayer]);
 		}
 		setCurrentPlayer(1 - currentPlayer);
-		setCurCard((rotateCount + curCard) % 2);
+		setCurCard((rotateCount + curCard) % 3);
 
 		return sentence;
 	};

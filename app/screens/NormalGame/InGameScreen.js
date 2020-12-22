@@ -61,13 +61,15 @@ const InGameScreen = props => {
 			useNativeDriver: true
 		}).start();
 	};
-	const swiperRef = useRef();
+	const swiperRef = useRef(false);
 	const cardMove = () => {
 		swiperRef.current.swipeRight();
 	};
+	const flag = useRef(false);
 	const rotateCount =  GameHelper.GenerateRandomInteger(2, 20);
 	const timeout = 250;
 	const rotateByCount = current => {
+		if(flag.current) return;
 		if(current > rotateCount) {
 			goButtonHide();
 			truthDareShow();
@@ -81,6 +83,12 @@ const InGameScreen = props => {
 	const rotate = () => {
 		rotateByCount(0);
 	};
+	useEffect(() => {
+		flag.current = false;
+		return () => {
+			flag.current = true;
+		};
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.screen}>

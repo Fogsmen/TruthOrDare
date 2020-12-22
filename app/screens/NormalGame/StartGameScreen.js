@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, ImageBackground, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, ImageBackground, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import * as GameAction from '../../redux/actions/game';
@@ -45,12 +45,7 @@ const MultiPlayer = props => {
 
 	return (
 		<View style={styles.multiplayer}>
-			<FlatList
-				style={styles.playersContainer}
-				data={players}
-				keyExtractor={p => p.id.toString()}
-				renderItem={x => <PlayerRow id={x.item.id} name={x.item.name} onClick={deletePlayer} />}
-			/>
+			{players.map((player, index) => <PlayerRow key={index} id={player.id} name={player.name} onClick={deletePlayer} />)}
 			<View style={styles.addPlayer}>
 				<TextInput placeholder={lang('add_player')}
 					placeholderTextColor='#cccccc'
@@ -111,8 +106,8 @@ const StartGameScreen = props => {
 	const dispatch = useDispatch();
 
 	const goToGame = () => {
-		if(selectedGameType==='multi' && players.length === 0) {
-			Alert.alert('Error!', 'You shoud add at least 1 player', [{text: 'OK'}]);
+		if(selectedGameType==='multi' && players.length < 2) {
+			Alert.alert('Error!', 'You shoud add at least 2 player', [{text: 'OK'}]);
 			return;
 		}
 		if(selectedGameType !== 'multi' && (firstPlayer.trim().length===0 || secondPlayer.trim().length===0)) {
@@ -127,8 +122,8 @@ const StartGameScreen = props => {
 	const selectGame = type => {
 		dispatch(GameAction.selectGameType(type));
 	};
-	const [firstPlayer, setFirstPlayer] = useState('');
-	const [secondPlayer, setSecondPlayer] = useState('');
+	const [firstPlayer, setFirstPlayer] = useState(players.length > 0 ? players[0].name : '');
+	const [secondPlayer, setSecondPlayer] = useState(players.length > 1 ? players[1].name : '');
 	const firstPlayerInputHandle = txt => {
 		setFirstPlayer(txt);
 	};
@@ -139,33 +134,35 @@ const StartGameScreen = props => {
 	return (
 		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
 			<KeyboardAvoidingView style={styles.screen}>
-				<View style={styles.typeTab}>
-					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
-						<FontAwesome5 name="transgender" size={30} color="white" />
-						<Text style={styles.typeItemText}>{lang('straight')}</Text>
+				<ScrollView>
+					<View style={styles.typeTab}>
+						<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
+							<FontAwesome5 name="transgender" size={30} color="white" />
+							<Text style={styles.typeItemText}>{lang('straight')}</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mm')}>
+							<MaterialCommunityIcons name="gender-male" size={30} color="white" />
+							<Text style={styles.typeItemText}>{lang('gray')}</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('ff')}>
+							<MaterialCommunityIcons name="gender-female" size={30} color="white" />
+							<Text style={styles.typeItemText}>{lang('lesbian')}</Text>
+						</TouchableOpacity>
+					</View>
+					{selectedGameType==='multi' ? 
+						<MultiPlayer /> :
+						<NameBox firstPlayer={firstPlayer} firstChange={firstPlayerInputHandle}
+							secondPlayer={secondPlayer} secondChange={secondPlayerInputHandle}
+						/>
+					}
+					<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
+						<FontAwesome5 name="play" size={24} color="white" />
+						<Text style={styles.playText}>{lang('start_game')}</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mm')}>
-						<MaterialCommunityIcons name="gender-male" size={30} color="white" />
-						<Text style={styles.typeItemText}>{lang('gray')}</Text>
+					<TouchableOpacity style={styles.multiButton} onPress={() => selectGame('multi')}>
+						<Text style={{color: 'white', textDecorationLine: 'underline'}}>{lang('multi_players')}?</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('ff')}>
-						<MaterialCommunityIcons name="gender-female" size={30} color="white" />
-						<Text style={styles.typeItemText}>{lang('lesbian')}</Text>
-					</TouchableOpacity>
-				</View>
-				{selectedGameType==='multi' ? 
-					<MultiPlayer /> :
-					<NameBox firstPlayer={firstPlayer} firstChange={firstPlayerInputHandle}
-						secondPlayer={secondPlayer} secondChange={secondPlayerInputHandle}
-					/>
-				}
-				<TouchableOpacity onPress={goToGame} style={styles.playerButton}>
-					<FontAwesome5 name="play" size={24} color="white" />
-					<Text style={styles.playText}>{lang('start_game')}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.multiButton} onPress={() => selectGame('multi')}>
-					<Text style={{color: 'white', textDecorationLine: 'underline'}}>{lang('multi_players')}?</Text>
-				</TouchableOpacity>
+				</ScrollView>
 			</KeyboardAvoidingView>
 		</ImageBackground>
 	);
@@ -200,7 +197,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 5,
 		paddingBottom: 8,
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	playerRowText: {
 		fontSize: 20,
@@ -217,6 +214,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderBottomWidth: 2,
 		borderColor: 'white',
+		marginTop: 60,
+		marginBottom: 10,
 	},
 	palyerName: {
 		color: 'white',

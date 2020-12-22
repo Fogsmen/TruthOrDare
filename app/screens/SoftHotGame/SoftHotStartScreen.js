@@ -52,8 +52,8 @@ const SoftHotStartScreen = props => {
 		props.navigation.navigate('SoftHotInGame', {type: type});
 	};
 
-	const [maleName, setMaleName] = useState(couple.male ?? '');
-	const [femaleName, setFemaleName] = useState(couple.female ?? '');
+	const [maleName, setMaleName] = useState(couple.length > 0 ? couple[0] : '');
+	const [femaleName, setFemaleName] = useState(couple.length > 1 ? couple[1] : '');
 	const maleNameInputHandle = txt => {
 		setMaleName(txt);
 	};
