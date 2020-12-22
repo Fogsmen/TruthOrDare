@@ -100,7 +100,7 @@ const NameBox = props => {
 };
 
 const StartGameScreen = props => {
-	const players = useSelector(state => state.game.players);
+	const players = useSelector(state => state.game.players) ?? [];
 	const selectedGameType = useSelector(state => state.game.selectedGameType);
 	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();

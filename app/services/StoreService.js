@@ -23,3 +23,7 @@ export const saveLang = async(lang) => {
 export const getLang = async() => {
 	return await(AsyncStorage.getItem('lang'));
 };
+
+export const clearStorage = async() => {
+	AsyncStorage.clear();
+};

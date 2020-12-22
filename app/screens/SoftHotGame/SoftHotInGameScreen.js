@@ -36,6 +36,7 @@ const SoftHotInGameScreen = props => {
 	const type = props.navigation.getParam('type');
 	const { lang, getLang } = useSelector(state => state.settings);
 	const players = [{id: '1', name: getLang('truth')}, {id: '2', name: getLang('dare')}];
+	const flag = useRef(false);
 
 	const [curCard, setCurCard] = useState(0);
 	const [currentPlayer, setCurrentPlayer] = useState(0);
@@ -46,8 +47,13 @@ const SoftHotInGameScreen = props => {
 	const [questionsIds, setQuestionsIds] = useState([[], []]);
 
 	useEffect(() => {
+		flag.current = false;
 		setDaresIds([dares[0].map(x => x.id), dares[1].map(x => x.id)]);
 		setQuestionsIds([questions[0].map(x => x.id), questions[1].map(x => x.id)]);
+
+		return () => {
+			flag.current = true;
+		};
 	}, [setDaresIds, setQuestionsIds]);
 
 	const swiperRef = useRef();
@@ -84,6 +90,7 @@ const SoftHotInGameScreen = props => {
 	};
 	const timeout = 250;
 	const rotateByCount = current => {
+		if(flag.current) return;
 		if(current >= rotateCount) {
 			setTimeout(() => {
 				goToDare();

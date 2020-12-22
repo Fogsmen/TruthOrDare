@@ -25,13 +25,17 @@ const NavigationContainer = props => {
 			setLoadCouple(true);
 		});
 		StoreService.getNames().then(res => {
-			dispatch(GameAction.loadPlayers(JSON.parse(res)));
+			if(res) {
+				dispatch(GameAction.loadPlayers(JSON.parse(res)));
+			}
 			setLoadNames(true);
 		}).catch(() => {
 			setLoadNames(true);
 		});
 		StoreService.getLang().then(res => {
-			dispatch(SettingAction.loadLanguage(res));
+			if(res) {
+				dispatch(SettingAction.loadLanguage(res));
+			}
 			setLoadLang(true);
 		}).catch(() => {
 			setLoadLang(true);
@@ -43,7 +47,7 @@ const NavigationContainer = props => {
 			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
 				<ActivityIndicator size="large" />
 			</View>
-		)
+		);
 	}
 
 	return (
