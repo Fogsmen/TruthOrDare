@@ -15,6 +15,7 @@ import DiceGameScreen from '../screens/DiceGameScreen';
 import SoftHotStartScreen from '../screens/SoftHotGame/SoftHotStartScreen';
 import SoftHotInGameScreen from '../screens/SoftHotGame/SoftHotInGameScreen';
 import SoftHotDareScreen from '../screens/SoftHotGame/SoftHotDareScreen';
+import RateReviewScreen from '../screens/RateReviewScreen';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -82,12 +83,19 @@ const DiceGameNavigator = createStackNavigator({
 	defaultNavigationOptions: defaultNavOptions
 });
 
+const RateReviewNavigator = createStackNavigator({
+	RateReview: RateReviewScreen
+}, {
+	defaultNavigationOptions: defaultNavOptions
+});
+
 const MainNavigator = createDrawerNavigator({
 	Game: GameNavigator,
 	Settings: SettingsNavigator,
 	DiceGame: DiceGameNavigator,
 	SoftCouple: SoftHotGameNavigator,
-	HotCouple: SoftHotGameNavigator
+	HotCouple: SoftHotGameNavigator,
+	RateReview: RateReviewNavigator
 }, {
 	...defaultDrawOptions,
 	contentComponent: props => {
@@ -129,6 +137,9 @@ const MainNavigator = createDrawerNavigator({
 				routeName: 'SoftHotStart',
 				params: {type: 'hot'},
 			});
+		};
+		const goToRateReview = () => {
+			props.navigation.navigate('RateReview');
 		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
@@ -182,6 +193,11 @@ const MainNavigator = createDrawerNavigator({
 							onPress={openContactUs}>
 							<AntDesign name="contacts" size={24} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold', fontSize: 12}}>{getLang('contact_us')}</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={goToRateReview}>
+							<MaterialIcons name="rate-review" size={24} color="white" />
+							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold', fontSize: 12}}>{getLang('rate_the_app')}</Text>
 						</TouchableOpacity>
 					</View>
 				</SafeAreaView>
