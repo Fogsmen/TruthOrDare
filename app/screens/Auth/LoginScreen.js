@@ -87,18 +87,6 @@ const LoginScreen = props => {
 	);
 };
 
-LoginScreen.navigationOptions = navData => {
-	const toggleDrawer = () => {
-		navData.navigation.toggleDrawer();
-	};
-
-	return {
-		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
-		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
-		headerRight: () => null,
-	};
-};
-
 const styles = StyleSheet.create({
 	screen: {
 		padding: 20,

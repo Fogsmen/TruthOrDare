@@ -18,6 +18,7 @@ import SoftHotDareScreen from '../screens/SoftHotGame/SoftHotDareScreen';
 import RateReviewScreen from '../screens/RateReviewScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
+import MyDaresScreen from '../screens/Settings/MyDaresScreen';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -91,13 +92,20 @@ const RateReviewNavigator = createStackNavigator({
 	defaultNavigationOptions: defaultNavOptions
 });
 
+const MyDaresNavigator = createStackNavigator({
+	MyDares: MyDaresScreen
+}, {
+	defaultNavigationOptions: defaultNavOptions
+});
+
 const MainNavigator = createDrawerNavigator({
 	Game: GameNavigator,
 	Settings: SettingsNavigator,
 	DiceGame: DiceGameNavigator,
 	SoftCouple: SoftHotGameNavigator,
 	HotCouple: SoftHotGameNavigator,
-	RateReview: RateReviewNavigator
+	RateReview: RateReviewNavigator,
+	MyDares: MyDaresNavigator
 }, {
 	...defaultDrawOptions,
 	contentComponent: props => {
@@ -143,6 +151,9 @@ const MainNavigator = createDrawerNavigator({
 		const goToRateReview = () => {
 			props.navigation.navigate('RateReview');
 		};
+		const goToMyDare = () => {
+			props.navigation.navigate('MyDares');
+		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
 			<ScrollView style={{ paddingTop: 15 }}>
@@ -167,7 +178,8 @@ const MainNavigator = createDrawerNavigator({
 							<MaterialCommunityIcons name="heart-flash" size={26} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('left_hand_tantra')} ({getLang('hot')})</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}>
+						<TouchableOpacity style={{flexDirection: 'row', padding: 10, margin: 5, alignItems: 'center'}}
+							onPress={goToMyDare}>
 							<FontAwesome5 name="hand-holding-heart" size={26} color="white" />
 							<Text style={{color: 'white', marginLeft: 8, fontWeight: 'bold'}}>{getLang('my_dares')}</Text>
 						</TouchableOpacity>
@@ -212,7 +224,10 @@ const AuthNavigator = createStackNavigator({
 	Login: LoginScreen,
 	Register: RegisterScreen
 }, {
-	defaultNavigationOptions: defaultNavOptions
+	defaultNavigationOptions: {
+		...defaultNavOptions,
+		headerShown: false
+	}
 });
 
 export const AuthContainer = createAppContainer(AuthNavigator);

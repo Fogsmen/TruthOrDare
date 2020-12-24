@@ -19,7 +19,6 @@ export const login = (email, password) => {
 			throw new Error('Connection error!');
 		}
 		const result = await response.json();
-		console.log('result', result);
 		if(!result.status) {
 			throw new Error(result.message);
 		}
@@ -44,7 +43,6 @@ export const register = (email, name, password) => {
 			throw new Error(result.message);
 		}
 		await StoreService.saveEmailPassword(email, password);
-		console.log('regi', result);
 		dispatch({
 			type: SET_USER,
 			email: result.result.email,

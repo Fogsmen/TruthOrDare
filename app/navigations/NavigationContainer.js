@@ -16,8 +16,6 @@ const NavigationContainer = props => {
 	const [loadCred, setLoadCred] = useState(false);
 	const loggedIn = useSelector(state => state.auth.name) != null;
 
-	console.log('satus', useSelector(state => state.auth), loggedIn);
-
 	useEffect(() => {
 		StoreService.getCouple().then(res => {
 			if(res) {

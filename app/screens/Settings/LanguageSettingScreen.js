@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderLabel from '../../components/HeaderLabel';
