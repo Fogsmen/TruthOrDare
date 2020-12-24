@@ -27,3 +27,11 @@ export const getLang = async() => {
 export const clearStorage = async() => {
 	AsyncStorage.clear();
 };
+
+export const saveEmailPassword = async(email, password) => {
+	await AsyncStorage.setItem('emailPassword', JSON.stringify([email, password]));
+};
+
+export const getEmailPassword = async() => {
+	return await(AsyncStorage.getItem('emailPassword'));
+};

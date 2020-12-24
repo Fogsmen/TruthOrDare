@@ -16,6 +16,8 @@ import SoftHotStartScreen from '../screens/SoftHotGame/SoftHotStartScreen';
 import SoftHotInGameScreen from '../screens/SoftHotGame/SoftHotInGameScreen';
 import SoftHotDareScreen from '../screens/SoftHotGame/SoftHotDareScreen';
 import RateReviewScreen from '../screens/RateReviewScreen';
+import LoginScreen from '../screens/Auth/LoginScreen';
+import RegisterScreen from '../screens/Auth/RegisterScreen';
 
 LogBox.ignoreLogs(['Your project is accessing the following APIs']);
 
@@ -205,5 +207,14 @@ const MainNavigator = createDrawerNavigator({
 		);
 	}
 });
+
+const AuthNavigator = createStackNavigator({
+	Login: LoginScreen,
+	Register: RegisterScreen
+}, {
+	defaultNavigationOptions: defaultNavOptions
+});
+
+export const AuthContainer = createAppContainer(AuthNavigator);
 
 export default createAppContainer(MainNavigator);

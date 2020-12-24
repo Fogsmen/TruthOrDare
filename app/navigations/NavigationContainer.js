@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import MainNavigator from './MainNavigator';
+import { ActivityIndicator, View } from 'react-native';
+import MainNavigator, { AuthContainer } from './MainNavigator';
 import * as StoreService from '../services/StoreService';
 import * as GameAction from '../redux/actions/game';
 import * as SettingAction from '../redux/actions/settings';
-import { useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import * as AuthAction from '../redux/actions/auth';
 
 const NavigationContainer = props => {
 	const dispatch = useDispatch();
 	const [loadCouple, setLoadCouple] = useState(false);
 	const [loadNames, setLoadNames] = useState(false);
 	const [loadLang, setLoadLang] = useState(false);
+	const [loadCred, setLoadCred] = useState(false);
+	const loggedIn = useSelector(state => state.auth.name) != null;
+
+	console.log('satus', useSelector(state => state.auth), loggedIn);
 
 	useEffect(() => {
 		StoreService.getCouple().then(res => {
@@ -40,9 +44,18 @@ const NavigationContainer = props => {
 		}).catch(() => {
 			setLoadLang(true);
 		});
+		StoreService.getEmailPassword().then(res => {
+			if(res) {
+				const ans = JSON.parse(res);
+				dispatch(AuthAction.loadEmailPassword(ans[0], ans[1]));
+			}
+			setLoadCred(true);
+		}).then(() => {
+			setLoadCred(true);
+		});
 	}, [dispatch]);
 
-	if(!loadCouple || !loadNames || !loadLang) {
+	if(!loadCouple || !loadNames || !loadLang || !loadCred) {
 		return (
 			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
 				<ActivityIndicator size="large" />
@@ -51,7 +64,7 @@ const NavigationContainer = props => {
 	}
 
 	return (
-		<MainNavigator />
+		loggedIn ? <MainNavigator /> : <AuthContainer />
 	);
 };
 
