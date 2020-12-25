@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, LogBox } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import Swiper from 'react-native-deck-swiper';
+import Roulette from 'react-native-roulette';
 
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
@@ -10,23 +10,27 @@ import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 
 import * as GameHelper from '../../helpers/GameHelper';
 import * as GameService from '../../services/GameService';
-import * as GameAction from '../../redux/actions/game';
 
-const cardColors = ['#EC2379', '#9001F0' ,'#F5C518', '#F7B402', '#FAA699', '#0070FF'];
-const localColors = {
-	background: '#fcf',
-	truth: '#AB01FA',
-	dare: '#F52FC5'
+const GoButton = props => {
+	return (
+		<TouchableOpacity onPress={props.onPress} style={styles.gobutton}>
+			<Text style={styles.gobuttontxt}>{props.title}</Text>
+		</TouchableOpacity>
+	);
 };
 
-const PlayerCard = props => {
-	const width = props.width ?? 150;
-	const height = props.height ?? 100;
-	const { card, cardIndex } = props;
-
+const ResultCircle = props => {
 	return (
-		<View style={{...styles.playerCard, width: width, height: height, backgroundColor: cardColors[(cardIndex ?? 0)%cardColors.length]}}>
-			<Text style={styles.cardText}>{card.name}</Text>
+		<View style={styles.resultcard}>
+			<Text style={styles.resultcardtxt}>{props.title}</Text>
+		</View>
+	);
+};
+
+const TodCard = props => {
+	return (
+		<View style={styles.todcard}>
+			<Text style={styles.todcardtxt}>{props.title}</Text>
 		</View>
 	);
 };
@@ -35,16 +39,22 @@ const SoftHotInGameScreen = props => {
 	const coupleNames = useSelector(state => state.game.couple);
 	const type = props.navigation.getParam('type');
 	const { lang, getLang } = useSelector(state => state.settings);
-	const players = [{id: '1', name: getLang('truth')}, {id: '2', name: getLang('dare')}];
 	const flag = useRef(false);
 
-	const [curCard, setCurCard] = useState(0);
 	const [currentPlayer, setCurrentPlayer] = useState(0);
 	const dares = [GameService.getCoupleDares(lang, type, 0), GameService.getCoupleDares(lang, type, 1)];
 	const questions = [GameService.getCoupleQuestions(lang, type, 0), GameService.getCoupleQuestions(lang, type, 0)];
 
 	const [daresIds, setDaresIds] = useState([[], []]);
 	const [questionsIds, setQuestionsIds] = useState([[], []]);
+	const [finished, setFinished] = useState(false);
+	const [goTitle, setGoTitle] = useState('GO');
+
+	const circleRef = useRef();
+
+	useEffect(() => {
+		LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+	}, []);
 
 	useEffect(() => {
 		flag.current = false;
@@ -56,16 +66,11 @@ const SoftHotInGameScreen = props => {
 		};
 	}, [setDaresIds, setQuestionsIds]);
 
-	const swiperRef = useRef();
-	const cardMove = () => {
-		swiperRef.current.swipeRight();
-	};
-	const rotateCount = GameHelper.GenerateRandomInteger(3, 10);
-
+	const rotateCount = GameHelper.GenerateRandomInteger(3, 7);
 	const makeAction = () => {
 		let sentence = '';
 
-		if((rotateCount + curCard) % 3 === 0) {
+		if((rotateCount) % 3 > 0) {
 			const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
 			let newIds = questionsIds;
 			newIds[currentPlayer] = questionsIds[currentPlayer].filter(x => x !== i);
@@ -79,53 +84,51 @@ const SoftHotInGameScreen = props => {
 			sentence = dares[currentPlayer].filter(x => x.id === i)[0].value.replace(/userName/g, coupleNames[currentPlayer]);
 		}
 		setCurrentPlayer(1 - currentPlayer);
-		setCurCard((rotateCount + curCard) % 3);
 
 		return sentence;
 	};
-
 	const goToDare = () => {
 		const action = makeAction();
 		props.navigation.navigate('SoftHotDare', {type: type, action: action});
 	};
-	const timeout = 250;
-	const rotateByCount = current => {
+	const rotateCard = () => {
+		circleRef.current.panResponder.panHandlers.onResponderRelease();
+	};
+	const rotate = cnt => {
 		if(flag.current) return;
-		if(current >= rotateCount) {
+		if(cnt <= 0) {
+			setFinished(true);
 			setTimeout(() => {
+				setFinished(false);
+				setGoTitle("GO");
 				goToDare();
-			}, 300);
+			}, 1000);
 			return;
 		}
-		cardMove();
+		rotateCard();
 		setTimeout(() => {
-			rotateByCount(current + 1);
-		}, timeout);
+			rotate(cnt - 1);
+		}, 480);
 	};
-	const rotate = () => {
-		rotateByCount(0);
+	const startRotate = () => {
+		setGoTitle("?");
+		rotate(rotateCount * 2);
 	};
 
 	return (
 		<SafeAreaView style={styles.screen}>
-			<Swiper
-				ref={swiperRef} cards={players}
-				keyExtractor={card => card.id} cardIndex={0}
-				renderCard={(player, i) => <PlayerCard card={player} cardIndex={i} />}
-				infinite={true} swipeAnimationDuration={timeout-30}
-				backgroundColor={'transparent'}
-				cardVerticalMargin={50}
-				stackSize={2}
-				animateOverlayLabelsOpacity animateCardOpacity
-				disableTopSwipe={true} disableBottomSwipe={true}
-				disableLeftSwipe={true} disableRightSwipe={true}
-				horizontalSwipe={false} verticalSwipe={false}
-			/>
-			<TouchableOpacity style={styles.goButton} onPress={rotate}>
-				<View styles={{padding: 20}}>
-					<Text style={{fontWeight: 'bold', fontSize: 20, color: 'white'}}>{getLang('go')}</Text>
-				</View>
-			</TouchableOpacity>
+			{finished ? <ResultCircle title={(rotateCount%3) > 0 ? 'TRUTH' : 'DARE'} /> :
+				<Roulette
+					ref={circleRef}
+					rouletteRotate={0} enableUserRotate
+					distance={100}
+					radius={300}
+					renderCenter={() => <GoButton title={goTitle} onPress={startRotate} />}
+					customStyle={styles.roulette}
+					><TodCard title="TRUTH" />
+					<TodCard title="DARE" />
+				</Roulette>
+			}
 		</SafeAreaView>
 	);
 };
@@ -148,36 +151,56 @@ SoftHotInGameScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
 	screen: {
 		padding: 5,
-		backgroundColor: localColors.background,
+		backgroundColor: '#D9B4FA',
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: '100%'
 	},
-	playerCard: {
-		borderRadius: 12,
-		shadowRadius: 25,
-		shadowColor: 'black',
-		shadowOpacity: 0.08,
-		shadowOffset: { width: 0, height: 0 },
+	gobutton: {
+		width: 80,
+		height: 80,
+		borderRadius: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
-		alignSelf: 'center'
+		backgroundColor: '#F500DA',
 	},
-	cardText: {
+	gobuttontxt: {
+		fontSize: 30,
 		fontWeight: 'bold',
-		fontSize: 20,
 		color: 'white'
 	},
-	goButton: {
-		marginTop: 100,
+	todcard: {
+		borderRadius: 50,
+		width: 90,
+		height: 90,
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: 100,
-		height: 100,
-		borderRadius: 50,
-		backgroundColor: '#F08A00',
-		borderColor: 'white',
-		borderWidth: 1.5
+		backgroundColor: '#F500DA',
+		borderWidth: 3,
+		borderColor: '#FA40F0'
+	},
+	todcardtxt: {
+		fontWeight: 'bold',
+		fontSize: 15,
+		color: 'white'
+	},
+	roulette: {
+		backgroundColor: '#CAAAF5'
+	},
+	resultcard: {
+		width: 150,
+		height: 150,
+		borderRadius: 150,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#F500DA',
+		borderColor: '#FA40F0',
+		borderWidth: 8
+	},
+	resultcardtxt: {
+		fontSize: 28,
+		fontWeight: 'bold',
+		color: 'white'
 	}
 });
 
