@@ -25,7 +25,7 @@ const RegisterScreen = props => {
 	};
 
 	const goToLogin = () => {
-		props.navigation.navigate('Login');
+		props.navigation.replace('Login');
 	};
 	const register = () => {
 		if(form.email.length===0 || form.name.length===0 || form.password.length===0 || form.confirmPassword != form.password) {
@@ -33,7 +33,9 @@ const RegisterScreen = props => {
 			return;
 		}
 		setIsLoading(true);
-		dispatch(AuthAction.register(form.email, form.name, form.password)).then(() => {}).catch(err => {
+		dispatch(AuthAction.register(form.email, form.name, form.password)).then(() => {
+			props.navigation.navigate('MyDares');
+		}).catch(err => {
 			setIsLoading(false);
 			Alert.alert('Error', err.message, [{text: 'OK'}]);
 		});
@@ -114,6 +116,17 @@ const RegisterScreen = props => {
 			</ScrollView>
 		</KeyboardAvoidingView>
 	);
+};
+
+RegisterScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
+	};
 };
 
 const styles = StyleSheet.create({

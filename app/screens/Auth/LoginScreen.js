@@ -27,13 +27,15 @@ const LoginScreen = props => {
 			return;
 		}
 		setIsLoading(true);
-		dispatch(AuthAction.login(email, password)).then(() => {}).catch(err => {
+		dispatch(AuthAction.login(email, password)).then(() => {
+			props.navigation.navigate('MyDares');
+		}).catch(err => {
 			setIsLoading(false);
 			Alert.alert('Error', err.message, [{text: 'OK'}]);
 		});
 	};
 	const goToRegister = () => {
-		props.navigation.navigate('Register');
+		props.navigation.replace('Register');
 	};
 
 	if(isLoading) {
@@ -174,5 +176,16 @@ const styles = StyleSheet.create({
 		color: '#dff9fb'
 	}
 });
+
+LoginScreen.navigationOptions = navData => {
+	const toggleDrawer = () => {
+		navData.navigation.toggleDrawer();
+	};
+
+	return {
+		headerLeft: () => <HeaderToggleMenuButton toggleNavbar={toggleDrawer} />,
+		headerTitle: () => <HeaderLabel label="Intimidades – The Tantra  game" />,
+	};
+};
 
 export default LoginScreen;

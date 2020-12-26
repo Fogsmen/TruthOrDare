@@ -93,6 +93,8 @@ const RateReviewNavigator = createStackNavigator({
 });
 
 const MyDaresNavigator = createStackNavigator({
+	Login: LoginScreen,
+	Register: RegisterScreen,
 	MyDares: MyDaresScreen
 }, {
 	defaultNavigationOptions: defaultNavOptions
@@ -105,7 +107,7 @@ const MainNavigator = createDrawerNavigator({
 	SoftCouple: SoftHotGameNavigator,
 	HotCouple: SoftHotGameNavigator,
 	RateReview: RateReviewNavigator,
-	MyDares: MyDaresNavigator
+	MyDaresNav: MyDaresNavigator
 }, {
 	...defaultDrawOptions,
 	contentComponent: props => {
@@ -152,7 +154,7 @@ const MainNavigator = createDrawerNavigator({
 			props.navigation.navigate('RateReview');
 		};
 		const goToMyDare = () => {
-			props.navigation.navigate('MyDares');
+			props.navigation.navigate('MyDaresNav');
 		};
 		const getLang = useSelector(state => state.settings.getLang);
 		return (
@@ -219,17 +221,5 @@ const MainNavigator = createDrawerNavigator({
 		);
 	}
 });
-
-const AuthNavigator = createStackNavigator({
-	Login: LoginScreen,
-	Register: RegisterScreen
-}, {
-	defaultNavigationOptions: {
-		...defaultNavOptions,
-		headerShown: false
-	}
-});
-
-export const AuthContainer = createAppContainer(AuthNavigator);
 
 export default createAppContainer(MainNavigator);

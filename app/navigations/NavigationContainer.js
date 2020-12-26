@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityIndicator, View } from 'react-native';
-import MainNavigator, { AuthContainer } from './MainNavigator';
+import MainNavigator from './MainNavigator';
 import * as StoreService from '../services/StoreService';
 import * as GameAction from '../redux/actions/game';
 import * as SettingAction from '../redux/actions/settings';
@@ -14,7 +14,6 @@ const NavigationContainer = props => {
 	const [loadNames, setLoadNames] = useState(false);
 	const [loadLang, setLoadLang] = useState(false);
 	const [loadCred, setLoadCred] = useState(false);
-	const loggedIn = useSelector(state => state.auth.name) != null;
 
 	useEffect(() => {
 		StoreService.getCouple().then(res => {
@@ -48,7 +47,7 @@ const NavigationContainer = props => {
 				dispatch(AuthAction.loadEmailPassword(ans[0], ans[1]));
 			}
 			setLoadCred(true);
-		}).then(() => {
+		}).catch(() => {
 			setLoadCred(true);
 		});
 	}, [dispatch]);
@@ -62,7 +61,7 @@ const NavigationContainer = props => {
 	}
 
 	return (
-		loggedIn ? <MainNavigator /> : <AuthContainer />
+		<MainNavigator />
 	);
 };
 

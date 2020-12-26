@@ -14,7 +14,7 @@ import * as GameService from '../../services/GameService';
 const GoButton = props => {
 	return (
 		<TouchableOpacity onPress={props.onPress} style={styles.gobutton}>
-			<Text style={styles.gobuttontxt}>{props.title}</Text>
+			<Text style={styles.gobuttontxt}>GO</Text>
 		</TouchableOpacity>
 	);
 };
@@ -23,6 +23,16 @@ const ResultCircle = props => {
 	return (
 		<View style={styles.resultcard}>
 			<Text style={styles.resultcardtxt}>{props.title}</Text>
+		</View>
+	);
+};
+
+const SmallCircle = props => {
+	return (
+		<View style={{width: 60, height: 60, borderRadius: 60, backgroundColor: '#EE5A24', justifyContent: 'center', alignItems: 'center'}}>
+			<View style={{width: 40, height: 40, borderRadius: 40, backgroundColor: '#D980FA', justifyContent: 'center', alignItems: 'center'}}>
+				<View style={{width: 20, height: 20, borderRadius: 20, backgroundColor: '#EA2027', justifyContent: 'center', alignItems: 'center'}} />
+			</View>
 		</View>
 	);
 };
@@ -48,7 +58,7 @@ const SoftHotInGameScreen = props => {
 	const [daresIds, setDaresIds] = useState([[], []]);
 	const [questionsIds, setQuestionsIds] = useState([[], []]);
 	const [finished, setFinished] = useState(false);
-	const [goTitle, setGoTitle] = useState('GO');
+	const [isRolling, setIsRolling] = useState(false);
 
 	const circleRef = useRef();
 
@@ -100,7 +110,7 @@ const SoftHotInGameScreen = props => {
 			setFinished(true);
 			setTimeout(() => {
 				setFinished(false);
-				setGoTitle("GO");
+				setIsRolling(false);
 				goToDare();
 			}, 1000);
 			return;
@@ -111,7 +121,7 @@ const SoftHotInGameScreen = props => {
 		}, 480);
 	};
 	const startRotate = () => {
-		setGoTitle("?");
+		setIsRolling(true);
 		rotate(rotateCount * 2);
 	};
 
@@ -123,7 +133,7 @@ const SoftHotInGameScreen = props => {
 					rouletteRotate={0} enableUserRotate
 					distance={100}
 					radius={300}
-					renderCenter={() => <GoButton title={goTitle} onPress={startRotate} />}
+					renderCenter={() => isRolling ? <SmallCircle /> : <GoButton onPress={startRotate} />}
 					customStyle={styles.roulette}
 					><TodCard title="TRUTH" />
 					<TodCard title="DARE" />
