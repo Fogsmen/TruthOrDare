@@ -11,10 +11,19 @@ const PlayerRow = props => {
 	const deleteRow = () => {
 		props.onClick(props.id);
 	};
+	const dispatch = useDispatch();
+	const playerInputHandle = txt => {
+		dispatch(GameAction.updatePlayer(props.id, txt));
+	};
 
 	return (
 		<View style={styles.playerRow}>
-			<Text style={styles.playerRowText}>{props.name}</Text>
+			<TextInput
+				placeholderTextColor='#cccccc'
+				value={props.name}
+				onChangeText={playerInputHandle}
+				style={styles.playerRowText}
+			/>
 			<TouchableOpacity onPress={deleteRow} style={{padding: 5}}>
 				<MaterialIcons name="close" size={24} color="white" />
 			</TouchableOpacity>
@@ -45,7 +54,11 @@ const MultiPlayer = props => {
 
 	return (
 		<View style={styles.multiplayer}>
-			{players.map((player, index) => <PlayerRow key={index} id={player.id} name={player.name} onClick={deletePlayer} />)}
+			{players.map((player, index) => <PlayerRow
+				key={index} id={player.id}
+				name={player.name}
+				onClick={deletePlayer} 
+			/>)}
 			<View style={styles.addPlayer}>
 				<TextInput placeholder={lang('add_player')}
 					placeholderTextColor='#cccccc'
@@ -211,7 +224,8 @@ const styles = StyleSheet.create({
 	playerRowText: {
 		fontSize: 20,
 		fontWeight: '600',
-		color: 'white'
+		color: 'white',
+		width: '80%'
 	},
 	playersContainer: {
 		padding: 5,
@@ -231,6 +245,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		paddingVertical: 5,
 		paddingHorizontal: 10,
+		width: '80%'
 	},
 	playerButton: {
 		marginVertical: 20,

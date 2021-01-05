@@ -8,6 +8,7 @@ export const SELECT_GAME_TYPE = 'SELECT_GAME_TYPE';
 export const SET_COUPLE_NAMES = 'SET_COUPLE_NAMES';
 export const SET_COUPLE_DARES = 'SET_COUPLE_DARES';
 export const SET_COUPLE_QUESTIONS = 'SET_COUPLE_QUESTIONS';
+export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 export const addPlayer = playerName => {
 	return (dispatch, getState) => {
@@ -34,6 +35,16 @@ export const loadPlayers = players => {
 	return {
 		type: SET_PLAYERS,
 		newPlayers: players
+	};
+};
+
+export const updatePlayer = (playerId, name) => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: UPDATE_PLAYER,
+			playerId,
+			name
+		});
 	};
 };
 

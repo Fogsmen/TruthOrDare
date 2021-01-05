@@ -160,7 +160,7 @@ SoftHotInGameScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
 	screen: {
 		padding: 5,
-		backgroundColor: '#D9B4FA',
+		backgroundColor: '#FF683C',
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: '100%'
@@ -171,7 +171,9 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F500DA',
+		backgroundColor: '#8224F5',
+		borderColor: '#7F2CF5',
+		borderWidth: 3,
 	},
 	gobuttontxt: {
 		fontSize: 30,
@@ -184,9 +186,9 @@ const styles = StyleSheet.create({
 		height: 90,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F500DA',
+		backgroundColor: '#8224F5',
 		borderWidth: 3,
-		borderColor: '#FA40F0'
+		borderColor: '#7F2CF5'
 	},
 	todcardtxt: {
 		fontWeight: 'bold',
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
 		color: 'white'
 	},
 	roulette: {
-		backgroundColor: '#CAAAF5'
+		backgroundColor: '#FF3E26'
 	},
 	resultcard: {
 		width: 150,
@@ -202,8 +204,8 @@ const styles = StyleSheet.create({
 		borderRadius: 150,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F500DA',
-		borderColor: '#FA40F0',
+		backgroundColor: '#8224F5',
+		borderColor: '#7F2CF5',
 		borderWidth: 8
 	},
 	resultcardtxt: {

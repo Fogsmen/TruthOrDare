@@ -64,7 +64,7 @@ const SoftHotStartScreen = props => {
 	if(type==='hot') {
 		return (
 			<View style={{flex:1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
-				<Text style={{fontSize: 20, fontWeight: 'bold'}}>You need to pay to play this game, first</Text>
+				<Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>You need to pay to play this game, first</Text>
 			</View>
 		);
 	}
