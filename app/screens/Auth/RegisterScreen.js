@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Alert, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import colors from '../../constants/colors';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import * as AuthAction from '../../redux/actions/auth';
+import { getLang } from '../../services/StoreService';
 
 const RegisterScreen = props => {
 	const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const RegisterScreen = props => {
 		confirmPassword: ''
 	});
 	const [isLoading, setIsLoading] = useState(false);
+	const { lang, getLang } = useSelector(state => state.settings);
 
 	const inputHandler = (id, txt) => {
 		setForm({
@@ -57,7 +59,7 @@ const RegisterScreen = props => {
 						<View style={styles.nameBoxformIcon}>
 							<MaterialCommunityIcons name="email" size={24} color="white" />
 						</View>
-						<TextInput placeholder="E-mail Address"
+						<TextInput placeholder={getLang('email_address')}
 							placeholderTextColor="#b2bec3"
 							style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 							keyboardType="email-address"
@@ -70,7 +72,7 @@ const RegisterScreen = props => {
 						<View style={styles.nameBoxformIcon}>
 							<FontAwesome5 name="user-alt" size={24} color="white" />
 						</View>
-						<TextInput placeholder="Name"
+						<TextInput placeholder={getLang('name')}
 							placeholderTextColor="#b2bec3"
 							style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 							value={form.name}
@@ -81,7 +83,7 @@ const RegisterScreen = props => {
 						<View style={styles.nameBoxformIcon}>
 							<FontAwesome5 name="key" size={24} color="white" />
 						</View>
-						<TextInput placeholder="Password"
+						<TextInput placeholder={getLang('password')}
 							placeholderTextColor="#b2bec3"
 							style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 							secureTextEntry={true}
@@ -94,7 +96,7 @@ const RegisterScreen = props => {
 						<View style={styles.nameBoxformIcon}>
 							<FontAwesome5 name="key" size={24} color="white" />
 						</View>
-						<TextInput placeholder="Confirm password"
+						<TextInput placeholder={getLang('confirm_password')}
 							placeholderTextColor="#b2bec3"
 							style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 							secureTextEntry={true}
@@ -106,12 +108,12 @@ const RegisterScreen = props => {
 				</View>
 				<TouchableOpacity onPress={register}
 					style={styles.playerButton}>
-					<Text style={styles.playText}>REGISTER</Text>
+					<Text style={styles.playText}>{getLang('u_register')}</Text>
 					<MaterialCommunityIcons name="login" size={24} color="white" />
 				</TouchableOpacity>
 				<TouchableOpacity onPress={goToLogin}
 					style={{paddingVertical: 5, paddingHorizontal: 20}}>
-					<Text style={styles.link}>Login</Text>
+					<Text style={styles.link}>{getLang('login')}</Text>
 				</TouchableOpacity>
 			</ScrollView>
 		</KeyboardAvoidingView>

@@ -13,6 +13,7 @@ const LoginScreen = props => {
 	const [password, setPassword] = useState(auth.password ?? '');
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
+	const { lang, getLang } = useSelector(state => state.settings);
 
 	const inputEmailHandle = txt => {
 		setEmail(txt);
@@ -53,7 +54,7 @@ const LoginScreen = props => {
 					<View style={styles.nameBoxformIcon}>
 						<MaterialCommunityIcons name="email" size={24} color="white" />
 					</View>
-					<TextInput placeholder="E-mail Address"
+					<TextInput placeholder={getLang('email_address')}
 						placeholderTextColor="#b2bec3"
 						style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 						keyboardType="email-address"
@@ -66,7 +67,7 @@ const LoginScreen = props => {
 					<View style={styles.nameBoxformIcon}>
 						<FontAwesome5 name="key" size={24} color="white" />
 					</View>
-					<TextInput placeholder="Password"
+					<TextInput placeholder={getLang('password')}
 						placeholderTextColor="#b2bec3"
 						style={{color: 'white', width: '75%', paddingHorizontal: 10}}
 						secureTextEntry={true}
@@ -78,12 +79,12 @@ const LoginScreen = props => {
 			</View>
 			<TouchableOpacity onPress={login}
 				style={styles.playerButton}>
-				<Text style={styles.playText}>LOGIN</Text>
+				<Text style={styles.playText}>{getLang('u_login')}</Text>
 				<MaterialCommunityIcons name="login" size={24} color="white" />
 			</TouchableOpacity>
 			<TouchableOpacity onPress={goToRegister}
 				style={{paddingVertical: 5, paddingHorizontal: 20}}>
-				<Text style={styles.link}>Register</Text>
+				<Text style={styles.link}>{getLang('register')}</Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>
 	);

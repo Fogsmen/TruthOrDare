@@ -29,5 +29,16 @@
 	"go": "Vamos",
 	"hot": "Caliente",
 	"next_dare": "Siguiente Reto",
-	"rate_the_app": "Califica la aplicación"
+	"rate_the_app": "Califica la aplicación",
+	"email_address": "E-mail Habla a",
+	"password": "Contraseña",
+	"u_login": "INICIAR SESIÓN",
+	"u_register": "REGISTRARSE",
+	"name": "Nombre",
+	"confirm_password": "Confirmar contraseña",
+	"login": "Iniciar sesión",
+	"register": "Registrarse",
+	"create": "Crear",
+	"update": "Actualizar",
+	"delete": "Eliminar"
 }

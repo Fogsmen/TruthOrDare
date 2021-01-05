@@ -29,5 +29,16 @@
 	"go": "GO",
 	"hot": "Hot",
 	"next_dare": "Next Dare",
-	"rate_the_app": "Rate the app"
+	"rate_the_app": "Rate the app",
+	"email_address": "E-mail Address",
+	"password": "Password",
+	"u_login": "LOGIN",
+	"u_register": "REGISTER",
+	"name": "Name",
+	"confirm_password": "Confirm password",
+	"login": "Login",
+	"register": "Register",
+	"create": "Create",
+	"update": "Update",
+	"delete": "Delete"
 }

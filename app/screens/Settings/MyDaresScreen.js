@@ -6,6 +6,7 @@ import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import * as ApiService from '../../services/ApiService';
 
 const CreateBox = props => {
+	const { lang, getLang } = useSelector(state => state.settings);
 	const email = props.email;
 	const [content, setContent] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +50,7 @@ const CreateBox = props => {
 				onChangeText={inputChange}
 			/>
 			<TouchableOpacity onPress={create}>
-				<Text style={styles.createbutton}>Create</Text>
+				<Text style={styles.createbutton}>{getLang('create')}</Text>
 			</TouchableOpacity>
 		</View>
 	)
@@ -62,6 +63,7 @@ const EditBox = props => {
 	const inputChange = txt => {
 		setContent(txt);
 	};
+	const { lang, getLang } = useSelector(state => state.settings);
 	const updateSubmit = async() => {
 		const response = await ApiService.updateDare(item.id, content, item.shot);
 		if(!response.ok) {
@@ -120,11 +122,11 @@ const EditBox = props => {
 			<View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5}}>
 				<TouchableOpacity style={{paddingVertical: 5, marginVertical: 5}}
 					onPress={updateItem}>
-					<Text style={styles.updatebutton}>Update</Text>
+					<Text style={styles.updatebutton}>{getLang('update')}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={{paddingVertical: 5, marginVertical: 5}}
 					onPress={deleteItem}>
-					<Text style={styles.deletebutton}>Delete</Text>
+					<Text style={styles.deletebutton}>{getLang('delete')}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
