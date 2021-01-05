@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, LogBox } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Roulette from 'react-native-roulette';
 
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';

@@ -1,7 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
-import { useEffect, forwardRef, useRef } from 'react';
-import { useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useRef, useImperativeHandle } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import HeaderLabel from '../components/HeaderLabel';

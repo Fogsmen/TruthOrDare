@@ -1,7 +1,7 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { StyleSheet } from 'react-native';
 
 const CustomHeaderButton = props => {
 	return <HeaderButton {...props}

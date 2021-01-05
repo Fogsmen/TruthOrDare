@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, ImageBackground, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import colors from '../../constants/colors';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';

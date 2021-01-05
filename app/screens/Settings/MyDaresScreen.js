@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { ActivityIndicator, Alert, FlatList, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
-import { useDispatch, useSelector } from 'react-redux';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import * as ApiService from '../../services/ApiService';
-import { useRef } from 'react';
-import { useCallback } from 'react';
 
 const CreateBox = props => {
 	const email = props.email;

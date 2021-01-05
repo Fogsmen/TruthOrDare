@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Animated } from 'react-native';
 import { useSelector } from 'react-redux';
 import Swiper from 'react-native-deck-swiper';

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, ImageBackground, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Dimensions, ImageBackground, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import * as GameAction from '../../redux/actions/game';
@@ -70,7 +70,8 @@ const SoftHotStartScreen = props => {
 	}
 
 	return (
-		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
+		<SafeAreaView>
+			<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')} />
 			<KeyboardAvoidingView style={styles.screen}>
 				<NameBox male={maleName} maleChange={maleNameInputHandle}
 					female={femaleName} femaleChange={femaleNameInputHandle}
@@ -80,7 +81,7 @@ const SoftHotStartScreen = props => {
 					<Text style={styles.playText}>{lang('start_game')}</Text>
 				</TouchableOpacity>
 			</KeyboardAvoidingView>
-		</ImageBackground>
+		</SafeAreaView>
 	);
 };
 
@@ -97,14 +98,16 @@ SoftHotStartScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
 	image: {
-		width: '100%',
-		resizeMode: "cover",
-		justifyContent: 'center'
+		width: Dimensions.get('window').width,
+		height: Dimensions.get('window').height - 80,
+		justifyContent: 'center',
+		position: 'absolute'
 	},
 	screen: {
 		padding: 20,
 		justifyContent: 'center',
-		height: '100%'
+		height: '100%',
+		backgroundColor: 'transparent'
 	},
 	playerRow: {
 		flexDirection: 'row',

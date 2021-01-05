@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 

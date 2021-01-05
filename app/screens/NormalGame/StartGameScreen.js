@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, ImageBackground, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Dimensions, ImageBackground, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import * as GameAction from '../../redux/actions/game';
@@ -26,21 +26,21 @@ const MultiPlayer = props => {
 	const players = useSelector(state => state.game.players);
 	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
-	const [playerName, setPlayerName] = useState('');
+	const { lastPlayer, setLastPlayer } = props;
 
 	const deletePlayer = id => {
 		dispatch(GameAction.deletePlayer(id));
 	};
 	const addPlayer = () => {
-		if(playerName.trim().length === 0) {
+		if(lastPlayer.trim().length === 0) {
 			Alert.alert('Error!', 'No empty name is allowed.', [{text: 'OK'}]);
 			return;
 		}
-		dispatch(GameAction.addPlayer(playerName));
-		setPlayerName('');
+		dispatch(GameAction.addPlayer(lastPlayer));
+		setLastPlayer('');
 	};
 	const playerInputHandle = txt => {
-		setPlayerName(txt);
+		setLastPlayer(txt);
 	};
 
 	return (
@@ -49,7 +49,7 @@ const MultiPlayer = props => {
 			<View style={styles.addPlayer}>
 				<TextInput placeholder={lang('add_player')}
 					placeholderTextColor='#cccccc'
-					value={playerName}
+					value={lastPlayer}
 					onChangeText={playerInputHandle}
 					style={styles.palyerName}
 					autoFocus={true}
@@ -104,8 +104,13 @@ const StartGameScreen = props => {
 	const selectedGameType = useSelector(state => state.game.selectedGameType);
 	const lang = useSelector(state => state.settings.getLang);
 	const dispatch = useDispatch();
+	const [lastPlayer, setLastPlayer] = useState(props.lastPlayer ?? '');
 
 	const goToGame = () => {
+		if(selectedGameType === 'multi' && lastPlayer.trim().length > 0) {
+			dispatch(GameAction.addPlayer(lastPlayer));
+			setLastPlayer('');
+		}
 		if(selectedGameType==='multi' && players.length < 2) {
 			Alert.alert('Error!', 'You shoud add at least 2 player', [{text: 'OK'}]);
 			return;
@@ -132,9 +137,10 @@ const StartGameScreen = props => {
 	};
 
 	return (
-		<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')}>
+		<SafeAreaView>
+			<ImageBackground style={styles.image} resizeMode="stretch" source={require('../../images/home-background.png')} />
 			<KeyboardAvoidingView style={styles.screen}>
-				<ScrollView>
+				<ScrollView style={{backgroundColor: 'transparent'}}>
 					<View style={styles.typeTab}>
 						<TouchableOpacity style={styles.typeItem} onPress={() => selectGame('mf')}>
 							<FontAwesome5 name="transgender" size={30} color="white" />
@@ -150,7 +156,7 @@ const StartGameScreen = props => {
 						</TouchableOpacity>
 					</View>
 					{selectedGameType==='multi' ? 
-						<MultiPlayer /> :
+						<MultiPlayer lastPlayer={lastPlayer} setLastPlayer={setLastPlayer} /> :
 						<NameBox firstPlayer={firstPlayer} firstChange={firstPlayerInputHandle}
 							secondPlayer={secondPlayer} secondChange={secondPlayerInputHandle}
 						/>
@@ -164,7 +170,7 @@ const StartGameScreen = props => {
 					</TouchableOpacity>
 				</ScrollView>
 			</KeyboardAvoidingView>
-		</ImageBackground>
+		</SafeAreaView>
 	);
 };
 
@@ -181,13 +187,16 @@ StartGameScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
 	image: {
-		width: '100%',
-		justifyContent: 'center'
+		width: Dimensions.get('window').width,
+		height: Dimensions.get('window').height - 80,
+		justifyContent: 'center',
+		position: 'absolute',
 	},
 	screen: {
 		padding: 20,
 		justifyContent: 'center',
-		height: '100%'
+		height: '100%',
+		backgroundColor: 'transparent'
 	},
 	playerRow: {
 		flexDirection: 'row',
