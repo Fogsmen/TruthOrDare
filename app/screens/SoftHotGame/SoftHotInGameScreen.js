@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, LogBox } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, LogBox, TouchableNativeFeedback } from 'react-native';
 import { useSelector } from 'react-redux';
 import Roulette from 'react-native-roulette';
 
@@ -10,11 +10,11 @@ import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 import * as GameHelper from '../../helpers/GameHelper';
 import * as GameService from '../../services/GameService';
 
-const GoButton = props => {
+const InnerCircle = props => {
 	return (
-		<TouchableOpacity onPress={props.onPress} style={styles.gobutton}>
-			<Text style={styles.gobuttontxt}>GO</Text>
-		</TouchableOpacity>
+		<View style={styles.centerbutton}>
+			<Text style={styles.centerbuttontext}>?</Text>
+		</View>
 	);
 };
 
@@ -108,9 +108,9 @@ const SoftHotInGameScreen = props => {
 		if(cnt <= 0) {
 			setFinished(true);
 			setTimeout(() => {
+				goToDare();
 				setFinished(false);
 				setIsRolling(false);
-				goToDare();
 			}, 1000);
 			return;
 		}
@@ -132,12 +132,17 @@ const SoftHotInGameScreen = props => {
 					rouletteRotate={0} enableUserRotate
 					distance={100}
 					radius={300}
-					renderCenter={() => isRolling ? <SmallCircle /> : <GoButton onPress={startRotate} />}
+					renderCenter={() => isRolling ? <SmallCircle /> : <InnerCircle />}
 					customStyle={styles.roulette}
 					><TodCard title="TRUTH" />
 					<TodCard title="DARE" />
 				</Roulette>
 			}
+			<TouchableOpacity style={styles.gobutton} onPress={startRotate} disabled={isRolling}>
+				<View style={styles.gobuttoninner}>
+					<Text style={styles.gobuttontext}>GO</Text>
+				</View>
+			</TouchableOpacity>
 		</SafeAreaView>
 	);
 };
@@ -165,9 +170,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: '100%'
 	},
-	gobutton: {
-		width: 80,
-		height: 80,
+	centerbutton: {
+		width: 60,
+		height: 60,
 		borderRadius: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -175,7 +180,7 @@ const styles = StyleSheet.create({
 		borderColor: '#7F2CF5',
 		borderWidth: 3,
 	},
-	gobuttontxt: {
+	centerbuttontext: {
 		fontSize: 30,
 		fontWeight: 'bold',
 		color: 'white'
@@ -212,6 +217,38 @@ const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: 'bold',
 		color: 'white'
+	},
+	gobutton: {
+		marginTop: 30,
+		width: 150,
+		height: 80,
+		borderRadius: 50,
+		backgroundColor: '#8224F5',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	gobuttoninner: {
+		width: 145,
+		height: 75,
+		borderRadius: 50,
+		borderColor: '#ffffff',
+		borderWidth: 2,
+		backgroundColor: '#753BF7',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	gobuttontext: {
+		color: 'white',
+		fontSize: 30,
+		fontWeight: 'bold',
+		backgroundColor: '#7328FA',
+		width: 132,
+		height: 63,
+		borderWidth: 3,
+		borderColor: '#ffffff',
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		borderRadius: 50
 	}
 });
 

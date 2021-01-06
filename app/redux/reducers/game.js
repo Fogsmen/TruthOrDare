@@ -27,7 +27,6 @@ export default gameReducer = (state = initialState, action) => {
 			const i = players.findIndex(x => x.id === action.playerId);
 			if(i > -1) {
 				players[i].name = action.name;
-				console.log('action', action, players[i]);
 			}
 			return {
 				...state,
