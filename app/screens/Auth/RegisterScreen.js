@@ -6,7 +6,6 @@ import colors from '../../constants/colors';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import * as AuthAction from '../../redux/actions/auth';
-import { getLang } from '../../services/StoreService';
 
 const RegisterScreen = props => {
 	const dispatch = useDispatch();

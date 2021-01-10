@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { ActivityIndicator, View } from 'react-native';
 import MainNavigator from './MainNavigator';
 import * as StoreService from '../services/StoreService';

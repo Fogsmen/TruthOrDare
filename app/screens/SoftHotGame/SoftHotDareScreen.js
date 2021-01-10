@@ -1,5 +1,4 @@
-import React from 'react';
-import { useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -9,7 +8,6 @@ import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
 import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 import * as GameHelper from '../../helpers/GameHelper';
-import { useRef } from 'react';
 
 const SoftHotDareScreen = props => {
 	const action = props.navigation.getParam('action');

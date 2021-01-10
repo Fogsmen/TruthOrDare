@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, LogBox, TouchableNativeFeedback } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import Roulette from 'react-native-roulette';
+import { Video } from 'expo-av';
 
 import HeaderToggleMenuButton from '../../components/HeaderToggleMenuButton';
 import HeaderLabel from '../../components/HeaderLabel';
@@ -10,39 +10,40 @@ import HeaderGoBackButton from '../../components/HeaderGoBackButton';
 import * as GameHelper from '../../helpers/GameHelper';
 import * as GameService from '../../services/GameService';
 
-const InnerCircle = props => {
+const GoButton = props => {
 	return (
-		<View style={styles.centerbutton}>
-			<Text style={styles.centerbuttontext}>?</Text>
-		</View>
-	);
-};
-
-const ResultCircle = props => {
-	return (
-		<View style={styles.resultcard}>
-			<Text style={styles.resultcardtxt}>{props.title}</Text>
-		</View>
-	);
-};
-
-const SmallCircle = props => {
-	return (
-		<View style={{width: 60, height: 60, borderRadius: 60, backgroundColor: '#EE5A24', justifyContent: 'center', alignItems: 'center'}}>
-			<View style={{width: 40, height: 40, borderRadius: 40, backgroundColor: '#D980FA', justifyContent: 'center', alignItems: 'center'}}>
-				<View style={{width: 20, height: 20, borderRadius: 20, backgroundColor: '#EA2027', justifyContent: 'center', alignItems: 'center'}} />
+		<TouchableOpacity style={styles.gobutton} onPress={props.onPress}>
+			<View style={styles.gobuttoninner}>
+				<Text style={styles.gobuttontext}>GO</Text>
 			</View>
+		</TouchableOpacity>	
+	);
+};
+
+const TruthDareVideo = props => {
+	const finished = status => {
+		if(status.didJustFinish) props.didJustFinish();
+	};
+
+	return (
+		<View style={{backgroundColor: '#cfc'}}>
+			<Video
+				source={props.path}
+				style={styles.video}
+				rate={1.0}
+				volume={1.0}
+				resizeMode="cover"
+				onPlaybackStatusUpdate={finished}
+				shouldPlay={props.shouldPlay}
+				isLooping
+			/>
+			{!props.shouldPlay && <GoButton onPress={props.onPress} />}
 		</View>
 	);
 };
 
-const TodCard = props => {
-	return (
-		<View style={styles.todcard}>
-			<Text style={styles.todcardtxt}>{props.title}</Text>
-		</View>
-	);
-};
+const truthPath = require('../../videos/truth.mp4');
+const darePath = require('../../videos/dare.mp4');
 
 const SoftHotInGameScreen = props => {
 	const coupleNames = useSelector(state => state.game.couple);
@@ -56,14 +57,6 @@ const SoftHotInGameScreen = props => {
 
 	const [daresIds, setDaresIds] = useState([[], []]);
 	const [questionsIds, setQuestionsIds] = useState([[], []]);
-	const [finished, setFinished] = useState(false);
-	const [isRolling, setIsRolling] = useState(false);
-
-	const circleRef = useRef();
-
-	useEffect(() => {
-		LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
-	}, []);
 
 	useEffect(() => {
 		flag.current = false;
@@ -75,7 +68,7 @@ const SoftHotInGameScreen = props => {
 		};
 	}, [setDaresIds, setQuestionsIds]);
 
-	const rotateCount = GameHelper.GenerateRandomInteger(3, 7);
+	const [rotateCount, setRotateCount] = useState(GameHelper.GenerateRandomInteger(3, 7));
 	const makeAction = () => {
 		let sentence = '';
 
@@ -93,6 +86,7 @@ const SoftHotInGameScreen = props => {
 			sentence = dares[currentPlayer].filter(x => x.id === i)[0].value.replace(/userName/g, coupleNames[currentPlayer]);
 		}
 		setCurrentPlayer(1 - currentPlayer);
+		setRotateCount(GameHelper.GenerateRandomInteger(3, 7));
 
 		return sentence;
 	};
@@ -100,50 +94,22 @@ const SoftHotInGameScreen = props => {
 		const action = makeAction();
 		props.navigation.navigate('SoftHotDare', {type: type, action: action});
 	};
-	const rotateCard = () => {
-		circleRef.current.panResponder.panHandlers.onResponderRelease();
+	const [shouldPlay, setShouldPlay] = useState(false);
+	const playVideo = () => {
+		setShouldPlay(true);
 	};
-	const rotate = cnt => {
-		if(flag.current) return;
-		if(cnt <= 0) {
-			setFinished(true);
-			setTimeout(() => {
-				goToDare();
-				setFinished(false);
-				setIsRolling(false);
-			}, 1000);
-			return;
-		}
-		rotateCard();
-		setTimeout(() => {
-			rotate(cnt - 1);
-		}, 480);
-	};
-	const startRotate = () => {
-		setIsRolling(true);
-		rotate(rotateCount * 2);
+	const finishedPlay = () => {
+		setShouldPlay(false);
+		goToDare();
 	};
 
 	return (
-		<SafeAreaView style={styles.screen}>
-			{finished ? <ResultCircle title={(rotateCount%3) > 0 ? 'TRUTH' : 'DARE'} /> :
-				<Roulette
-					ref={circleRef}
-					rouletteRotate={0} enableUserRotate
-					distance={100}
-					radius={300}
-					renderCenter={() => isRolling ? <SmallCircle /> : <InnerCircle />}
-					customStyle={styles.roulette}
-					><TodCard title="TRUTH" />
-					<TodCard title="DARE" />
-				</Roulette>
-			}
-			<TouchableOpacity style={styles.gobutton} onPress={startRotate} disabled={isRolling}>
-				<View style={styles.gobuttoninner}>
-					<Text style={styles.gobuttontext}>GO</Text>
-				</View>
-			</TouchableOpacity>
-		</SafeAreaView>
+		<TruthDareVideo
+			path={(rotateCount) % 3 > 0 ? truthPath : darePath}
+			didJustFinish={finishedPlay}
+			shouldPlay={shouldPlay}
+			onPress={playVideo}
+		/>
 	);
 };
 
@@ -163,69 +129,21 @@ SoftHotInGameScreen.navigationOptions = navData => {
 };
 
 const styles = StyleSheet.create({
-	screen: {
-		padding: 5,
-		backgroundColor: '#FF683C',
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: '100%'
-	},
-	centerbutton: {
-		width: 60,
-		height: 60,
-		borderRadius: 50,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#8224F5',
-		borderColor: '#7F2CF5',
-		borderWidth: 3,
-	},
-	centerbuttontext: {
-		fontSize: 30,
-		fontWeight: 'bold',
-		color: 'white'
-	},
-	todcard: {
-		borderRadius: 50,
-		width: 90,
-		height: 90,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#8224F5',
-		borderWidth: 3,
-		borderColor: '#7F2CF5'
-	},
-	todcardtxt: {
-		fontWeight: 'bold',
-		fontSize: 15,
-		color: 'white'
-	},
-	roulette: {
-		backgroundColor: '#FF3E26'
-	},
-	resultcard: {
-		width: 150,
-		height: 150,
-		borderRadius: 150,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#8224F5',
-		borderColor: '#7F2CF5',
-		borderWidth: 8
-	},
-	resultcardtxt: {
-		fontSize: 28,
-		fontWeight: 'bold',
-		color: 'white'
+	video: {
+		height: '100%',
+		width: '100%',
+		backgroundColor: '#fcf'
 	},
 	gobutton: {
-		marginTop: 30,
+		position: 'absolute',
+		bottom: 100,
 		width: 150,
 		height: 80,
 		borderRadius: 50,
 		backgroundColor: '#8224F5',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		alignSelf: 'center'
 	},
 	gobuttoninner: {
 		width: 145,
@@ -249,7 +167,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		borderRadius: 50
-	}
+	},
 });
 
 export default SoftHotInGameScreen;
