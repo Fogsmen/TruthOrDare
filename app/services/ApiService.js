@@ -1,61 +1,84 @@
-const API_URL = 'https://second-test.btcrade.io/backend.php';
-
-export const login = async(email, password) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'login', email, password })
-	});
+const API_URL = "https://intimidades.top-developer.net/api";
+const defaultHeader = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
 };
 
-export const register = async(email, name, password) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'register', email, name, password })
-	});
+export const authLogin = (email, password) => {
+  return fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: defaultHeader,
+    body: JSON.stringify({ email, password }),
+  });
 };
 
-export const loadDares = async(email) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'get_dares', email: email })
-	});
+export const authRegister = (email, name, password) => {
+  return fetch(`${API_URL}/auth/register`, {
+    method: "POST",
+    headers: defaultHeader,
+    body: JSON.stringify({ email, name, password }),
+  });
 };
 
-export const updateDare = async(id, content, shot) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'update_dare', id, content, shot })
-	});
+export const authMe = (token) => {
+  return fetch(`${API_URL}/auth/me?token=${token}`, {
+    method: "POST",
+    headers: defaultHeader,
+  });
 };
 
-export const deleteDare = async(id) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'delete_dare', id })
-	});
+export const getMyDares = async (token, lang) => {
+  const response = await fetch(
+    `${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`,
+    {
+      method: "GET",
+      headers: defaultHeader,
+    }
+  );
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
 };
 
-export const createDare = async(email, content, shot) => {
-	return fetch(`${API_URL}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ action: 'create_dare', email, content, shot })
-	});
+export const createMyDare = async (token, lang, value) => {
+  const response = await fetch(
+    `${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`,
+    {
+      method: "POST",
+      headers: defaultHeader,
+      body: JSON.stringify({ value }),
+    }
+  );
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const updateMyDare = async (token, id, value) => {
+  const response = await fetch(`${API_URL}/my-dare/${id}?token=${token}`, {
+    method: "PUT",
+    headers: defaultHeader,
+    body: JSON.stringify({ value }),
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const deleteMyDare = async (token, id) => {
+  const response = await fetch(`${API_URL}/my-dare/${id}?token=${token}`, {
+    method: "DELETE",
+    headers: defaultHeader,
+  });
+  const result = response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
 };
