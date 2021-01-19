@@ -82,3 +82,33 @@ export const deleteMyDare = async (token, id) => {
   }
   return result;
 };
+
+export const getQuestions = async (lang, type) => {
+  const response = await fetch(
+    `${API_URL}/game/questions?lang=${lang}&type=${type}`,
+    {
+      method: "GET",
+      headers: defaultHeader,
+    }
+  );
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const getDares = async (lang, type) => {
+  const response = await fetch(
+    `${API_URL}/game/dares?lang=${lang}&type=${type}`,
+    {
+      method: "GET",
+      headers: defaultHeader,
+    }
+  );
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};

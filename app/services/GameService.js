@@ -80,25 +80,25 @@ const dares_ff = {
 
 export const QuestionDares = (gameType, lang = "eng") => {
   switch (gameType) {
-    case "multi":
+    case "MUL":
       return {
         questions: questions[lang],
         dares: dares[lang],
       };
 
-    case "mm":
+    case "MM":
       return {
         questions: questions_mm[lang],
         dares: dares_mm[lang],
       };
 
-    case "mf":
+    case "MF":
       return {
         questions: questions_mf[lang],
         dares: dares_mf[lang],
       };
 
-    case "ff":
+    case "FF":
       return {
         questions: questions_ff[lang],
         dares: dares_ff[lang],
