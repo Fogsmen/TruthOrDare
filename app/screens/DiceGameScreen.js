@@ -21,7 +21,6 @@ import HeaderLabel from "../components/HeaderLabel";
 import HeaderToggleMenuButton from "../components/HeaderToggleMenuButton";
 import colors from "../constants/colors";
 
-import * as GameService from "../services/GameService";
 import * as ApiService from "../services/ApiService";
 import * as GameHelper from "../helpers/GameHelper";
 
