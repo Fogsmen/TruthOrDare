@@ -256,6 +256,7 @@ const StartGameScreen = (props) => {
             />
           ) : (
             <NameBox
+              gameType={gameType}
               firstPlayer={firstPlayer}
               firstChange={firstPlayerInputHandle}
               secondPlayer={secondPlayer}

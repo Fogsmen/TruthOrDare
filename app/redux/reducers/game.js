@@ -5,6 +5,8 @@ import {
   SET_COUPLE_NAMES,
   UPDATE_PLAYER,
   SET_NORMAL_GAME_QD,
+  SET_SOFT_GAME_QD,
+  SET_HOT_GAME_QD,
 } from "../actions/game";
 
 const initialState = {
@@ -12,8 +14,30 @@ const initialState = {
   questions: [],
   dares: [],
   couple: [],
-  coupleDares: [[], []],
-  coupleQuestions: [[], []],
+  coupleSoft: {
+    questions: {
+      eng: { M: [], F: [] },
+      rus: { M: [], F: [] },
+      spa: { M: [], F: [] },
+    },
+    dares: {
+      eng: { M: [], F: [] },
+      rus: { M: [], F: [] },
+      spa: { M: [], F: [] },
+    },
+  },
+  coupleHot: {
+    questions: {
+      eng: { M: [], F: [] },
+      rus: { M: [], F: [] },
+      spa: { M: [], F: [] },
+    },
+    dares: {
+      eng: { M: [], F: [] },
+      rus: { M: [], F: [] },
+      spa: { M: [], F: [] },
+    },
+  },
 };
 
 export default gameReducer = (state = initialState, action) => {
@@ -58,6 +82,18 @@ export default gameReducer = (state = initialState, action) => {
         ...state,
         questions: action.questions,
         dares: action.dares,
+      };
+
+    case SET_SOFT_GAME_QD:
+      return {
+        ...state,
+        coupleSoft: action.value,
+      };
+
+    case SET_HOT_GAME_QD:
+      return {
+        ...state,
+        coupleHot: action.value,
       };
 
     default:

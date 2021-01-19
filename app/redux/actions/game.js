@@ -6,10 +6,10 @@ export const ADD_PLAYER = "ADD_PLAYER";
 export const SET_PLAYERS = "SET_PLAYERS";
 export const DELETE_PLAYER = "DELETE_PLAYER";
 export const SET_COUPLE_NAMES = "SET_COUPLE_NAMES";
-export const SET_COUPLE_DARES = "SET_COUPLE_DARES";
-export const SET_COUPLE_QUESTIONS = "SET_COUPLE_QUESTIONS";
 export const UPDATE_PLAYER = "UPDATE_PLAYER";
 export const SET_NORMAL_GAME_QD = "SET_NORMAL_GAME_QD";
+export const SET_SOFT_GAME_QD = "SET_SOFT_GAME_QD";
+export const SET_HOT_GAME_QD = "SET_HOT_GAME_QD";
 
 export const addPlayer = (playerName) => {
   return (dispatch, getState) => {
@@ -93,6 +93,63 @@ export const loadNormalGameQD = (type) => {
         type: SET_NORMAL_GAME_QD,
         questions,
         dares,
+      });
+    } catch (error) {
+      throw new Error("Connection failed");
+    }
+  };
+};
+
+export const loadSoftGameQD = () => {
+  return async (dispatch, getState) => {
+    try {
+      const coupleSoft = await ApiService.getCoupleSoft();
+      dispatch({
+        type: SET_SOFT_GAME_QD,
+        value: coupleSoft,
+      });
+    } catch (error) {
+      throw new Error("Connection failed");
+    }
+  };
+};
+
+export const loadHotGameQD = () => {
+  return async (dispatch, getState) => {
+    try {
+      const coupleHot = {
+        questions: {
+          eng: {
+            M: await ApiService.getHotQuestions("ENG", "M"),
+            F: await ApiService.getHotQuestions("ENG", "F"),
+          },
+          rus: {
+            M: await ApiService.getHotQuestions("RUS", "M"),
+            F: await ApiService.getHotQuestions("RUS", "F"),
+          },
+          spa: {
+            M: await ApiService.getHotQuestions("SPA", "M"),
+            F: await ApiService.getHotQuestions("SPA", "F"),
+          },
+        },
+        dares: {
+          eng: {
+            M: await ApiService.getHotDares("ENG", "M"),
+            F: await ApiService.getHotDares("ENG", "F"),
+          },
+          rus: {
+            M: await ApiService.getHotDares("RUS", "M"),
+            F: await ApiService.getHotDares("RUS", "F"),
+          },
+          spa: {
+            M: await ApiService.getHotDares("SPA", "M"),
+            F: await ApiService.getHotDares("SPA", "F"),
+          },
+        },
+      };
+      dispatch({
+        type: SET_HOT,
+        value: coupleHot,
       });
     } catch (error) {
       throw new Error("Connection failed");
