@@ -30,7 +30,9 @@ export const login = (email, password) => {
       name: result.name,
       token,
       password,
+      role: result.role,
     });
+    return { token, role: result.role };
   };
 };
 

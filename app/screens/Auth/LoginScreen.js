@@ -22,7 +22,7 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState(auth.password ?? "");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const { lang, getLang } = useSelector((state) => state.settings);
+  const { getLang } = useSelector((state) => state.settings);
 
   const inputEmailHandle = (txt) => {
     setEmail(txt);
@@ -33,15 +33,18 @@ const LoginScreen = (props) => {
 
   const login = () => {
     if (email.trim().length === 0 || password.trim().length === 0) {
-      Alert.alert("Error", "Please input valid email and password", [
-        { text: "OK" },
-      ]);
+      Alert.alert("Error", "Please input valid email and password", [{ text: "OK" }]);
       return;
     }
     setIsLoading(true);
     dispatch(AuthAction.login(email, password))
-      .then(() => {
-        props.navigation.navigate("MyDares");
+      .then((res) => {
+        setIsLoading(false);
+        if (res.role === "ADMIN") {
+          props.navigation.navigate("AdminGameType");
+        } else {
+          props.navigation.navigate("MyDares");
+        }
       })
       .catch((err) => {
         setIsLoading(false);
@@ -49,9 +52,7 @@ const LoginScreen = (props) => {
           Alert.alert("Error", err.errors[e][0], [{ text: "OK" }]);
           return;
         }
-        Alert.alert("Error", err.message ?? "Connection error", [
-          { text: "OK" },
-        ]);
+        Alert.alert("Error", err.message ?? "Connection error", [{ text: "OK" }]);
       });
   };
   const goToRegister = () => {
@@ -102,10 +103,7 @@ const LoginScreen = (props) => {
         <Text style={styles.playText}>{getLang("u_login")}</Text>
         <MaterialCommunityIcons name="login" size={24} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={goToRegister}
-        style={{ paddingVertical: 5, paddingHorizontal: 20 }}
-      >
+      <TouchableOpacity onPress={goToRegister} style={{ paddingVertical: 5, paddingHorizontal: 20 }}>
         <Text style={styles.link}>{getLang("register")}</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>

@@ -6,6 +6,7 @@ const initialState = {
   name: null,
   email: null,
   password: null,
+  role: null,
 };
 
 export default authReducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ export default authReducer = (state = initialState, action) => {
         name: action.name,
         email: action.email,
         password: action.password,
+        role: action.role,
       };
 
     case LOAD_EMAIL_PASSWORD:
