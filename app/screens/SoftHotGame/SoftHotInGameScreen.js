@@ -52,14 +52,10 @@ const SoftHotInGameScreen = (props) => {
 
   const [currentPlayer, setCurrentPlayer] = useState(0);
   const questionsObj = useSelector((state) => {
-    return type === "soft"
-      ? state.game.coupleSoft.questions
-      : state.game.coupleHot.questions;
+    return type === "soft" ? state.game.coupleSoft.questions : state.game.coupleHot.questions;
   });
   const daresObj = useSelector((state) => {
-    return type === "soft"
-      ? state.game.coupleSoft.dares
-      : state.game.coupleHot.dares;
+    return type === "soft" ? state.game.coupleSoft.dares : state.game.coupleHot.dares;
   });
   const questions = [questionsObj[lang]["F"], questionsObj[lang]["M"]];
   const dares = [daresObj[lang]["F"], daresObj[lang]["M"]];
@@ -70,54 +66,39 @@ const SoftHotInGameScreen = (props) => {
   useEffect(() => {
     flag.current = false;
     setDaresIds([dares[0].map((x) => x.id), dares[1].map((x) => x.id)]);
-    setQuestionsIds([
-      questions[0].map((x) => x.id),
-      questions[1].map((x) => x.id),
-    ]);
+    setQuestionsIds([questions[0].map((x) => x.id), questions[1].map((x) => x.id)]);
 
     return () => {
       flag.current = true;
     };
   }, [setDaresIds, setQuestionsIds]);
 
-  const [rotateCount, setRotateCount] = useState(
-    GameHelper.GenerateRandomInteger(3, 7)
-  );
+  const [rotateCount, setRotateCount] = useState(GameHelper.GenerateRandomInteger(3, 7));
   const makeAction = () => {
-    let sentence = "";
+    let sentence = "",
+      soft_id = -1;
 
     if (rotateCount % 3 > 0) {
-      const i =
-        questionsIds[currentPlayer][
-          GameHelper.GenerateRandomInteger(
-            0,
-            questionsIds[currentPlayer].length
-          )
-        ];
+      const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
       let newIds = questionsIds;
-      newIds[currentPlayer] = questionsIds[currentPlayer].filter(
-        (x) => x !== i
-      );
+      newIds[currentPlayer] = questionsIds[currentPlayer].filter((x) => x !== i);
       setQuestionsIds(newIds, rotateCount);
-      sentence = questions[currentPlayer]
-        .filter((x) => x.id === i)[0]
-        .value.replace(/userName/g, coupleNames[currentPlayer]);
+      const tmpQ = questions[currentPlayer].filter((x) => x.id === i)[0];
+      sentence = tmpQ.value.replace(/userName/g, coupleNames[currentPlayer]);
+      soft_id = tmpQ.id;
     } else {
-      const i =
-        daresIds[currentPlayer][
-          GameHelper.GenerateRandomInteger(0, daresIds[currentPlayer].length)
-        ];
+      const i = daresIds[currentPlayer][GameHelper.GenerateRandomInteger(0, daresIds[currentPlayer].length)];
       let newIds = daresIds;
       newIds[currentPlayer] = daresIds[currentPlayer].filter((x) => x !== i);
       setDaresIds(newIds);
-      sentence = dares[currentPlayer]
-        .filter((x) => x.id === i)[0]
-        .value.replace(/userName/g, coupleNames[currentPlayer]);
+      const tmpD = dares[currentPlayer].filter((x) => x.id === i)[0];
+      sentence = tmpD.value.replace(/userName/g, coupleNames[currentPlayer]);
+      soft_id = tmpD.id;
     }
     setCurrentPlayer(1 - currentPlayer);
     setRotateCount(GameHelper.GenerateRandomInteger(3, 7));
 
-    return sentence;
+    return { sentence, soft_id };
   };
   const goToDare = () => {
     const action = makeAction();

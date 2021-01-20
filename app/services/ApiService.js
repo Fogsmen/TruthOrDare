@@ -28,13 +28,10 @@ export const authMe = (token) => {
 };
 
 export const getMyDares = async (token, lang) => {
-  const response = await fetch(
-    `${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -43,14 +40,11 @@ export const getMyDares = async (token, lang) => {
 };
 
 export const createMyDare = async (token, lang, value) => {
-  const response = await fetch(
-    `${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`,
-    {
-      method: "POST",
-      headers: defaultHeader,
-      body: JSON.stringify({ value }),
-    }
-  );
+  const response = await fetch(`${API_URL}/my-dare?token=${token}&lang=${lang.toUpperCase()}`, {
+    method: "POST",
+    headers: defaultHeader,
+    body: JSON.stringify({ value }),
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -84,13 +78,10 @@ export const deleteMyDare = async (token, id) => {
 };
 
 export const getQuestions = async (lang, type) => {
-  const response = await fetch(
-    `${API_URL}/game/questions?lang=${lang}&type=${type}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/questions?lang=${lang}&type=${type}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -99,13 +90,10 @@ export const getQuestions = async (lang, type) => {
 };
 
 export const getDares = async (lang, type) => {
-  const response = await fetch(
-    `${API_URL}/game/dares?lang=${lang}&type=${type}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/dares?lang=${lang}&type=${type}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -114,13 +102,10 @@ export const getDares = async (lang, type) => {
 };
 
 export const getSoftDares = async (lang, gender) => {
-  const response = await fetch(
-    `${API_URL}/game/soft-dares?lang=${lang}&gender=${gender}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/soft-dares?lang=${lang}&gender=${gender}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -129,13 +114,10 @@ export const getSoftDares = async (lang, gender) => {
 };
 
 export const getSoftQuestions = async (lang, gender) => {
-  const response = await fetch(
-    `${API_URL}/game/soft-questions?lang=${lang}&gender=${gender}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/soft-questions?lang=${lang}&gender=${gender}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -156,13 +138,10 @@ export const getCoupleSoft = async () => {
 };
 
 export const getHotDares = async (lang, gender) => {
-  const response = await fetch(
-    `${API_URL}/game/hot-dares?lang=${lang}&gender=${gender}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/hot-dares?lang=${lang}&gender=${gender}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -171,13 +150,10 @@ export const getHotDares = async (lang, gender) => {
 };
 
 export const getHotQuestions = async (lang, gender) => {
-  const response = await fetch(
-    `${API_URL}/game/hot-questions?lang=${lang}&gender=${gender}`,
-    {
-      method: "GET",
-      headers: defaultHeader,
-    }
-  );
+  const response = await fetch(`${API_URL}/game/hot-questions?lang=${lang}&gender=${gender}`, {
+    method: "GET",
+    headers: defaultHeader,
+  });
   const result = await response.json();
   if (!response.ok) {
     throw result;
@@ -189,6 +165,19 @@ export const getDices = async (lang) => {
   const response = await fetch(`${API_URL}/game/dices?lang=${lang}`, {
     method: "GET",
     headers: defaultHeader,
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const rateCoupleSoft = async (soft_id, rate) => {
+  const response = await fetch(`${API_URL}/rate/soft`, {
+    method: "POST",
+    headers: defaultHeader,
+    body: JSON.stringify({ soft_id, rate }),
   });
   const result = await response.json();
   if (!response.ok) {
