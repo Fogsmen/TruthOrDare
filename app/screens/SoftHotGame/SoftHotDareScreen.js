@@ -41,11 +41,12 @@ const WriteStars = ({ star, setStar }) => {
 
 const SoftHotDareScreen = (props) => {
   const isIn = useRef();
-  const { sentence, soft_id } = props.navigation.getParam("action");
+  const { sentence, soft_id, isDare } = props.navigation.getParam("action");
   const { getLang } = useSelector((state) => state.settings);
 
   const [loading, setLoading] = useState(false);
   const [star, setStar] = useState(0);
+  const [showRatebox, setShowRateBox] = useState(false);
 
   const submitRate = () => {
     setLoading(true);
@@ -108,36 +109,47 @@ const SoftHotDareScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <View style={{ ...styles.section, flexDirection: "row" }}>
-        <TouchableOpacity onPress={startCountdown}>
-          {isPlay ? (
-            <MaterialCommunityIcons name="stop-circle-outline" size={30} color="white" />
-          ) : (
-            <MaterialCommunityIcons name="play-circle-outline" size={30} color="white" />
+      {!showRatebox && (
+        <View style={{ flex: 1 }}>
+          {isDare && (
+            <View style={{ ...styles.section, flexDirection: "row" }}>
+              <TouchableOpacity onPress={startCountdown}>
+                {isPlay ? (
+                  <MaterialCommunityIcons name="stop-circle-outline" size={30} color="white" />
+                ) : (
+                  <MaterialCommunityIcons name="play-circle-outline" size={30} color="white" />
+                )}
+              </TouchableOpacity>
+              <Text style={styles.timerText}>{GameHelper.SecToMinFormat(second)}</Text>
+            </View>
           )}
-        </TouchableOpacity>
-        <Text style={styles.timerText}>{GameHelper.SecToMinFormat(second)}</Text>
-      </View>
-      <View style={{ ...styles.section, paddingHorizontal: 20 }}>
-        <Text style={styles.bodyText}>{sentence}</Text>
-      </View>
-      <View style={{ ...styles.section }}>
-        <TouchableOpacity style={styles.button} onPress={goToNextDare}>
-          <Text style={styles.buttonText}>{getLang("next_dare")}</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={{ ...styles.section, paddingHorizontal: 20 }}>
+            <Text style={styles.bodyText}>{sentence}</Text>
+          </View>
+          <View style={{ ...styles.section }}>
+            <TouchableOpacity style={styles.button} onPress={goToNextDare}>
+              <Text style={styles.buttonText}>{getLang("next_player")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
       {loading ? (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <ActivityIndicator size="large" color="white" />
         </View>
       ) : (
-        <View style={styles.ratebox}>
-          <WriteStars star={star} setStar={setStar} />
-          <TouchableOpacity style={styles.ratebutton} onPress={submitRate}>
-            <Text style={styles.ratebuttonText}>Rate this dare</Text>
-          </TouchableOpacity>
-        </View>
+        showRatebox && (
+          <View style={styles.ratebox}>
+            <WriteStars star={star} setStar={setStar} />
+            <TouchableOpacity style={styles.ratebutton} onPress={submitRate}>
+              <Text style={styles.ratebuttonText}>{getLang("rate_this_dare")}</Text>
+            </TouchableOpacity>
+          </View>
+        )
       )}
+      <TouchableOpacity style={{ flex: 0.2 }} onPress={() => setShowRateBox(!showRatebox)}>
+        <Text style={styles.linkbtn}>{showRatebox ? getLang("go_back") : getLang("rate_this_dare")}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -205,11 +217,18 @@ const styles = StyleSheet.create({
   },
   ratebuttonText: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 15,
     color: "white",
   },
   ratebox: {
-    flex: 1,
+    marginVertical: 50,
+  },
+  linkbtn: {
+    color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    fontSize: 17,
+    textDecorationLine: "underline",
   },
 });
 

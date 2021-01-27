@@ -13,11 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  MaterialIcons,
-  FontAwesome5,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import * as GameAction from "../../redux/actions/game";
 import colors from "../../constants/colors";
@@ -72,12 +68,7 @@ const MultiPlayer = (props) => {
   return (
     <View style={styles.multiplayer}>
       {players.map((player, index) => (
-        <PlayerRow
-          key={index}
-          id={player.id}
-          name={player.name}
-          onClick={deletePlayer}
-        />
+        <PlayerRow key={index} id={player.id} name={player.name} onClick={deletePlayer} />
       ))}
       <View style={styles.addPlayer}>
         <TextInput
@@ -100,21 +91,13 @@ const NameBoxRow = ({ gender, value, onChange }) => {
   const lang = useSelector((state) => state.settings.getLang);
   return (
     <View style={styles.nameBox}>
-      <Text style={{ color: "white" }}>
-        {gender === "male" ? lang("mans_name") : lang("womans_name")}
-      </Text>
+      <Text style={{ color: "white" }}>{gender === "male" ? lang("mans_name") : lang("womans_name")}</Text>
       <View style={styles.nameBoxInputRow}>
         <View style={styles.nameBoxformIcon}>
-          <MaterialCommunityIcons
-            name={`gender-${gender}`}
-            size={24}
-            color="white"
-          />
+          <MaterialCommunityIcons name={`gender-${gender}`} size={24} color="white" />
         </View>
         <TextInput
-          placeholder={
-            gender === "male" ? lang("mans_name") : lang("womans_name")
-          }
+          placeholder={gender === "male" ? lang("mans_name") : lang("womans_name")}
           style={{ color: "white", width: "75%", paddingHorizontal: 10 }}
           value={value}
           onChangeText={onChange}
@@ -124,13 +107,7 @@ const NameBoxRow = ({ gender, value, onChange }) => {
   );
 };
 
-const NameBox = ({
-  gameType,
-  firstPlayer,
-  secondPlayer,
-  firstChange,
-  secondChange,
-}) => (
+const NameBox = ({ gameType, firstPlayer, secondPlayer, firstChange, secondChange }) => (
   <View style={{ padding: 1 }}>
     {gameType === "MF" || gameType === "FF" ? (
       <NameBoxRow gender="female" value={firstPlayer} onChange={firstChange} />
@@ -140,18 +117,14 @@ const NameBox = ({
     {gameType === "MM" || gameType === "MF" ? (
       <NameBoxRow gender="male" value={secondPlayer} onChange={secondChange} />
     ) : (
-      <NameBoxRow
-        gender="female"
-        value={secondPlayer}
-        onChange={secondChange}
-      />
+      <NameBoxRow gender="female" value={secondPlayer} onChange={secondChange} />
     )}
   </View>
 );
 
 const StartGameScreen = (props) => {
   const players = useSelector((state) => state.game.players) ?? [];
-  const [gameType, setGameType] = useState("MUL");
+  const [gameType, setGameType] = useState("MF");
   const lang = useSelector((state) => state.settings.getLang);
   const dispatch = useDispatch();
   const [lastPlayer, setLastPlayer] = useState(props.lastPlayer ?? "");
@@ -163,15 +136,10 @@ const StartGameScreen = (props) => {
       setLastPlayer("");
     }
     if (gameType === "MUL" && players.length < 2) {
-      Alert.alert("Error!", "You shoud add at least 2 player", [
-        { text: "OK" },
-      ]);
+      Alert.alert("Error!", "You shoud add at least 2 player", [{ text: "OK" }]);
       return;
     }
-    if (
-      gameType !== "MUL" &&
-      (firstPlayer.trim().length === 0 || secondPlayer.trim().length === 0)
-    ) {
+    if (gameType !== "MUL" && (firstPlayer.trim().length === 0 || secondPlayer.trim().length === 0)) {
       Alert.alert("Error!", "No empty name is allowed!", [{ text: "Ok" }]);
       return;
     }
@@ -189,12 +157,8 @@ const StartGameScreen = (props) => {
         Alert.alert("Error", "Connection failed", [{ text: "OK" }]);
       });
   };
-  const [firstPlayer, setFirstPlayer] = useState(
-    players.length > 0 ? players[0].name : ""
-  );
-  const [secondPlayer, setSecondPlayer] = useState(
-    players.length > 1 ? players[1].name : ""
-  );
+  const [firstPlayer, setFirstPlayer] = useState(players.length > 0 ? players[0].name : "");
+  const [secondPlayer, setSecondPlayer] = useState(players.length > 1 ? players[1].name : "");
   const firstPlayerInputHandle = (txt) => {
     setFirstPlayer(txt);
   };
@@ -211,49 +175,25 @@ const StartGameScreen = (props) => {
   }
   return (
     <SafeAreaView>
-      <ImageBackground
-        style={styles.image}
-        resizeMode="stretch"
-        source={require("../../images/home-background.png")}
-      />
+      <ImageBackground style={styles.image} resizeMode="stretch" source={require("../../images/home-background.png")} />
       <KeyboardAvoidingView style={styles.screen}>
         <ScrollView style={{ backgroundColor: "transparent" }}>
           <View style={styles.typeTab}>
-            <TouchableOpacity
-              style={styles.typeItem}
-              onPress={() => setGameType("MF")}
-            >
+            <TouchableOpacity style={styles.typeItem} onPress={() => setGameType("MF")}>
               <FontAwesome5 name="transgender" size={30} color="white" />
               <Text style={styles.typeItemText}>{lang("straight")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.typeItem}
-              onPress={() => setGameType("MM")}
-            >
-              <MaterialCommunityIcons
-                name="gender-male"
-                size={30}
-                color="white"
-              />
+            <TouchableOpacity style={styles.typeItem} onPress={() => setGameType("MM")}>
+              <MaterialCommunityIcons name="gender-male" size={30} color="white" />
               <Text style={styles.typeItemText}>{lang("gray")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.typeItem}
-              onPress={() => setGameType("FF")}
-            >
-              <MaterialCommunityIcons
-                name="gender-female"
-                size={30}
-                color="white"
-              />
+            <TouchableOpacity style={styles.typeItem} onPress={() => setGameType("FF")}>
+              <MaterialCommunityIcons name="gender-female" size={30} color="white" />
               <Text style={styles.typeItemText}>{lang("lesbian")}</Text>
             </TouchableOpacity>
           </View>
           {gameType === "MUL" ? (
-            <MultiPlayer
-              lastPlayer={lastPlayer}
-              setLastPlayer={setLastPlayer}
-            />
+            <MultiPlayer lastPlayer={lastPlayer} setLastPlayer={setLastPlayer} />
           ) : (
             <NameBox
               gameType={gameType}
@@ -267,13 +207,8 @@ const StartGameScreen = (props) => {
             <FontAwesome5 name="play" size={24} color="white" />
             <Text style={styles.playText}>{lang("start_game")}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.multiButton}
-            onPress={() => setGameType("MUL")}
-          >
-            <Text style={{ color: "white", textDecorationLine: "underline" }}>
-              {lang("multi_players")}?
-            </Text>
+          <TouchableOpacity style={styles.multiButton} onPress={() => setGameType("MUL")}>
+            <Text style={{ color: "white", textDecorationLine: "underline" }}>{lang("multi_players")}?</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>

@@ -76,7 +76,8 @@ const SoftHotInGameScreen = (props) => {
   const [rotateCount, setRotateCount] = useState(GameHelper.GenerateRandomInteger(3, 7));
   const makeAction = () => {
     let sentence = "",
-      soft_id = -1;
+      soft_id = -1,
+      isDare = false;
 
     if (rotateCount % 3 > 0) {
       const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
@@ -94,11 +95,12 @@ const SoftHotInGameScreen = (props) => {
       const tmpD = dares[currentPlayer].filter((x) => x.id === i)[0];
       sentence = tmpD.value.replace(/userName/g, coupleNames[currentPlayer]);
       soft_id = tmpD.id;
+      isDare = true;
     }
     setCurrentPlayer(1 - currentPlayer);
     setRotateCount(GameHelper.GenerateRandomInteger(3, 7));
 
-    return { sentence, soft_id };
+    return { sentence, soft_id, isDare };
   };
   const goToDare = () => {
     const action = makeAction();

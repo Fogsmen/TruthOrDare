@@ -126,11 +126,11 @@ const MyDaresNavigator = createStackNavigator(
 
 const MainNavigator = createDrawerNavigator(
   {
+    SoftCouple: SoftHotGameNavigator,
+    HotCouple: SoftHotGameNavigator,
     Game: GameNavigator,
     Settings: SettingsNavigator,
     DiceGame: DiceGameNavigator,
-    SoftCouple: SoftHotGameNavigator,
-    HotCouple: SoftHotGameNavigator,
     RateReview: RateReviewNavigator,
     MyDaresNav: MyDaresNavigator,
   },
@@ -198,16 +198,6 @@ const MainNavigator = createDrawerNavigator(
               <Text style={{ color: "#3b3a39", marginHorizontal: 10, fontSize: 15 }}>{getLang("game")}</Text>
               <TouchableOpacity
                 style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
-                onPress={goToGame}
-              >
-                <FontAwesome name="users" size={26} color="white" />
-                <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>{getLang("your_name")}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: "#525150" }}>
-              <Text style={{ color: "#3b3a39", marginHorizontal: 10, fontSize: 15 }}>{getLang("erotic_dares")}</Text>
-              <TouchableOpacity
-                style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
                 onPress={goToSoftCouple}
               >
                 <FontAwesome name="heart-o" size={26} color="white" />
@@ -224,6 +214,16 @@ const MainNavigator = createDrawerNavigator(
                   {getLang("left_hand_tantra")} ({getLang("hot")})
                 </Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
+                onPress={goToGame}
+              >
+                <FontAwesome name="users" size={26} color="white" />
+                <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>{getLang("normal_game")}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: "#525150" }}>
+              <Text style={{ color: "#3b3a39", marginHorizontal: 10, fontSize: 15 }}>{getLang("erotic_dares")}</Text>
               <TouchableOpacity
                 style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
                 onPress={goToMyDare}
