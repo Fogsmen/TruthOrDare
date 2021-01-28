@@ -7,9 +7,6 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { MaterialIcons, FontAwesome, MaterialCommunityIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { Alert, Linking, LogBox, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import colors from "../constants/colors";
-import InGameScreen from "../screens/NormalGame/InGameScreen";
-import StartGameScreen from "../screens/NormalGame/StartGameScreen";
-import TruthOrDareScreen from "../screens/NormalGame/TruthOrDareScreen";
 import LanguageSettingScreen from "../screens/Settings/LanguageSettingScreen";
 import DiceGameScreen from "../screens/DiceGameScreen";
 import SoftHotStartScreen from "../screens/SoftHotGame/SoftHotStartScreen";
@@ -48,23 +45,6 @@ const defaultDrawOptions = {
   drawerBackgroundColor: colors.redPrimary,
   drawerWidth: 255,
 };
-
-const GameNavigator = createStackNavigator(
-  {
-    StartGame: {
-      screen: StartGameScreen,
-    },
-    InGame: {
-      screen: InGameScreen,
-    },
-    TruthOrDare: {
-      screen: TruthOrDareScreen,
-    },
-  },
-  {
-    defaultNavigationOptions: defaultNavOptions,
-  }
-);
 
 const SoftHotGameNavigator = createStackNavigator(
   {
@@ -128,7 +108,6 @@ const MainNavigator = createDrawerNavigator(
   {
     SoftCouple: SoftHotGameNavigator,
     HotCouple: SoftHotGameNavigator,
-    Game: GameNavigator,
     Settings: SettingsNavigator,
     DiceGame: DiceGameNavigator,
     RateReview: RateReviewNavigator,
