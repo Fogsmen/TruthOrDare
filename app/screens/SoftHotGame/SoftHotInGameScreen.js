@@ -80,24 +80,25 @@ const SoftHotInGameScreen = (props) => {
       isDare = false;
 
     if (rotateCount % 3 > 0) {
-      const i = questionsIds[currentPlayer][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer].length)];
+      const i =
+        questionsIds[currentPlayer % 2][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer % 2].length)];
       let newIds = questionsIds;
-      newIds[currentPlayer] = questionsIds[currentPlayer].filter((x) => x !== i);
+      newIds[currentPlayer % 2] = questionsIds[currentPlayer % 2].filter((x) => x !== i);
       setQuestionsIds(newIds, rotateCount);
-      const tmpQ = questions[currentPlayer].filter((x) => x.id === i)[0];
-      sentence = tmpQ.value.replace(/userName/g, coupleNames[currentPlayer]);
+      const tmpQ = questions[currentPlayer % 2].filter((x) => x.id === i)[0];
+      sentence = tmpQ.value.replace(/userName/g, coupleNames[currentPlayer % 2]);
       soft_id = tmpQ.id;
     } else {
-      const i = daresIds[currentPlayer][GameHelper.GenerateRandomInteger(0, daresIds[currentPlayer].length)];
+      const i = daresIds[currentPlayer % 2][GameHelper.GenerateRandomInteger(0, daresIds[currentPlayer % 2].length)];
       let newIds = daresIds;
-      newIds[currentPlayer] = daresIds[currentPlayer].filter((x) => x !== i);
+      newIds[currentPlayer % 2] = daresIds[currentPlayer % 2].filter((x) => x !== i);
       setDaresIds(newIds);
-      const tmpD = dares[currentPlayer].filter((x) => x.id === i)[0];
+      const tmpD = dares[currentPlayer % 2].filter((x) => x.id === i)[0];
       sentence = tmpD.value.replace(/userName/g, coupleNames[currentPlayer]);
       soft_id = tmpD.id;
       isDare = true;
     }
-    setCurrentPlayer(1 - currentPlayer);
+    setCurrentPlayer((currentPlayer + 1) % coupleNames.length);
     setRotateCount(GameHelper.GenerateRandomInteger(3, 7));
 
     return { sentence, soft_id, isDare };

@@ -1,5 +1,6 @@
 import React from "react";
 import "react-native-gesture-handler";
+import { useSelector } from "react-redux";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -10,7 +11,6 @@ import InGameScreen from "../screens/NormalGame/InGameScreen";
 import StartGameScreen from "../screens/NormalGame/StartGameScreen";
 import TruthOrDareScreen from "../screens/NormalGame/TruthOrDareScreen";
 import LanguageSettingScreen from "../screens/Settings/LanguageSettingScreen";
-import { useSelector } from "react-redux";
 import DiceGameScreen from "../screens/DiceGameScreen";
 import SoftHotStartScreen from "../screens/SoftHotGame/SoftHotStartScreen";
 import SoftHotInGameScreen from "../screens/SoftHotGame/SoftHotInGameScreen";
@@ -156,9 +156,6 @@ const MainNavigator = createDrawerNavigator(
       const goToLanguageSettingsScreen = () => {
         props.navigation.navigate("Settings");
       };
-      const goToGame = () => {
-        props.navigation.navigate("Game");
-      };
       const goToDiceGame = () => {
         props.navigation.navigate("DiceGame");
       };
@@ -200,6 +197,13 @@ const MainNavigator = createDrawerNavigator(
                 style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
                 onPress={goToSoftCouple}
               >
+                <FontAwesome name="users" size={26} color="white" />
+                <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>{getLang("your_names")}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
+                onPress={goToSoftCouple}
+              >
                 <FontAwesome name="heart-o" size={26} color="white" />
                 <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>
                   {getLang("right_hand_tantra")} ({getLang("soft")})
@@ -213,13 +217,6 @@ const MainNavigator = createDrawerNavigator(
                 <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>
                   {getLang("left_hand_tantra")} ({getLang("hot")})
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ flexDirection: "row", padding: 10, margin: 5, alignItems: "center" }}
-                onPress={goToGame}
-              >
-                <FontAwesome name="users" size={26} color="white" />
-                <Text style={{ color: "white", marginLeft: 8, fontWeight: "bold" }}>{getLang("normal_game")}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ marginBottom: 15, borderBottomWidth: 1.5, borderBottomColor: "#525150" }}>
