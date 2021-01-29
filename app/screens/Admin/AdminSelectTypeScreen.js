@@ -14,35 +14,35 @@ const TypeButton = ({ title, onPress }) => (
 const AdminSelectTypeScreen = (props) => {
   const coupleSoftFemaleQuestion = () => {
     const crud = AdminService.crudCoupleSoftFemaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
   };
   const coupleSoftFemaleDare = () => {
     const crud = AdminService.crudCoupleSoftFemaleDare;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
   };
   const coupleSoftMaleQuestion = () => {
     const crud = AdminService.crudCoupleSoftMaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
   };
   const coupleSoftMaleDare = () => {
     const crud = AdminService.crudCoupleSoftMaleDare;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
   };
   const coupleHotFemaleQuestion = () => {
     const crud = AdminService.crudCoupleHotFemaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
   };
   const coupleHotFemaleDare = () => {
     const crud = AdminService.crudCoupleHotFemaleDare;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
   };
   const coupleHotMaleQuestion = () => {
     const crud = AdminService.crudCoupleHotMaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
   };
   const coupleHotMaleDare = () => {
     const crud = AdminService.crudCoupleHotMaleDare;
-    props.navigation.navigate("AdminCrud", { crud });
+    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
   };
   const dice = () => {
     props.navigation.navigate("AdminDice");

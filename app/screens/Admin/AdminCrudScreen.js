@@ -46,7 +46,7 @@ const TimerBox = ({ value, setValue }) => {
   );
 };
 
-const CreateBox = ({ getLang, create }) => {
+const CreateBox = ({ getLang, create, needTimer }) => {
   const [value, setValue] = useState("");
   const [shot, setShot] = useState(60);
   const submit = () => {
@@ -66,7 +66,7 @@ const CreateBox = ({ getLang, create }) => {
       <TextInput style={styles.input} multiline={true} value={value} onChangeText={(txt) => setValue(txt)} />
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
         <Text style={{ marginRight: 10, color: "white", fontSize: 16, marginVertical: 5 }}>Timer:</Text>
-        <TimerBox value={shot} setValue={setShot} />
+        {needTimer && <TimerBox value={shot} setValue={setShot} />}
       </View>
       <TouchableOpacity onPress={submit}>
         <Text style={styles.createbutton}>{getLang("create")}</Text>
@@ -75,7 +75,7 @@ const CreateBox = ({ getLang, create }) => {
   );
 };
 
-const EditBox = ({ item, update, remove, getLang }) => {
+const EditBox = ({ item, update, remove, getLang, needTimer }) => {
   const [value, setValue] = useState(item.value);
   const [shot, setShot] = useState(item.shot.toString());
   const updateSubmit = () => {
@@ -104,7 +104,7 @@ const EditBox = ({ item, update, remove, getLang }) => {
         <TouchableOpacity style={{ paddingVertical: 5, marginVertical: 5 }} onPress={updateSubmit}>
           <Text style={styles.updatebutton}>{getLang("update")}</Text>
         </TouchableOpacity>
-        <TimerBox value={shot} setValue={setShot} />
+        {needTimer && <TimerBox value={shot} setValue={setShot} />}
         <TouchableOpacity style={{ paddingVertical: 5, marginVertical: 5 }} onPress={remove.bind(this, item.id)}>
           <Text style={styles.deletebutton}>{getLang("delete")}</Text>
         </TouchableOpacity>
@@ -116,6 +116,7 @@ const EditBox = ({ item, update, remove, getLang }) => {
 const AdminCrudScreen = (props) => {
   const isIn = useRef();
   const { create, read, update, remove } = props.navigation.getParam("crud");
+  const needTimer = props.navigation.getParam("needTimer");
   const token = useSelector((state) => state.auth.token);
   const { lang, getLang } = useSelector((state) => state.settings);
   const [data, setData] = useState([]);
@@ -123,7 +124,7 @@ const AdminCrudScreen = (props) => {
 
   const createItem = (shot, value) => {
     setLoading(true);
-    create(token, lang.toUpperCase(), shot, value)
+    create(token, lang.toUpperCase(), needTimer ? shot : 0, value)
       .then((res) => {
         loadData();
       })
@@ -136,7 +137,7 @@ const AdminCrudScreen = (props) => {
   };
   const updateItem = (id, shot, value) => {
     setLoading(true);
-    update(token, id, shot, value)
+    update(token, id, needTimer ? shot : 0, value)
       .then((res) => {
         loadData();
       })
@@ -196,9 +197,16 @@ const AdminCrudScreen = (props) => {
         <ScrollView>
           {data[lang] &&
             data[lang].map((item) => (
-              <EditBox key={item.id} getLang={getLang} update={updateItem} item={item} remove={removeItem} />
+              <EditBox
+                key={item.id}
+                getLang={getLang}
+                update={updateItem}
+                item={item}
+                remove={removeItem}
+                needTimer={needTimer}
+              />
             ))}
-          <CreateBox getLang={getLang} create={createItem} />
+          <CreateBox getLang={getLang} create={createItem} needTimer={needTimer} />
         </ScrollView>
       )}
     </SafeAreaView>
