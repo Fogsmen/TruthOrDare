@@ -15,16 +15,47 @@ import HeaderGoBackButton from "../../components/HeaderGoBackButton";
 import HeaderLabel from "../../components/HeaderLabel";
 import HeaderToggleMenuButton from "../../components/HeaderToggleMenuButton";
 
+const TimerBox = ({ value, setValue }) => {
+  const [form, setForm] = useState({ min: parseInt(value / 60).toString(), sec: (value % 60).toString() });
+  const inputHandle = (id, txt) => {
+    if (isNaN(txt) || parseInt(txt) > 60) return;
+    setForm({
+      ...form,
+      [id]: txt,
+    });
+  };
+  useEffect(() => {
+    setValue(parseInt(form.min) * 60 + parseInt(form.sec));
+  }, [form, setForm]);
+
+  return (
+    <View style={{ flexDirection: "row" }}>
+      <TextInput
+        style={styles.shottext}
+        value={form.min}
+        onChangeText={inputHandle.bind(this, "min")}
+        keyboardType="number-pad"
+      />
+      <TextInput
+        style={styles.shottext}
+        value={form.sec}
+        onChangeText={inputHandle.bind(this, "sec")}
+        keyboardType="number-pad"
+      />
+    </View>
+  );
+};
+
 const CreateBox = ({ getLang, create }) => {
   const [value, setValue] = useState("");
-  const [shot, setShot] = useState("0");
+  const [shot, setShot] = useState(60);
   const submit = () => {
-    if (value.trim().length === 0 || shot.trim().length === 0) {
+    if (value.trim().length === 0) {
       Alert.alert("Error", "No empty value allowed", [{ text: "OK" }]);
       return;
     }
     try {
-      create(parseInt(shot), value);
+      create(shot, value);
     } catch (err) {
       Alert.alert("Error", err.message, [{ text: "OK" }]);
       return;
@@ -34,13 +65,8 @@ const CreateBox = ({ getLang, create }) => {
     <View style={styles.createbox}>
       <TextInput style={styles.input} multiline={true} value={value} onChangeText={(txt) => setValue(txt)} />
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ marginRight: 10, color: "white", fontSize: 16, marginVertical: 5 }}>Shot:</Text>
-        <TextInput
-          style={styles.shottext}
-          value={shot}
-          onChangeText={(t) => !isNaN(t) && setShot(t)}
-          keyboardType="number-pad"
-        />
+        <Text style={{ marginRight: 10, color: "white", fontSize: 16, marginVertical: 5 }}>Timer:</Text>
+        <TimerBox value={shot} setValue={setShot} />
       </View>
       <TouchableOpacity onPress={submit}>
         <Text style={styles.createbutton}>{getLang("create")}</Text>
@@ -53,12 +79,12 @@ const EditBox = ({ item, update, remove, getLang }) => {
   const [value, setValue] = useState(item.value);
   const [shot, setShot] = useState(item.shot.toString());
   const updateSubmit = () => {
-    if (value.trim().length === 0 || shot.trim().length === 0) {
+    if (value.trim().length === 0) {
       Alert.alert("Error", "No empty value allowed", [{ text: "OK" }]);
       return;
     }
     try {
-      update(item.id, parseInt(shot), value);
+      update(item.id, shot, value);
     } catch (err) {
       Alert.alert("Error", err.message, [{ text: "OK" }]);
       return;
@@ -78,12 +104,7 @@ const EditBox = ({ item, update, remove, getLang }) => {
         <TouchableOpacity style={{ paddingVertical: 5, marginVertical: 5 }} onPress={updateSubmit}>
           <Text style={styles.updatebutton}>{getLang("update")}</Text>
         </TouchableOpacity>
-        <TextInput
-          style={styles.shottext}
-          value={shot}
-          onChangeText={(txt) => !isNaN(txt) && setShot(txt)}
-          keyboardType="number-pad"
-        />
+        <TimerBox value={shot} setValue={setShot} />
         <TouchableOpacity style={{ paddingVertical: 5, marginVertical: 5 }} onPress={remove.bind(this, item.id)}>
           <Text style={styles.deletebutton}>{getLang("delete")}</Text>
         </TouchableOpacity>
@@ -253,12 +274,13 @@ const styles = StyleSheet.create({
     borderColor: "#7f8fa6",
     borderWidth: 1,
     borderRadius: 5,
-    width: 60,
+    width: 50,
     textAlign: "center",
     padding: 1,
     color: "#2c2c54",
     backgroundColor: "#f7f1e3",
     marginVertical: 8,
+    marginHorizontal: 3,
   },
 });
 

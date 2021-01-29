@@ -26,7 +26,7 @@ const TruthDareVideo = (props) => {
   };
 
   return (
-    <View style={{ backgroundColor: colors.defaultBackground, padding: 50 }}>
+    <View style={{ backgroundColor: colors.defaultBackground, padding: 30 }}>
       <Video
         source={props.path}
         style={styles.video}

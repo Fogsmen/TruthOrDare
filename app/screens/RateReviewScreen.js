@@ -89,7 +89,7 @@ const RateReviewScreen = (props) => {
   };
   const openWhatsApp = () => {
     try {
-      Linking.openURL("https://api.whatsapp.com/send?phone=1525652&text=App%20Support");
+      Linking.openURL("https://api.whatsapp.com/send?phone=66950340010&text=Contact%20Us");
     } catch (err) {
       Alert.alert("Error", err.message, [{ text: "OK" }]);
     }
