@@ -108,7 +108,6 @@ const AdminCrudScreen = (props) => {
       })
       .catch((err) => {
         if (isIn.current) {
-          console.log("err", err);
           setLoading(false);
           Alert.alert("Error", "Connection failed", [{ text: "OK" }]);
         }
@@ -174,9 +173,10 @@ const AdminCrudScreen = (props) => {
         <ActivityIndicator size="large" color="black" />
       ) : (
         <ScrollView>
-          {data[lang].map((item) => (
-            <EditBox key={item.id} getLang={getLang} update={updateItem} item={item} remove={removeItem} />
-          ))}
+          {data[lang] &&
+            data[lang].map((item) => (
+              <EditBox key={item.id} getLang={getLang} update={updateItem} item={item} remove={removeItem} />
+            ))}
           <CreateBox getLang={getLang} create={createItem} />
         </ScrollView>
       )}

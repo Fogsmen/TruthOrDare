@@ -26,7 +26,7 @@ const TruthDareVideo = (props) => {
   };
 
   return (
-    <View style={{ backgroundColor: colors.defaultBackground, padding: 35 }}>
+    <View style={{ backgroundColor: colors.defaultBackground, padding: 50 }}>
       <Video
         source={props.path}
         style={styles.video}
@@ -74,13 +74,14 @@ const SoftHotInGameScreen = (props) => {
     };
   }, [setDaresIds, setQuestionsIds]);
 
-  const [rotateCount, setRotateCount] = useState(GameHelper.GenerateRandomInteger(3, 7));
+  const [rotateCount, setRotateCount] = useState(0);
   const makeAction = () => {
     let sentence = "",
       soft_id = -1,
-      isDare = false;
+      isDare = false,
+      initSec = 60;
 
-    if (rotateCount % 3 > 0) {
+    if (rotateCount < 2) {
       const i =
         questionsIds[currentPlayer % 2][GameHelper.GenerateRandomInteger(0, questionsIds[currentPlayer % 2].length)];
       let newIds = questionsIds;
@@ -96,13 +97,14 @@ const SoftHotInGameScreen = (props) => {
       setDaresIds(newIds);
       const tmpD = dares[currentPlayer % 2].filter((x) => x.id === i)[0];
       sentence = tmpD.value.replace(/userName/g, coupleNames[currentPlayer]);
+      initSec = tmpD.shot;
       soft_id = tmpD.id;
       isDare = true;
     }
     setCurrentPlayer((currentPlayer + 1) % coupleNames.length);
-    setRotateCount(GameHelper.GenerateRandomInteger(3, 7));
+    setRotateCount((rotateCount + 1) % 3);
 
-    return { sentence, soft_id, isDare };
+    return { sentence, soft_id, isDare, initSec };
   };
   const goToDare = () => {
     const action = makeAction();
@@ -119,7 +121,7 @@ const SoftHotInGameScreen = (props) => {
 
   return (
     <TruthDareVideo
-      path={rotateCount % 3 > 0 ? truthPath : darePath}
+      path={rotateCount < 2 ? truthPath : darePath}
       didJustFinish={finishedPlay}
       shouldPlay={shouldPlay}
       onPress={playVideo}

@@ -23,12 +23,7 @@ const CreateBox = ({ getLang, createItem }) => {
 
   return (
     <View style={styles.createbox}>
-      <TextInput
-        style={styles.input}
-        multiline={true}
-        value={value}
-        onChangeText={inputChange}
-      />
+      <TextInput style={styles.input} multiline={true} value={value} onChangeText={inputChange} />
       <TouchableOpacity onPress={createItem.bind(this, value)}>
         <Text style={styles.createbutton}>{getLang("create")}</Text>
       </TouchableOpacity>
@@ -46,12 +41,7 @@ const EditBox = ({ getLang, item, updateItem, deleteItem }) => {
   }, [item]);
   return (
     <View style={styles.createbox}>
-      <TextInput
-        style={styles.input}
-        value={value}
-        multiline={true}
-        onChangeText={inputChange}
-      />
+      <TextInput style={styles.input} value={value} multiline={true} onChangeText={inputChange} />
       <View
         style={{
           flexDirection: "row",
@@ -65,10 +55,7 @@ const EditBox = ({ getLang, item, updateItem, deleteItem }) => {
         >
           <Text style={styles.updatebutton}>{getLang("update")}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{ paddingVertical: 5, marginVertical: 5 }}
-          onPress={deleteItem.bind(this, item.id)}
-        >
+        <TouchableOpacity style={{ paddingVertical: 5, marginVertical: 5 }} onPress={deleteItem.bind(this, item.id)}>
           <Text style={styles.deletebutton}>{getLang("delete")}</Text>
         </TouchableOpacity>
       </View>
@@ -114,9 +101,7 @@ const MyDaresScreen = (props) => {
         .catch((err) => {
           if (isIn.current) {
             setIsLoading(false);
-            Alert.alert("Error", err.message ?? "Connction error", [
-              { text: "OK" },
-            ]);
+            Alert.alert("Error", err.message ?? "Connction error", [{ text: "OK" }]);
           }
         });
     },
@@ -134,9 +119,7 @@ const MyDaresScreen = (props) => {
         .catch((err) => {
           if (isIn.current) {
             setIsLoading(false);
-            Alert.alert("Error", err.message ?? "Connection error", [
-              { text: "OK" },
-            ]);
+            Alert.alert("Error", err.message ?? "Connection error", [{ text: "OK" }]);
           }
         });
     },
@@ -165,6 +148,7 @@ const MyDaresScreen = (props) => {
   useEffect(() => {
     isIn.current = true;
     const willFocusSub = props.navigation.addListener("willFocus", loadDares);
+    loadDares();
 
     return () => {
       willFocusSub.remove();
@@ -183,16 +167,9 @@ const MyDaresScreen = (props) => {
           data={dares}
           keyExtractor={(item) => item.id.toString()}
           renderItem={(itemData) => (
-            <EditBox
-              getLang={getLang}
-              updateItem={updateDare}
-              deleteItem={deleteDare}
-              item={itemData.item}
-            />
+            <EditBox getLang={getLang} updateItem={updateDare} deleteItem={deleteDare} item={itemData.item} />
           )}
-          ListFooterComponent={
-            <CreateBox getLang={getLang} createItem={createDare} />
-          }
+          ListFooterComponent={<CreateBox getLang={getLang} createItem={createDare} />}
         />
       )}
     </KeyboardAvoidingView>

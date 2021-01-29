@@ -41,7 +41,7 @@ const WriteStars = ({ star, setStar }) => {
 
 const SoftHotDareScreen = (props) => {
   const isIn = useRef();
-  const { sentence, soft_id, isDare } = props.navigation.getParam("action");
+  const { sentence, soft_id, isDare, initSec } = props.navigation.getParam("action");
   const { getLang } = useSelector((state) => state.settings);
 
   const [loading, setLoading] = useState(false);
@@ -68,8 +68,7 @@ const SoftHotDareScreen = (props) => {
     props.navigation.goBack();
   };
 
-  const initialSec = 60;
-  const [second, setSecond] = useState(initialSec);
+  const [second, setSecond] = useState(initSec);
   const [isPlay, setIsPlay] = useState(false);
   const currentPlay = useRef(false);
 
@@ -77,7 +76,7 @@ const SoftHotDareScreen = (props) => {
     (current) => {
       if (!currentPlay.current) return;
       if (current <= 0) {
-        setSecond(initialSec);
+        setSecond(initSec);
         currentPlay.current = false;
         setIsPlay(false);
         return;
