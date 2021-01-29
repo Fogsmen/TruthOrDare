@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   ActivityIndicator,
   Alert,
-  FlatList,
-  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -108,6 +108,7 @@ const AdminCrudScreen = (props) => {
       })
       .catch((err) => {
         if (isIn.current) {
+          console.log("err", err);
           setLoading(false);
           Alert.alert("Error", "Connection failed", [{ text: "OK" }]);
         }
@@ -168,20 +169,18 @@ const AdminCrudScreen = (props) => {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       {loading ? (
         <ActivityIndicator size="large" color="black" />
       ) : (
-        <FlatList
-          data={data[lang]}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={(itemData) => (
-            <EditBox getLang={getLang} update={updateItem} item={itemData.item} remove={removeItem} />
-          )}
-          ListFooterComponent={<CreateBox getLang={getLang} create={createItem} />}
-        />
+        <ScrollView>
+          {data[lang].map((item) => (
+            <EditBox key={item.id} getLang={getLang} update={updateItem} item={item} remove={removeItem} />
+          ))}
+          <CreateBox getLang={getLang} create={createItem} />
+        </ScrollView>
       )}
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

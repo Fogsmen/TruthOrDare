@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  forwardRef,
-  useRef,
-  useImperativeHandle,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, forwardRef, useRef, useImperativeHandle, useEffect, useCallback } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -64,10 +57,7 @@ const DiceComp = forwardRef((props, ref) => {
         scrollEnabled={false}
       >
         {words.map((word, index) => (
-          <View
-            key={index}
-            style={{ height: height, width: width, ...styles.diceSquare }}
-          >
+          <View key={index} style={{ height: height, width: width, ...styles.diceSquare }}>
             <Text
               style={{
                 textAlign: "center",
@@ -90,12 +80,8 @@ const DiceGameScreen = (props) => {
   const [loading, setLoading] = useState(false);
   const [place, setPlace] = useState([]);
   const [action, setAction] = useState([]);
-  const [firstLoop, setFirstloop] = useState(
-    GameHelper.GenerateRandomInteger(10, 30)
-  );
-  const [secondLoop, setSecondLoop] = useState(
-    GameHelper.GenerateRandomInteger(10, 30)
-  );
+  const [firstLoop, setFirstloop] = useState(GameHelper.GenerateRandomInteger(10, 30));
+  const [secondLoop, setSecondLoop] = useState(GameHelper.GenerateRandomInteger(10, 30));
   const firstDice = useRef();
   const secondDice = useRef();
 
@@ -151,32 +137,16 @@ const DiceGameScreen = (props) => {
     );
   }
   return (
-    <ImageBackground
-      style={styles.image}
-      resizeMode="stretch"
-      source={require("../images/home-background.png")}
-    >
+    <ImageBackground style={styles.image} resizeMode="stretch" source={require("../images/home-background.png")}>
       <View style={styles.screen}>
         <View style={{ margin: 20 }}>
-          <DiceComp
-            words={place}
-            speed="fast"
-            loopCount={firstLoop}
-            ref={firstDice}
-          />
+          <DiceComp words={place} speed="fast" loopCount={firstLoop} ref={firstDice} />
         </View>
         <View style={{ margin: 20 }}>
-          <DiceComp
-            words={action}
-            speed="normal"
-            loopCount={secondLoop}
-            ref={secondDice}
-          />
+          <DiceComp words={action} speed="normal" loopCount={secondLoop} ref={secondDice} />
         </View>
         <TouchableOpacity style={styles.gobutton} onPress={runDice}>
-          <Text style={{ color: "white", fontWeight: "bold", fontSize: 25 }}>
-            {getLang("go")}
-          </Text>
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: 25 }}>{getLang("go")}</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -209,8 +179,8 @@ const styles = StyleSheet.create({
   diceSquare: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.redPrimary,
-    borderColor: colors.defaultBackground,
+    backgroundColor: "#bb2b46",
+    borderColor: "#bb2b46",
     borderRadius: 10,
     borderWidth: 5,
   },

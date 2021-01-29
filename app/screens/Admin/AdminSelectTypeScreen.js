@@ -12,38 +12,6 @@ const TypeButton = ({ title, onPress }) => (
 );
 
 const AdminSelectTypeScreen = (props) => {
-  const normalMultiQuestion = () => {
-    const crud = AdminService.crudNormalMultiQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalMultiDare = () => {
-    const crud = AdminService.crudNormalMultiDare;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalMFQuestion = () => {
-    const crud = AdminService.crudNormalMFQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalMFDare = () => {
-    const crud = AdminService.crudNormalMFDare;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalMMQuestion = () => {
-    const crud = AdminService.crudNormalMMQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalMMDare = () => {
-    const crud = AdminService.crudNormalMMDare;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalFFQuestion = () => {
-    const crud = AdminService.crudNormalFFQuestion;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
-  const normalFFDare = () => {
-    const crud = AdminService.crudNormalFFDare;
-    props.navigation.navigate("AdminCrud", { crud });
-  };
   const coupleSoftFemaleQuestion = () => {
     const crud = AdminService.crudCoupleSoftFemaleQuestion;
     props.navigation.navigate("AdminCrud", { crud });
@@ -82,18 +50,6 @@ const AdminSelectTypeScreen = (props) => {
 
   return (
     <ScrollView style={styles.screen}>
-      <TypeButton title="Normal Multiple Game Questions" onPress={normalMultiQuestion} />
-      <TypeButton title="Normal Multiple Game Dares" onPress={normalMultiDare} />
-
-      <TypeButton title="Normal Male-Female Questions" onPress={normalMFQuestion} />
-      <TypeButton title="Normal Male-Female Dares" onPress={normalMFDare} />
-
-      <TypeButton title="Normal Male-Male Questions" onPress={normalMMQuestion} />
-      <TypeButton title="Normal Male-Male Dares" onPress={normalMMDare} />
-
-      <TypeButton title="Normal Female-Female Questions" onPress={normalFFQuestion} />
-      <TypeButton title="Normal Female-Female Dares" onPress={normalFFDare} />
-
       <TypeButton title="Couple Soft Female Questions" onPress={coupleSoftFemaleQuestion} />
       <TypeButton title="Couple Soft Female Dares" onPress={coupleSoftFemaleDare} />
       <TypeButton title="Couple Soft Male Questions" onPress={coupleSoftMaleQuestion} />

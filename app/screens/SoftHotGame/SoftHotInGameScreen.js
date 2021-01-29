@@ -8,6 +8,7 @@ import HeaderLabel from "../../components/HeaderLabel";
 import HeaderGoBackButton from "../../components/HeaderGoBackButton";
 
 import * as GameHelper from "../../helpers/GameHelper";
+import colors from "../../constants/colors";
 
 const GoButton = (props) => {
   return (
@@ -25,7 +26,7 @@ const TruthDareVideo = (props) => {
   };
 
   return (
-    <View style={{ backgroundColor: "#cfc" }}>
+    <View style={{ backgroundColor: colors.defaultBackground, padding: 35 }}>
       <Video
         source={props.path}
         style={styles.video}

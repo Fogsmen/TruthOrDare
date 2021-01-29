@@ -112,7 +112,7 @@ const RateReviewScreen = (props) => {
             <Text style={styles.buttonText}>Rate the app</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ position: "absolute", bottom: 20 }} onPress={openWhatsApp}>
-            <Text style={{ color: "white", textDecorationLine: "underline" }}>App Support</Text>
+            <Text style={{ color: "white", textDecorationLine: "underline" }}>Contact Us</Text>
           </TouchableOpacity>
         </View>
       )}

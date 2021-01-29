@@ -31,7 +31,7 @@ const PaynowComponent = () => {
         style={{
           fontSize: 20,
           textAlign: "center",
-          backgroundColor: "#eb2f06",
+          backgroundColor: "#a2122d",
           color: "white",
           padding: 20,
           margin: 30,
