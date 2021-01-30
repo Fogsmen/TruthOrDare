@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
 import { Video } from "expo-av";
 
@@ -27,6 +27,7 @@ const TruthDareVideo = (props) => {
 
   return (
     <View style={{ backgroundColor: colors.defaultBackground, padding: 30 }}>
+      <Text style={styles.playername}>{props.playerName}</Text>
       <Video
         source={props.path}
         style={styles.video}
@@ -121,6 +122,7 @@ const SoftHotInGameScreen = (props) => {
 
   return (
     <TruthDareVideo
+      playerName={coupleNames[currentPlayer]}
       path={rotateCount < 2 ? truthPath : darePath}
       didJustFinish={finishedPlay}
       shouldPlay={shouldPlay}
@@ -183,6 +185,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     borderRadius: 50,
+  },
+  playername: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
