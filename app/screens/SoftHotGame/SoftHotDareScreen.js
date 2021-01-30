@@ -2,6 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -98,6 +99,13 @@ const SoftHotDareScreen = (props) => {
       countdownSec(second);
     }
   };
+  const openFeedback = () => {
+    try {
+      Linking.openURL("mailto:thamnopoulos@gmail.com");
+    } catch (err) {
+      Alert.alert("Error", err.message, [{ text: "Ok" }]);
+    }
+  };
 
   useEffect(() => {
     isIn.current = true;
@@ -149,6 +157,13 @@ const SoftHotDareScreen = (props) => {
       <TouchableOpacity style={{ flex: 0.2 }} onPress={() => setShowRateBox(!showRatebox)}>
         <Text style={styles.linkbtn}>{showRatebox ? getLang("go_back") : getLang("rate_this_dare")}</Text>
       </TouchableOpacity>
+      {showRatebox && (
+        <TouchableOpacity style={{ marginTop: 50 }} onPress={openFeedback}>
+          <Text style={{ fontSize: 17, color: "white", textAlign: "center", textDecorationLine: "underline" }}>
+            Feedback? send email
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
