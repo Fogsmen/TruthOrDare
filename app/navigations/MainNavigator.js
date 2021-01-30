@@ -17,8 +17,10 @@ import LoginScreen from "../screens/Auth/LoginScreen";
 import RegisterScreen from "../screens/Auth/RegisterScreen";
 import MyDaresScreen from "../screens/Settings/MyDaresScreen";
 import AdminSelectTypeScreen from "../screens/Admin/AdminSelectTypeScreen";
-import AdminCrudScreen from "../screens/Admin/AdminCrudScreen";
 import AdminDiceScreen from "../screens/Admin/AdminDiceScreen";
+import AdminViewDaresScreen from "../screens/Admin/AdminViewDaresScreen";
+import AdminEditDareScreen from "../screens/Admin/AdminEditDareScreen";
+import AdminCreateDareScreen from "../screens/Admin/AdminCreateDareScreen";
 
 LogBox.ignoreLogs(["Your project is accessing the following APIs"]);
 
@@ -96,7 +98,9 @@ const MyDaresNavigator = createStackNavigator(
     Register: RegisterScreen,
     MyDares: MyDaresScreen,
     AdminGameType: AdminSelectTypeScreen,
-    AdminCrud: AdminCrudScreen,
+    AdminViewDares: AdminViewDaresScreen,
+    AdminCreateDare: AdminCreateDareScreen,
+    AdminEditDare: AdminEditDareScreen,
     AdminDice: AdminDiceScreen,
   },
   {

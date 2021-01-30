@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import HeaderGoBackButton from "../../components/HeaderGoBackButton";
 import HeaderLabel from "../../components/HeaderLabel";
 import HeaderToggleMenuButton from "../../components/HeaderToggleMenuButton";
@@ -12,57 +12,34 @@ const TypeButton = ({ title, onPress }) => (
 );
 
 const AdminSelectTypeScreen = (props) => {
-  const coupleSoftFemaleQuestion = () => {
-    const crud = AdminService.crudCoupleSoftFemaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
+  const viewSoft = () => {
+    props.navigation.navigate("AdminViewDares", { read: AdminService.getSofts });
   };
-  const coupleSoftFemaleDare = () => {
-    const crud = AdminService.crudCoupleSoftFemaleDare;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
+  const createSoft = () => {
+    props.navigation.navigate("AdminCreateDare", { create: AdminService.createSoft });
   };
-  const coupleSoftMaleQuestion = () => {
-    const crud = AdminService.crudCoupleSoftMaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
+  const viewHot = () => {
+    props.navigation.navigate("AdminViewDares", { read: AdminService.getHots });
   };
-  const coupleSoftMaleDare = () => {
-    const crud = AdminService.crudCoupleSoftMaleDare;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
-  };
-  const coupleHotFemaleQuestion = () => {
-    const crud = AdminService.crudCoupleHotFemaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
-  };
-  const coupleHotFemaleDare = () => {
-    const crud = AdminService.crudCoupleHotFemaleDare;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
-  };
-  const coupleHotMaleQuestion = () => {
-    const crud = AdminService.crudCoupleHotMaleQuestion;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: false });
-  };
-  const coupleHotMaleDare = () => {
-    const crud = AdminService.crudCoupleHotMaleDare;
-    props.navigation.navigate("AdminCrud", { crud, needTimer: true });
+  const createHot = () => {
+    props.navigation.navigate("AdminCreateDare", { create: AdminService.createHot });
   };
   const dice = () => {
     props.navigation.navigate("AdminDice");
   };
 
   return (
-    <ScrollView style={styles.screen}>
-      <TypeButton title="Couple Soft Female Questions" onPress={coupleSoftFemaleQuestion} />
-      <TypeButton title="Couple Soft Female Dares" onPress={coupleSoftFemaleDare} />
-      <TypeButton title="Couple Soft Male Questions" onPress={coupleSoftMaleQuestion} />
-      <TypeButton title="Couple Soft Male Dares" onPress={coupleSoftMaleDare} />
+    <SafeAreaView style={styles.screen}>
+      <TypeButton title="View Soft Dares" onPress={viewSoft} />
+      <TypeButton title="Create Soft Dare" onPress={createSoft} />
+      <View style={{ height: 30 }} />
 
-      <TypeButton title="Couple Hot Female Questions" onPress={coupleHotFemaleQuestion} />
-      <TypeButton title="Couple Hot Female Dares" onPress={coupleHotFemaleDare} />
-      <TypeButton title="Couple Hot Male Questions" onPress={coupleHotMaleQuestion} />
-      <TypeButton title="Couple Hot Male Dares" onPress={coupleHotMaleDare} />
+      <TypeButton title="View Hot Dares" onPress={viewHot} />
+      <TypeButton title="Create Hot Dare" onPress={createHot} />
+      <View style={{ height: 30 }} />
 
       <TypeButton title="Dice Game" onPress={dice} />
-      <View style={{ height: 30 }} />
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -83,10 +60,10 @@ AdminSelectTypeScreen.navigationOptions = (navData) => {
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: 10,
-    paddingBottom: 50,
     paddingHorizontal: 5,
     backgroundColor: "#fc5c65",
+    justifyContent: "center",
+    flex: 1,
   },
   button: {
     alignSelf: "center",

@@ -64,10 +64,12 @@ const CreateBox = ({ getLang, create, needTimer }) => {
   return (
     <View style={styles.createbox}>
       <TextInput style={styles.input} multiline={true} value={value} onChangeText={(txt) => setValue(txt)} />
-      <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ marginRight: 10, color: "white", fontSize: 16, marginVertical: 5 }}>Timer:</Text>
-        {needTimer && <TimerBox value={shot} setValue={setShot} />}
-      </View>
+      {needTimer && (
+        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+          <Text style={{ marginRight: 10, color: "white", fontSize: 16, marginVertical: 5 }}>Timer:</Text>
+          <TimerBox value={shot} setValue={setShot} />
+        </View>
+      )}
       <TouchableOpacity onPress={submit}>
         <Text style={styles.createbutton}>{getLang("create")}</Text>
       </TouchableOpacity>
