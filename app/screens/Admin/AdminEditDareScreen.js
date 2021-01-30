@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   ActivityIndicator,
   Alert,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -102,23 +101,27 @@ const AdminEditDareScreen = (props) => {
         <Text style={styles.gender}>{dare.gender === "M" ? "Male" : "Female"}</Text>
       </View>
       <TextInput style={styles.text} multiline value={dare.value} onChangeText={inputHandle} />
-      <Text style={styles.timer}>
-        {printTwo(parseInt(dare.shot / 60))}:{printTwo(dare.shot % 60)}
-      </Text>
-      <View style={styles.timerbar}>
-        <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(30)}>
-          <Text style={styles.timerbarbtntxt}>00:30</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(60)}>
-          <Text style={styles.timerbarbtntxt}>01:00</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(120)}>
-          <Text style={styles.timerbarbtntxt}>02:00</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(300)}>
-          <Text style={styles.timerbarbtntxt}>05:00</Text>
-        </TouchableOpacity>
-      </View>
+      {dare.type === "D" && (
+        <Text style={styles.timer}>
+          {printTwo(parseInt(dare.shot / 60))}:{printTwo(dare.shot % 60)}
+        </Text>
+      )}
+      {dare.type === "D" && (
+        <View style={styles.timerbar}>
+          <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(30)}>
+            <Text style={styles.timerbarbtntxt}>00:30</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(60)}>
+            <Text style={styles.timerbarbtntxt}>01:00</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(120)}>
+            <Text style={styles.timerbarbtntxt}>02:00</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.timerbarbtn} onPress={() => setShot(300)}>
+            <Text style={styles.timerbarbtntxt}>05:00</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={styles.buttons}>
         <TouchableOpacity onPress={updateDare}>
           <Text style={styles.updatebtn}>Update</Text>
