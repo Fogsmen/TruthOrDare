@@ -13,13 +13,25 @@ const TypeButton = ({ title, onPress }) => (
 
 const AdminSelectTypeScreen = (props) => {
   const viewSoft = () => {
-    props.navigation.navigate("AdminViewDares", { read: AdminService.getSofts });
+    const crud = {
+      read: AdminService.getSofts,
+      readOne: AdminService.getSoftById,
+      update: AdminService.updateSoft,
+      remove: AdminService.deleteSoft,
+    };
+    props.navigation.navigate("AdminViewDares", { crud });
   };
   const createSoft = () => {
     props.navigation.navigate("AdminCreateDare", { create: AdminService.createSoft });
   };
   const viewHot = () => {
-    props.navigation.navigate("AdminViewDares", { read: AdminService.getHots });
+    const crud = {
+      read: AdminService.getHots,
+      readOne: AdminService.getHotById,
+      update: AdminService.updateHot,
+      remove: AdminService.deleteHot,
+    };
+    props.navigation.navigate("AdminViewDares", { crud });
   };
   const createHot = () => {
     props.navigation.navigate("AdminCreateDare", { create: AdminService.createHot });

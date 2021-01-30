@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   ActivityIndicator,
   Alert,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -26,7 +25,7 @@ const AdminCreateDareScreen = (props) => {
     };
   }, []);
 
-  return <SafeAreaView style={styles.screen}></SafeAreaView>;
+  return <ScrollView style={styles.screen}></ScrollView>;
 };
 
 AdminCreateDareScreen.navigationOptions = (navData) => {

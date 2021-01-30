@@ -32,11 +32,10 @@ export const updateDice = async (token, lang, place, action) => {
   return result;
 };
 
-export const getSofts = async (token, type, gender) => {
+export const getSofts = async (token) => {
   const response = await fetch(`${URL}/get-softs?token=${token}`, {
     method: "POST",
     headers: defaultHeaders,
-    body: JSON.stringify({ type, gender }),
   });
   const result = await response.json();
   if (!response.ok) {
@@ -58,11 +57,11 @@ export const createSoft = async (token, lang, type, shot, value, gender) => {
   return result;
 };
 
-export const updateSoft = async (token, id, shot, value) => {
+export const updateSoft = async (token, id, type, gender, shot, value) => {
   const response = await fetch(`${URL}/update-soft?token=${token}`, {
     method: "POST",
     headers: defaultHeaders,
-    body: JSON.stringify({ id, shot, value }),
+    body: JSON.stringify({ id, type, gender, shot, value }),
   });
   const result = await response.json();
   if (!response.ok) {
@@ -83,11 +82,22 @@ export const deleteSoft = async (token, id) => {
   return result;
 };
 
-export const getHots = async (token, type, gender) => {
+export const getSoftById = async (token, id) => {
+  const response = await fetch(`${URL}/get-soft-by-id?token=${token}&id=${id}`, {
+    method: "POST",
+    headers: defaultHeaders,
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const getHots = async (token) => {
   const response = await fetch(`${URL}/get-hots?token=${token}`, {
     method: "POST",
     headers: defaultHeaders,
-    body: JSON.stringify({ type, gender }),
   });
   const result = await response.json();
   if (!response.ok) {
@@ -109,11 +119,11 @@ export const createHot = async (token, lang, type, shot, value, gender) => {
   return result;
 };
 
-export const updateHot = async (token, id, shot, value) => {
+export const updateHot = async (token, id, type, gender, shot, value) => {
   const response = await fetch(`${URL}/update-hot?token=${token}`, {
     method: "POST",
     headers: defaultHeaders,
-    body: JSON.stringify({ id, shot, value }),
+    body: JSON.stringify({ id, type, gender, shot, value }),
   });
   const result = await response.json();
   if (!response.ok) {
@@ -124,6 +134,18 @@ export const updateHot = async (token, id, shot, value) => {
 
 export const deleteHot = async (token, id) => {
   const response = await fetch(`${URL}/delete-hot?token=${token}&id=${id}`, {
+    method: "POST",
+    headers: defaultHeaders,
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw result;
+  }
+  return result;
+};
+
+export const getHotById = async (token, id) => {
+  const response = await fetch(`${URL}/get-hot-by-id?token=${token}&id=${id}`, {
     method: "POST",
     headers: defaultHeaders,
   });
