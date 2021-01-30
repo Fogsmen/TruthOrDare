@@ -101,7 +101,7 @@ const SoftHotDareScreen = (props) => {
   };
   const openFeedback = () => {
     try {
-      Linking.openURL("mailto:thamnopoulos@gmail.com");
+      Linking.openURL("mailto:thamnopoulos@gmail.com?subject=Support for dare");
     } catch (err) {
       Alert.alert("Error", err.message, [{ text: "Ok" }]);
     }
